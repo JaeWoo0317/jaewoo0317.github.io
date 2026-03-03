@@ -3,50 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무료 온라인 도구 모음 — 글자수 세기, 날짜 계산기, 퍼센트 계산기</title>
-    <meta name="description" content="글자수 세기, 날짜 계산기, 퍼센트 계산기 등 매일 필요한 무료 온라인 유틸리티 도구 모음입니다.">
+    <title>무료 온라인 도구 모음 — 글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액</title>
+    <meta name="description" content="글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액 계산기 등 매일 필요한 무료 온라인 유틸리티 도구 모음입니다.">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #F6F5F1;
-            --surface: #FFFFFF;
-            --text-primary: #1A1A1A;
-            --text-secondary: #6B6B6B;
-            --accent: #2D5BE3;
-            --border: #E2E1DD;
-            --radius: 14px;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-        .container { max-width: 520px; width: 100%; text-align: center; }
-        h1 { font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-bottom: 8px; }
-        h1 span { color: var(--accent); }
-        .subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 36px; }
-        .tool-list { display: flex; flex-direction: column; gap: 12px; }
-        .tool-card {
-            display: flex; align-items: center; gap: 16px;
-            background: var(--surface); border: 1.5px solid var(--border);
-            border-radius: var(--radius); padding: 20px 24px;
-            text-decoration: none; color: var(--text-primary); transition: all 0.25s ease;
-        }
-        .tool-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,0.06); transform: translateY(-2px); }
-        .tool-icon { font-size: 28px; }
-        .tool-info { text-align: left; }
-        .tool-name { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
-        .tool-desc { font-size: 13px; color: var(--text-secondary); }
-        .tool-badge { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--accent); background: #EBF0FF; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
-        .footer { margin-top: 40px; font-size: 13px; color: var(--text-secondary); }
+        :root { --bg:#F6F5F1; --surface:#FFFFFF; --text-primary:#1A1A1A; --text-secondary:#6B6B6B; --accent:#2D5BE3; --border:#E2E1DD; --radius:14px; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text-primary); min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; }
+        .container { max-width:520px; width:100%; text-align:center; }
+        h1 { font-size:32px; font-weight:700; letter-spacing:-1px; margin-bottom:8px; }
+        h1 span { color:var(--accent); }
+        .subtitle { font-size:15px; color:var(--text-secondary); margin-bottom:36px; }
+        .tool-list { display:flex; flex-direction:column; gap:12px; }
+        .tool-card { display:flex; align-items:center; gap:16px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 24px; text-decoration:none; color:var(--text-primary); transition:all 0.25s ease; }
+        .tool-card:hover { border-color:var(--accent); box-shadow:0 4px 16px rgba(0,0,0,0.06); transform:translateY(-2px); }
+        .tool-icon { font-size:28px; }
+        .tool-info { text-align:left; }
+        .tool-name { font-size:17px; font-weight:600; margin-bottom:2px; }
+        .tool-desc { font-size:13px; color:var(--text-secondary); }
+        .tool-badge { margin-left:auto; font-size:12px; font-weight:500; color:var(--accent); background:#EBF0FF; padding:4px 10px; border-radius:20px; white-space:nowrap; }
+        .tool-badge.hot { color:#E34040; background:#FFF0F0; }
+        .footer { margin-top:40px; font-size:13px; color:var(--text-secondary); }
     </style>
 </head>
 <body>
@@ -54,6 +32,14 @@
     <h1>온라인 <span>도구</span> 모음</h1>
     <p class="subtitle">매일 필요한 실용 도구를 무료로 사용하세요</p>
     <div class="tool-list">
+        <a href="/salary-calculator/" class="tool-card">
+            <span class="tool-icon">💰</span>
+            <div class="tool-info">
+                <div class="tool-name">연봉 실수령액 계산기</div>
+                <div class="tool-desc">2025년 4대보험·소득세 반영 세후 월급</div>
+            </div>
+            <span class="tool-badge hot">인기 🔥</span>
+        </a>
         <a href="/char-counter/" class="tool-card">
             <span class="tool-icon">✏️</span>
             <div class="tool-info">
