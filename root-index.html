@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaeWoo 온라인 도구 모음</title>
+    <meta name="description" content="글자수 세기, 날짜 계산기, 퍼센트 계산기 등 무료 온라인 유틸리티 도구 모음입니다.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F6F5F1;
+            --surface: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --accent: #2D5BE3;
+            --accent-hover: #1E4AD4;
+            --border: #E2E1DD;
+            --radius: 14px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        h1 span { color: var(--accent); }
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 36px;
+        }
+        .tool-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .tool-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+        }
+        .tool-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .tool-icon { font-size: 28px; }
+        .tool-info { text-align: left; }
+        .tool-name {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .tool-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .tool-badge {
+            margin-left: auto;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            background: #EBF0FF;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .tool-badge.soon {
+            color: var(--text-secondary);
+            background: var(--bg);
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>온라인 <span>도구</span> 모음</h1>
+    <p class="subtitle">매일 필요한 실용 도구를 무료로 사용하세요</p>
+
+    <div class="tool-list">
+        <a href="/char-counter/" class="tool-card">
+            <span class="tool-icon">✏️</span>
+            <div class="tool-info">
+                <div class="tool-name">글자수 세기</div>
+                <div class="tool-desc">글자수, 바이트, 단어수 실시간 계산</div>
+            </div>
+            <span class="tool-badge">바로가기 →</span>
+        </a>
+        <div class="tool-card" style="opacity: 0.6; cursor: default;">
+            <span class="tool-icon">📅</span>
+            <div class="tool-info">
+                <div class="tool-name">날짜 계산기</div>
+                <div class="tool-desc">D-Day, 두 날짜 사이 일수 계산</div>
+            </div>
+            <span class="tool-badge soon">준비중</span>
+        </div>
+        <div class="tool-card" style="opacity: 0.6; cursor: default;">
+            <span class="tool-icon">🔢</span>
+            <div class="tool-info">
+                <div class="tool-name">퍼센트 계산기</div>
+                <div class="tool-desc">할인율, 증감률, 비율 계산</div>
+            </div>
+            <span class="tool-badge soon">준비중</span>
+        </div>
+    </div>
+
+    <p class="footer">© 2025 JaeWoo Tools | 무료 온라인 유틸리티</p>
+</div>
+
+</body>
+</html>
