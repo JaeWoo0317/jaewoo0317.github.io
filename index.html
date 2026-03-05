@@ -3,69 +3,757 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무료 온라인 도구 모음 — 글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액</title>
-    <meta name="description" content="글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액 계산기 등 매일 필요한 무료 온라인 유틸리티 도구 모음입니다.">
+    <title>JWAY — 무료 온라인 도구 모음 | 글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액</title>
+    <meta name="description" content="직장인, 학생, 자영업자를 위한 무료 온라인 유틸리티 도구 모음. 글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액 계산기를 회원가입 없이 바로 사용하세요.">
+    <meta name="keywords" content="무료 온라인 도구, 글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액, 온라인 계산기">
+    <meta property="og:title" content="JWAY — 무료 온라인 도구 모음">
+    <meta property="og:description" content="글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액 계산기를 무료로 사용하세요.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://jaewoo0317.github.io/">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg:#F6F5F1; --surface:#FFFFFF; --text-primary:#1A1A1A; --text-secondary:#6B6B6B; --accent:#2D5BE3; --border:#E2E1DD; --radius:14px; }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text-primary); min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; }
-        .container { max-width:520px; width:100%; text-align:center; }
-        h1 { font-size:32px; font-weight:700; letter-spacing:-1px; margin-bottom:8px; }
-        h1 span { color:var(--accent); }
-        .subtitle { font-size:15px; color:var(--text-secondary); margin-bottom:36px; }
-        .tool-list { display:flex; flex-direction:column; gap:12px; }
-        .tool-card { display:flex; align-items:center; gap:16px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 24px; text-decoration:none; color:var(--text-primary); transition:all 0.25s ease; }
-        .tool-card:hover { border-color:var(--accent); box-shadow:0 4px 16px rgba(0,0,0,0.06); transform:translateY(-2px); }
-        .tool-icon { font-size:28px; }
-        .tool-info { text-align:left; }
-        .tool-name { font-size:17px; font-weight:600; margin-bottom:2px; }
-        .tool-desc { font-size:13px; color:var(--text-secondary); }
-        .tool-badge { margin-left:auto; font-size:12px; font-weight:500; color:var(--accent); background:#EBF0FF; padding:4px 10px; border-radius:20px; white-space:nowrap; }
-        .tool-badge.hot { color:#E34040; background:#FFF0F0; }
-        .footer { margin-top:40px; font-size:13px; color:var(--text-secondary); }
+        :root {
+            --bg: #F6F5F1;
+            --surface: #FFFFFF;
+            --surface-alt: #EDECE8;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5C5C5C;
+            --text-tertiary: #9E9E9E;
+            --accent: #2D5BE3;
+            --accent-light: #EBF0FF;
+            --accent-hover: #1E4AD4;
+            --green: #00B894;
+            --green-light: #E6F9F4;
+            --purple: #6C5CE7;
+            --purple-light: #F0EDFF;
+            --orange: #F39C12;
+            --orange-light: #FFF8E8;
+            --border: #E2E1DD;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+            --radius: 14px;
+            --radius-sm: 10px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        .nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .nav-logo span { color: var(--accent); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: var(--accent); }
+        .hero p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Ad */
+        .ad-banner {
+            border: 1.5px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            text-align: center;
+            margin: 24px 0;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin-bottom: 8px;
+        }
+        .section-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Tool Cards */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 600px) {
+            .tool-grid { grid-template-columns: 1fr; }
+        }
+        .tool-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .tool-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+        .tool-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .tool-icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .tool-card-title {
+            font-size: 17px;
+            font-weight: 700;
+        }
+        .tool-card-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+        .tool-card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            flex: 1;
+        }
+        .tool-card-features {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .feature-tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--surface-alt);
+            color: var(--text-secondary);
+        }
+        .tool-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* Why Section */
+        .why-section {
+            margin-top: 48px;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 600px) {
+            .why-grid { grid-template-columns: 1fr; }
+        }
+        .why-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+        .why-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .why-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .why-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* How to Use */
+        .howto-section {
+            margin-top: 48px;
+        }
+        .howto-content {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+        .howto-content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin: 24px 0 10px;
+        }
+        .howto-content h3:first-child { margin-top: 0; }
+        .howto-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin-top: 48px;
+        }
+        .faq-item {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 18px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: var(--surface-alt); }
+        .faq-arrow {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            transition: transform 0.3s;
+        }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer-inner {
+            padding: 0 24px 18px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        /* Use Cases */
+        .usecases-section {
+            margin-top: 48px;
+        }
+        .usecase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 600px) {
+            .usecase-grid { grid-template-columns: 1fr; }
+        }
+        .usecase-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 22px;
+        }
+        .usecase-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .usecase-card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .usecase-card-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .usecase-card-link:hover { text-decoration: underline; }
+
+        /* About */
+        .about-section {
+            margin-top: 48px;
+        }
+        .about-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+        .about-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+        .about-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .about-card p:last-child { margin-bottom: 0; }
+
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            padding: 32px 20px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+        .footer-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .footer-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+        }
+        .footer-section a {
+            display: block;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 6px;
+        }
+        .footer-section a:hover { color: var(--accent); }
+        .footer-section p {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            max-width: 280px;
+        }
+        .footer-bottom {
+            max-width: 900px;
+            margin: 20px auto 0;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+        .footer-bottom a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 40px 16px 24px; }
+            .container { padding: 0 12px; }
+            .nav-links { gap: 12px; }
+            .nav-links a { font-size: 13px; }
+            .howto-content, .about-card { padding: 20px 16px; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>온라인 <span>도구</span> 모음</h1>
-    <p class="subtitle">매일 필요한 실용 도구를 무료로 사용하세요</p>
-    <div class="tool-list">
-        <a href="/salary-calculator/" class="tool-card">
-            <span class="tool-icon">💰</span>
-            <div class="tool-info">
-                <div class="tool-name">연봉 실수령액 계산기</div>
-                <div class="tool-desc">2025년 4대보험·소득세 반영 세후 월급</div>
-            </div>
-            <span class="tool-badge hot">인기 🔥</span>
-        </a>
-        <a href="/char-counter/" class="tool-card">
-            <span class="tool-icon">✏️</span>
-            <div class="tool-info">
-                <div class="tool-name">글자수 세기</div>
-                <div class="tool-desc">글자수, 바이트, 단어수 실시간 계산</div>
-            </div>
-            <span class="tool-badge">바로가기 →</span>
-        </a>
-        <a href="/date-calculator/" class="tool-card">
-            <span class="tool-icon">📅</span>
-            <div class="tool-info">
-                <div class="tool-name">날짜 계산기</div>
-                <div class="tool-desc">D-Day, 두 날짜 사이 일수 계산</div>
-            </div>
-            <span class="tool-badge">바로가기 →</span>
-        </a>
-        <a href="/percent-calculator/" class="tool-card">
-            <span class="tool-icon">🔢</span>
-            <div class="tool-info">
-                <div class="tool-name">퍼센트 계산기</div>
-                <div class="tool-desc">할인율, 증감률, 비율 계산</div>
-            </div>
-            <span class="tool-badge">바로가기 →</span>
-        </a>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">J<span>WAY</span></a>
+        <div class="nav-links">
+            <a href="#tools">도구 모음</a>
+            <a href="#howto">사용법</a>
+            <a href="#faq">자주 묻는 질문</a>
+            <a href="#about">소개</a>
+            <a href="/privacy-policy.html">개인정보처리방침</a>
+        </div>
     </div>
-    <p class="footer">© 2025 JaeWoo Tools | 무료 온라인 유틸리티</p>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>매일 필요한 <span>온라인 도구</span>를<br>무료로 사용하세요</h1>
+    <p>직장인, 학생, 자영업자 모두를 위한 실용 유틸리티 도구 모음입니다. 회원가입 없이 브라우저에서 바로 사용할 수 있고, 모바일에서도 완벽하게 작동합니다.</p>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-value">4개</div>
+            <div class="hero-stat-label">무료 도구</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">0원</div>
+            <div class="hero-stat-label">이용 요금</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">0초</div>
+            <div class="hero-stat-label">회원가입</div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+
+    <!-- Ad -->
+    <div class="ad-banner">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5453815259196400" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Tools Section -->
+    <section id="tools">
+        <h2 class="section-title">도구 모음</h2>
+        <p class="section-subtitle">원하는 도구를 클릭하면 바로 사용할 수 있습니다</p>
+
+        <div class="tool-grid">
+            <a href="/salary-calculator/" class="tool-card">
+                <div class="tool-card-header">
+                    <div class="tool-icon-circle" style="background:#EBF0FF;">💰</div>
+                    <span class="tool-card-title">연봉 실수령액 계산기</span>
+                    <span class="tool-card-badge" style="background:#FFF0F0;color:#E34040;">인기</span>
+                </div>
+                <p class="tool-card-desc">2025년 4대보험·소득세를 반영하여 세전 연봉에서 실제로 통장에 입금되는 세후 월급을 정확하게 계산합니다. 부양가족 수, 비과세액 설정과 연봉별 비교표도 제공합니다.</p>
+                <div class="tool-card-features">
+                    <span class="feature-tag">4대보험 계산</span>
+                    <span class="feature-tag">소득세</span>
+                    <span class="feature-tag">연봉 비교표</span>
+                </div>
+                <span class="tool-card-cta">계산하기 →</span>
+            </a>
+
+            <a href="/char-counter/" class="tool-card">
+                <div class="tool-card-header">
+                    <div class="tool-icon-circle" style="background:#EBF0FF;">✏️</div>
+                    <span class="tool-card-title">글자수 세기</span>
+                </div>
+                <p class="tool-card-desc">텍스트를 입력하면 실시간으로 공백 포함/제외 글자수, UTF-8 바이트, EUC-KR 바이트, 단어 수, 문장 수를 계산합니다. 자기소개서, 블로그 글, SNS 게시물 작성에 필수입니다.</p>
+                <div class="tool-card-features">
+                    <span class="feature-tag">공백 포함/제외</span>
+                    <span class="feature-tag">바이트 계산</span>
+                    <span class="feature-tag">글자수 제한</span>
+                </div>
+                <span class="tool-card-cta">사용하기 →</span>
+            </a>
+
+            <a href="/date-calculator/" class="tool-card">
+                <div class="tool-card-header">
+                    <div class="tool-icon-circle" style="background:var(--purple-light);">📅</div>
+                    <span class="tool-card-title">날짜 계산기</span>
+                </div>
+                <p class="tool-card-desc">두 날짜 사이의 일수를 계산하거나, 특정 날짜로부터 며칠 후/전의 날짜를 구합니다. D-Day 카운트다운 기능으로 시험일, 기념일, 프로젝트 마감일도 관리할 수 있습니다.</p>
+                <div class="tool-card-features">
+                    <span class="feature-tag">일수 계산</span>
+                    <span class="feature-tag">D-Day</span>
+                    <span class="feature-tag">며칠 후/전</span>
+                </div>
+                <span class="tool-card-cta">계산하기 →</span>
+            </a>
+
+            <a href="/percent-calculator/" class="tool-card">
+                <div class="tool-card-header">
+                    <div class="tool-icon-circle" style="background:var(--green-light);">🔢</div>
+                    <span class="tool-card-title">퍼센트 계산기</span>
+                </div>
+                <p class="tool-card-desc">퍼센트 비율, 할인가, 증감률을 한 페이지에서 모두 계산합니다. 쇼핑 할인 계산, 매출 성장률 분석, 시험 점수 비율 확인 등 다양한 상황에서 활용할 수 있습니다.</p>
+                <div class="tool-card-features">
+                    <span class="feature-tag">할인가 계산</span>
+                    <span class="feature-tag">증감률</span>
+                    <span class="feature-tag">비율 계산</span>
+                </div>
+                <span class="tool-card-cta">계산하기 →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why-section">
+        <h2 class="section-title">왜 이 도구를 사용해야 할까요?</h2>
+        <p class="section-subtitle">간단하지만 매일 필요한 계산, 더 이상 번거롭게 하지 마세요</p>
+
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">⚡</div>
+                <h3 class="why-title">즉시 사용 가능</h3>
+                <p class="why-desc">회원가입, 앱 설치, 로그인 없이 브라우저에서 바로 사용할 수 있습니다. 링크를 열면 곧바로 계산을 시작할 수 있습니다.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">📱</div>
+                <h3 class="why-title">모바일 최적화</h3>
+                <p class="why-desc">스마트폰, 태블릿, PC 어디서든 동일한 기능을 사용할 수 있습니다. 반응형 디자인으로 화면 크기에 맞게 자동 조절됩니다.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🔒</div>
+                <h3 class="why-title">개인정보 보호</h3>
+                <p class="why-desc">모든 계산은 사용자의 브라우저에서 처리됩니다. 입력한 텍스트나 숫자가 서버로 전송되거나 저장되지 않으므로 안심하고 사용할 수 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad -->
+    <div class="ad-banner">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5453815259196400" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Use Cases -->
+    <section class="usecases-section">
+        <h2 class="section-title">이런 분들에게 유용합니다</h2>
+        <p class="section-subtitle">다양한 상황에서 활용할 수 있는 실용적인 도구입니다</p>
+
+        <div class="usecase-grid">
+            <div class="usecase-card">
+                <div class="usecase-card-title">💼 취업 준비생</div>
+                <p class="usecase-card-desc">자기소개서 글자수 제한을 실시간으로 확인하면서 작성할 수 있습니다. 삼성, 현대, SK 등 대기업 자소서의 500자~700자 제한에 맞춰 글을 다듬어보세요. 공백 포함과 공백 제외 글자수를 동시에 확인할 수 있어 편리합니다.</p>
+                <a href="/char-counter/" class="usecase-card-link">글자수 세기 사용하기 →</a>
+            </div>
+            <div class="usecase-card">
+                <div class="usecase-card-title">👔 직장인</div>
+                <p class="usecase-card-desc">이직을 고려할 때 연봉 제안을 실수령액으로 비교해보세요. 수습기간 90일 만료일, 프로젝트 마감일 D-Day, 매출 증감률 등 업무에 필요한 다양한 계산을 빠르게 할 수 있습니다.</p>
+                <a href="/salary-calculator/" class="usecase-card-link">연봉 실수령액 계산하기 →</a>
+            </div>
+            <div class="usecase-card">
+                <div class="usecase-card-title">📚 학생</div>
+                <p class="usecase-card-desc">시험까지 남은 D-Day를 확인하고, 리포트 글자수를 실시간으로 세어보세요. 시험 점수의 백분율 계산, 방학까지 남은 일수 계산 등 학교생활에 필요한 계산을 간편하게 할 수 있습니다.</p>
+                <a href="/date-calculator/" class="usecase-card-link">날짜 계산기 사용하기 →</a>
+            </div>
+            <div class="usecase-card">
+                <div class="usecase-card-title">🛍 자영업자·쇼핑</div>
+                <p class="usecase-card-desc">할인 행사 시 최종 판매가를 빠르게 계산하거나, 전월 대비 매출 증감률을 확인해보세요. 쇼핑할 때도 30% 할인 + 추가 10% 쿠폰 적용 시 실제 결제 금액을 바로 알 수 있습니다.</p>
+                <a href="/percent-calculator/" class="usecase-card-link">퍼센트 계산기 사용하기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="howto-section" id="howto">
+        <h2 class="section-title">사용 방법</h2>
+        <p class="section-subtitle">누구나 쉽게 따라할 수 있습니다</p>
+
+        <div class="howto-content">
+            <h3>글자수 세기 사용법</h3>
+            <p>텍스트 입력란에 글을 직접 타이핑하거나 복사·붙여넣기 하면 됩니다. 입력과 동시에 공백 포함 글자수, 공백 제외 글자수, 바이트 수, 단어 수가 실시간으로 표시됩니다. 글자수 제한 기능을 사용하면 목표 글자수 대비 현재 진행률을 프로그레스 바로 확인할 수 있어서, 자기소개서나 과제 작성 시 특히 유용합니다.</p>
+
+            <h3>날짜 계산기 사용법</h3>
+            <p>세 가지 모드 중 원하는 것을 선택합니다. "날짜 사이 일수" 모드에서는 시작일과 끝 날짜를 선택하면 두 날짜 사이의 일수, 주수, 개월 수가 자동으로 계산됩니다. "며칠 후/전" 모드에서는 기준일로부터 원하는 일수만큼 이후 또는 이전의 날짜를 구할 수 있습니다. "D-Day" 모드에서는 목표일까지 남은 일수를 확인할 수 있습니다.</p>
+
+            <h3>퍼센트 계산기 사용법</h3>
+            <p>네 가지 계산 모드가 한 페이지에 모두 있어서 원하는 계산에 숫자만 입력하면 됩니다. "A의 B%는?" 모드로 할인가를 계산하고, "A는 B의 몇%?" 모드로 비율을 구하고, "증감률" 모드로 전후 비교를 할 수 있습니다. 할인가 계산 모드에서는 할인 금액과 최종 가격이 동시에 표시되어 쇼핑 시 특히 편리합니다.</p>
+
+            <h3>연봉 실수령액 계산기 사용법</h3>
+            <p>세전 연봉을 입력하고, 부양가족 수와 비과세액을 설정하면 매월 통장에 들어오는 실수령액이 바로 계산됩니다. 국민연금, 건강보험, 장기요양보험, 고용보험, 소득세, 지방소득세가 항목별로 상세하게 표시되며, 연봉별 비교표로 다른 연봉 구간의 실수령액도 한눈에 볼 수 있습니다.</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <h2 class="section-title">자주 묻는 질문</h2>
+        <p class="section-subtitle">궁금한 점이 있다면 확인해보세요</p>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>이 도구들은 정말 무료인가요?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">네, 모든 도구는 완전히 무료로 사용할 수 있습니다. 회원가입이나 결제 없이 브라우저에서 바로 사용하실 수 있습니다. 사이트 운영은 페이지에 표시되는 광고 수익으로 이루어지고 있습니다.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>입력한 데이터가 저장되나요?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">아닙니다. 모든 계산은 사용자의 브라우저(클라이언트)에서 처리됩니다. 입력한 텍스트, 숫자, 날짜 등의 데이터는 외부 서버로 전송되거나 저장되지 않습니다. 페이지를 닫으면 모든 데이터가 사라지므로 개인정보 걱정 없이 안심하고 사용하실 수 있습니다.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>모바일에서도 사용할 수 있나요?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">네, 모든 도구는 반응형 디자인으로 제작되어 스마트폰, 태블릿, PC 등 어떤 기기에서든 동일하게 사용할 수 있습니다. 별도의 앱 설치 없이 모바일 브라우저(크롬, 사파리 등)에서 바로 이용 가능합니다.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>연봉 실수령액 계산 결과가 정확한가요?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">본 계산기는 2025년 4대보험 요율과 근로소득 간이세액표를 기반으로 실수령액을 추정합니다. 실제 급여명세서와는 차이가 있을 수 있습니다. 정확한 금액은 회사 인사팀 또는 국세청 간이세액표를 참고하시기 바랍니다. 이직이나 연봉 협상 시 대략적인 실수령액을 비교하는 용도로 활용하시면 좋습니다.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>글자수 세기에서 바이트란 무엇인가요?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">바이트(Byte)는 컴퓨터가 문자를 저장할 때 사용하는 단위입니다. 한글은 UTF-8 기준 3바이트, EUC-KR 기준 2바이트를 차지하고, 영문과 숫자는 1바이트입니다. 일부 공공기관 서류나 데이터베이스에서는 글자수가 아닌 바이트 수로 제한을 두기 때문에, 정확한 바이트 수를 확인하는 것이 중요합니다.</div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>새로운 도구가 추가될 예정인가요?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">네, 사용자분들의 피드백을 반영하여 환율 계산기, BMI 계산기, 단위 변환기 등 실생활에 유용한 도구를 지속적으로 추가할 예정입니다. 필요한 도구가 있다면 의견을 보내주세요.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about-section" id="about">
+        <div class="about-card">
+            <h2>JWAY 소개</h2>
+            <p>JWAY는 일상에서 자주 필요하지만 매번 검색하기 번거로운 계산을 빠르고 편리하게 할 수 있도록 만든 무료 온라인 도구 모음입니다.</p>
+            <p>직장 생활, 취업 준비, 학교 과제, 쇼핑 등 다양한 상황에서 반복적으로 필요한 계산들을 한 곳에 모았습니다. 복잡한 기능보다는 하나의 기능을 가장 빠르고 정확하게 제공하는 것을 목표로 합니다.</p>
+            <p>모든 도구는 사용자의 개인정보를 수집하지 않으며, 계산은 브라우저 내에서 이루어져 데이터가 외부로 전송되지 않습니다. 회원가입 없이 누구나 무료로 사용할 수 있습니다.</p>
+            <p>더 나은 서비스를 위해 새로운 도구를 지속적으로 추가하고 기존 도구를 개선해 나가고 있습니다. 불편한 점이나 추가되었으면 하는 기능이 있다면 언제든 의견을 보내주세요.</p>
+        </div>
+    </section>
+
 </div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-section">
+            <h4>도구 모음</h4>
+            <a href="/salary-calculator/">연봉 실수령액 계산기</a>
+            <a href="/char-counter/">글자수 세기</a>
+            <a href="/date-calculator/">날짜 계산기</a>
+            <a href="/percent-calculator/">퍼센트 계산기</a>
+        </div>
+        <div class="footer-section">
+            <h4>정보</h4>
+            <a href="#about">소개</a>
+            <a href="#faq">자주 묻는 질문</a>
+            <a href="#howto">사용 방법</a>
+            <a href="/privacy-policy.html">개인정보처리방침</a>
+        </div>
+        <div class="footer-section">
+            <h4>JWAY</h4>
+            <p>매일 필요한 실용 도구를 무료로 제공합니다. 모든 계산은 브라우저에서 처리되며 개인정보를 수집하지 않습니다.</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2025 JWAY. All rights reserved. | <a href="/privacy-policy.html">개인정보처리방침</a>
+    </div>
+</footer>
+
+<script>
+function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+}
+</script>
+
 </body>
 </html>
