@@ -80,6 +80,35 @@
             transition: color 0.2s;
         }
         .nav-links a:hover { color: var(--accent); }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            line-height: 1;
+        }
+        @media (max-width: 640px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                border-bottom: 1.5px solid var(--border);
+                padding: 12px 20px;
+                flex-direction: column;
+                gap: 12px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            }
+            .nav-links.open { display: flex; }
+            .nav { position: relative; }
+        }
 
         /* Hero */
         .hero {
@@ -452,7 +481,6 @@
         @media (max-width: 480px) {
             .hero { padding: 40px 16px 24px; }
             .container { padding: 0 12px; }
-            .nav-links { gap: 12px; }
             .nav-links a { font-size: 13px; }
             .howto-content, .about-card { padding: 20px 16px; }
         }
@@ -465,6 +493,7 @@
 <nav class="nav">
     <div class="nav-inner">
         <a href="/" class="nav-logo">J<span>WAY</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
         <div class="nav-links">
             <a href="#tools">도구 모음</a>
             <a href="#howto">사용법</a>
