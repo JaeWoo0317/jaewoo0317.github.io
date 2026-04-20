@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JWAY Paperclip — 6명의 AI 에이전트로 실제 사업 결과물 만들기</title>
-<meta name="description" content="CEO·CTO·PM·엔지니어·마케터·디자이너 6명의 AI 에이전트가 협업해서 비즈니스 모델부터 HTML 랜딩페이지까지 진짜 결과물을 만듭니다. $1~2로 시작.">
+<meta name="description" content="CEO·CTO·PM·엔지니어·마케터·디자이너 6명의 AI 에이전트가 협업해서 비즈니스 모델부터 HTML 랜딩페이지까지 진짜 결과물을 만듭니다. Haiku 4.5 기준 $0.5~2로 시작.">
 <meta property="og:title" content="JWAY Paperclip — AI 에이전트 경영 플랫폼">
 <meta property="og:description" content="6명의 AI 에이전트가 실제 비즈니스 결과물(HTML/JSON/Markdown)을 만듭니다. 컨설팅 펌 기획서가 아닌, 진짜 산출물.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📎</text></svg>">
@@ -158,7 +158,7 @@ footer a:hover{color:#6366f1}
       <a href="app.html" class="btn-primary">🚀 지금 시작 (무료)</a>
       <a href="#demo" class="btn-secondary">📎 결과물 보기</a>
     </div>
-    <div class="hero-meta">첫 협업 실행 비용 약 $1 · 본인 Anthropic API 키 사용 · 데이터는 브라우저에만 저장</div>
+    <div class="hero-meta">첫 협업 실행 비용 $0.5~$2 (Haiku 4.5 기준) · 본인 Anthropic API 키 사용 · 데이터는 브라우저에만 저장</div>
   </div>
 </section>
 
@@ -178,7 +178,7 @@ footer a:hover{color:#6366f1}
       <div class="cost-notice-item">
         <h4>💳 사용자가 부담하는 것</h4>
         <p>Anthropic API 사용료 (실제 AI 호출 비용). 본인이 console.anthropic.com에서 결제</p>
-        <span class="price-tag">협업 1회 ≈ $1~2</span>
+        <span class="price-tag">협업 1회 ≈ $0.5~2 (모델별)</span>
       </div>
       <div class="cost-notice-item">
         <h4>🔒 데이터는 어디에?</h4>
@@ -191,6 +191,25 @@ footer a:hover{color:#6366f1}
         <span class="price-tag">가변적 비용</span>
       </div>
     </div>
+    <details style="margin-top:20px;background:white;padding:16px;border-radius:10px;border:1px solid #fcd34d">
+      <summary style="cursor:pointer;font-weight:700;color:#92400e;font-size:14px">📊 모델별 예상 비용 상세 (클릭해서 펼치기)</summary>
+      <div style="margin-top:12px;font-size:13px;color:#78350f">
+        <p style="margin-bottom:8px">6명 팀 + 2라운드 협업 1회 기준 (실측 + 추정):</p>
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <tr style="background:#fef3c7"><th style="padding:6px;text-align:left;border:1px solid #fcd34d">모델 조합</th><th style="padding:6px;text-align:right;border:1px solid #fcd34d">비용</th></tr>
+          <tr><td style="padding:6px;border:1px solid #fcd34d">Haiku 4.5 단독 (가장 저렴)</td><td style="padding:6px;text-align:right;border:1px solid #fcd34d;font-weight:700">$0.20 ~ $0.40</td></tr>
+          <tr><td style="padding:6px;border:1px solid #fcd34d">Haiku 4.5 + Opus Advisor (추천)</td><td style="padding:6px;text-align:right;border:1px solid #fcd34d;font-weight:700;color:#6366f1">$0.50 ~ $1.00</td></tr>
+          <tr><td style="padding:6px;border:1px solid #fcd34d">Haiku 4.5 + Opus + 웹검색</td><td style="padding:6px;text-align:right;border:1px solid #fcd34d;font-weight:700">$0.80 ~ $1.50</td></tr>
+          <tr><td style="padding:6px;border:1px solid #fcd34d">Sonnet 4.6 + Advisor + 웹검색</td><td style="padding:6px;text-align:right;border:1px solid #fcd34d;font-weight:700">$1.50 ~ $3.00</td></tr>
+          <tr><td style="padding:6px;border:1px solid #fcd34d">Opus 4.6 단독 (최고 품질)</td><td style="padding:6px;text-align:right;border:1px solid #fcd34d;font-weight:700">$3.00 ~ $5.00</td></tr>
+        </table>
+        <p style="margin-top:10px;font-size:11px;color:#b45309">
+          ※ 실제 측정값: 초기 협업 <strong>$0.50</strong>, 5회 누적 <strong>$1.07</strong> (Haiku 4.5 + Advisor + 웹검색 포함)<br/>
+          ※ 코멘트/아티팩트가 쌓일수록 입력 토큰 증가로 비용 증가<br/>
+          ※ 웹검색 $10/1000회 별도, 기본 활성 시 포함됨
+        </p>
+      </div>
+    </details>
     <p style="color:#78350f;font-size:13px;margin-top:16px;text-align:center">
       API 키 관리가 부담스럽다면? → <a href="#pro-waitlist" style="color:#6366f1;font-weight:700">Pro 버전 대기자 명단 등록</a> (API 키 없이 월 구독)
     </p>
