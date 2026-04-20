@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkFlow - 퇴근 후 30분, 1년 안에 부수입 500만원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 80px auto 60px;
+            padding: 0 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .features-section {
+            background: white;
+            padding: 80px 20px;
+            margin: 60px 0;
+        }
+
+        .section-title {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .personas-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .persona-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .persona-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .persona-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .persona-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .persona-card .title {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .persona-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .persona-card .goal {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 12px;
+            border-radius: 6px;
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .pricing-section {
+            background: #f8f9fa;
+            padding: 80px 20px;
+            margin: 60px 0;
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card.featured {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .price .currency {
+            font-size: 24px;
+        }
+
+        .price .period {
+            font-size: 16px;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .price-description {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 30px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 30px 0;
+        }
+
+        .features-list li {
+            list-style: none;
+            padding: 12px 0;
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .cta-button.secondary:hover {
+            background: #f8f9fa;
+        }
+
+        .signup-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .signup-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .signup-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .signup-section p {
+            font-size: 16px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .form-submit:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .signup-section h2 {
+                font-size: 28px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">WorkFlow</a>
+            <nav class="nav-links">
+                <a href="#features">기능</a>
+                <a href="#pricing">가격</a>
+                <a href="#signup">시작하기</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>퇴근 후 30분, 1년 안에 부수입 500만원</h1>
+        <p>바쁜 직장인을 위한 스마트한 부수입 플랫폼. 추천받고, 계획하고, 성장하세요.</p>
+        <a href="#signup" class="cta-primary">얼리 액세스 신청</a>
+    </section>
+
+    <section class="features-section" id="features">
+        <h2 class="section-title">누가 WorkFlow를 사용할까요?</h2>
+        <div class="personas-container">
+            <div class="persona-card">
+                <div class="persona-icon">💼</div>
+                <h3>김준호</h3>
+                <p class="title">회사원 / 32세</p>
+                <p>평일 저녁마다 10시간 야근. "시간이 없어서" 부수입은 꿈꾸기만 했던 직장인</p>
+                <div class="goal">목표: 최소 30분 투자로 월 50만원 달성</div>
+            </div>
+            <div class="persona-card">
+                <div class="persona-icon">🎓</div>
+                <h3>박수진</h3>
+                <p class="title">예비 창업가 / 28세</p>
+                <p>회사를 나갈 준비 중. 실제로 작동하는 사이드 프로젝트로 증명하고 싶은 야심가</p>
+                <div class="goal">목표: 검증된 아이디어로 월 100만원 이상 매출</div>
+            </div>
+            <div class="persona-card">
+                <div class="persona-icon">🚀</div>
+                <h3>이민영</h3>
+                <p class="title">프리랜서 / 35세</p>
+                <p>다양한 프로젝트를 병렬로 진행 중. 체계적으로 일감을 관리하고 싶은 경력자</p>
+                <div class="goal">목표: 월 300만원 이상 안정적 추가 수익</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="pricing">
+        <h2 class="section-title">당신에게 딱 맞는 플랜을 선택하세요</h2>
+        <div class="pricing-container">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price"><span class="currency">$</span>0<span class="period">/월</span></div>
+                <p class="price-description">시작하기 좋은 플랜</p>
+                <ul class="features-list">
+                    <li>주간 추천 프로젝트 3개</li>
+                    <li>기본 진행 상황 대시보드</li>
+                    <li>커뮤니티 접근</li>
+                    <li>광고 포함</li>
+                </ul>
+                <a href="#signup" class="cta-button secondary">지금 시작</a>
+            </div>
+            <div class="pricing-card featured">
+                <div class="badge">인기</div>
+                <h3>Pro</h3>
+                <div class="price"><span class="currency">$</span>9.99<span class="period">/월</span></div>
+                <p class="price-description">대부분의 사용자를 위한 완벽한 선택</p>
+                <ul class="features-list">
+                    <li>주간 추천 프로젝트 10개</li>
+                    <li>개인화된 계획 수립 도구</li>
+                    <li>주간 진행 상황 리포트</li>
+                    <li>광고 제거</li>
+                    <li>우선 지원</li>
+                </ul>
+                <a href="#signup" class="cta-button">Pro 선택</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Plus</h3>
+                <div class="price"><span class="currency">$</span>19.99<span class="period">/월</span></div>
+                <p class="price-description">전문가를 위한 고급 플랜</p>
+                <ul class="features-list">
+                    <li>무제한 프로젝트 추천</li>
+                    <li>AI 기반 맞춤 계획 분석</li>
+                    <li>일별 상세 리포트</li>
+                    <li>1:1 멘토 상담 (월 2회)</li>
+                    <li>우선 지원 + 전담 매니저</li>
+                </ul>
+                <a href="#signup" class="cta-button secondary">Plus 선택</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="signup-section" id="signup">
+        <div class="signup-container">
+            <h2>얼리 액세스 신청</h2>
+            <p>지금 신청하면 론칭 후 첫 3개월을 Pro 플랜으로 무료 사용할 수 있습니다!</p>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">이름 *</label>
+                    <input type="text" id="name" name="name" required placeholder="김준호">
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일 *</label>
+                    <input type="email" id="email" name="email" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">휴대폰 (선택)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-1234-5678">
+                </div>
+                <div class="form-group">
+                    <label for="persona">당신은 어떤 사용자인가요? *</label>
+                    <select id="persona" name="persona" required>
+                        <option value="">선택해주세요</option>
+                        <option value="employee">회사원 (준호 같은)</option>
+                        <option value="entrepreneur">예비 창업가 (수진 같은)</option>
+                        <option value="freelancer">프리랜서 (민영 같은)</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">얼리 액세스 신청하기</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">개인정보 보호</a>
+                <a href="#">서비스 약관</a>
+                <a href="#">고객 지원</a>
+                <a href="#">문의하기</a>
+            </div>
+            <p>&copy; 2024 WorkFlow. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const persona = document.getElementById('persona').value;
+
+            alert(`감사합니다, ${name}님!\n\n${email}로 얼리 액세스 정보를 발송하겠습니다.\n로드맵을 기대해주세요! 🚀`);
+
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
+</content>
+</invoke>

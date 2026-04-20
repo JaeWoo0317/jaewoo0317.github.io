@@ -1,0 +1,135 @@
+{
+  "templateVersion": "1.0",
+  "templateName": "1인 콘텐츠 크리에이터 팀 (4인)",
+  "templateDescription": "유튜브/블로그/뉴스레터 운영자가 혼자서 콘텐츠 공장을 돌리기 위한 4명 팀. 기획 → 작성 → SEO → 편집 대본 → 썸네일 카피 → SNS 배포까지 한 번에 완결. 주간 콘텐츠 2편씩 안정적 생산 가능. 매 콘텐츠마다 HTML 블로그 포스트, 썸네일 시안, SNS 카피 자동 생성.",
+  "templateExportedAt": "2026-04-17T00:00:00.000Z",
+  "templateExportedFromVersion": "0.3.0",
+  "agents": [
+    {
+      "name": "박기획",
+      "role": "pm",
+      "title": "콘텐츠 전략가",
+      "icon": "🎯",
+      "reportsToName": null,
+      "capabilities": "콘텐츠 캘린더 설계, 키워드 리서치(Ahrefs/NaverTrend), 트렌드 분석, 포스팅 주제 발굴, 시리즈 기획, 시청자 페르소나 정의",
+      "adapterConfig": {
+        "model": "claude-haiku-4-5-20251001",
+        "systemPrompt": "당신은 콘텐츠 전략가입니다. 주간 콘텐츠 2~3편을 역설계합니다: 시청자 니즈 → 키워드 → 훅 → 구성. artifact로 월간 콘텐츠 캘린더 JSON, 주간 토픽 리스트 Markdown을 제출합니다.",
+        "maxTokens": 8192,
+        "advisorEnabled": true,
+        "advisorModel": "claude-opus-4-6",
+        "advisorMaxUses": 2,
+        "webSearchEnabled": true,
+        "webSearchMaxUses": 3
+      },
+      "budgetMonthlyCents": 2500
+    },
+    {
+      "name": "이작가",
+      "role": "writer",
+      "title": "롱폼 작가 & SEO",
+      "icon": "✍️",
+      "reportsToName": "박기획",
+      "capabilities": "블로그 포스트 작성(2000~5000자), SEO 최적화, 뉴스레터 작성, 유튜브 스크립트, 스토리텔링, 인용 및 출처 관리",
+      "adapterConfig": {
+        "model": "claude-haiku-4-5-20251001",
+        "systemPrompt": "당신은 롱폼 작가입니다. 도입 30초 훅 → 본문 구조(AIDA/PAS) → CTA의 3막 구조로 씁니다. SEO를 위해 H2/H3 키워드 배치, 메타 설명, 내부 링크 전략을 포함합니다. artifact로 완성된 블로그 포스트 Markdown을 제출합니다.",
+        "maxTokens": 8192,
+        "advisorEnabled": false,
+        "advisorModel": "claude-opus-4-6",
+        "advisorMaxUses": 2,
+        "webSearchEnabled": true,
+        "webSearchMaxUses": 3
+      },
+      "budgetMonthlyCents": 2500
+    },
+    {
+      "name": "김썸네일",
+      "role": "designer",
+      "title": "크리에이티브 디렉터",
+      "icon": "🖼️",
+      "reportsToName": "박기획",
+      "capabilities": "유튜브 썸네일 카피, 블로그 대표 이미지 기획, SNS 카드뉴스 시안, HTML 이메일 뉴스레터 템플릿, 피드 구성 일관성",
+      "adapterConfig": {
+        "model": "claude-haiku-4-5-20251001",
+        "systemPrompt": "당신은 콘텐츠 크리에이티브 디렉터입니다. CTR을 높이는 썸네일 카피 공식(호기심+혜택+구체숫자)을 활용합니다. artifact로 HTML 뉴스레터, 썸네일 카피 10개, SNS 카드뉴스 대본 JSON을 제출합니다.",
+        "maxTokens": 8192,
+        "advisorEnabled": false,
+        "advisorModel": "claude-opus-4-6",
+        "advisorMaxUses": 2,
+        "webSearchEnabled": false,
+        "webSearchMaxUses": 2
+      },
+      "budgetMonthlyCents": 2000
+    },
+    {
+      "name": "정배포",
+      "role": "marketer",
+      "title": "SNS & 커뮤니티",
+      "icon": "📣",
+      "reportsToName": "박기획",
+      "capabilities": "X(Twitter) 쓰레드, LinkedIn 포스팅, Instagram Reels 대본, 트위터 피드 변환, 해시태그 전략, 인플루언서 협업",
+      "adapterConfig": {
+        "model": "claude-haiku-4-5-20251001",
+        "systemPrompt": "당신은 SNS 배포 전문가입니다. 롱폼 콘텐츠 1편을 트위터 쓰레드/링크드인 포스팅/인스타 릴스/쇼츠 대본으로 원소스 멀티유즈합니다. artifact로 플랫폼별 카피 세트 Markdown을 제출합니다.",
+        "maxTokens": 8192,
+        "advisorEnabled": false,
+        "advisorModel": "claude-opus-4-6",
+        "advisorMaxUses": 2,
+        "webSearchEnabled": true,
+        "webSearchMaxUses": 2
+      },
+      "budgetMonthlyCents": 2000
+    }
+  ],
+  "goals": [
+    {
+      "title": "월간 뉴스레터 구독자 +1000명",
+      "description": "콘텐츠 → 뉴스레터 CTA → 구독 전환 파이프라인 구축",
+      "level": "company",
+      "assigneeAgentName": "박기획",
+      "targetDate": null
+    },
+    {
+      "title": "주 2편 블로그 포스트 (SEO 최적화)",
+      "description": "주요 키워드 3개씩 타겟, 평균 3000자 분량, 월 8편 안정 생산",
+      "level": "team",
+      "assigneeAgentName": "이작가",
+      "targetDate": null
+    }
+  ],
+  "issues": [
+    {
+      "title": "월간 콘텐츠 캘린더 (8주차 주제 리스트)",
+      "description": "시즌 이슈, 키워드 트렌드, 시리즈 구성으로 월 8주치 콘텐츠 주제 확정",
+      "priority": "high",
+      "assigneeAgentName": "박기획",
+      "goalTitle": "월간 뉴스레터 구독자 +1000명"
+    },
+    {
+      "title": "이번 주 블로그 포스트 2편 작성",
+      "description": "주제별 3000자, H2/H3 키워드 배치, 메타 설명, 내부 링크 3개 이상",
+      "priority": "high",
+      "assigneeAgentName": "이작가",
+      "goalTitle": "주 2편 블로그 포스트 (SEO 최적화)"
+    },
+    {
+      "title": "썸네일 카피 + 뉴스레터 HTML 템플릿",
+      "description": "콘텐츠별 썸네일 카피 5개 시안, 재사용 가능한 HTML 뉴스레터 베이스",
+      "priority": "medium",
+      "assigneeAgentName": "김썸네일",
+      "goalTitle": "월간 뉴스레터 구독자 +1000명"
+    },
+    {
+      "title": "플랫폼별 SNS 카피 세트 (주간 2편분)",
+      "description": "트위터 쓰레드 5개, 링크드인 포스팅 2개, 인스타 릴스 대본 3개",
+      "priority": "medium",
+      "assigneeAgentName": "정배포",
+      "goalTitle": "월간 뉴스레터 구독자 +1000명"
+    }
+  ],
+  "project": {
+    "name": "콘텐츠 크리에이터 프로젝트",
+    "description": "1인 크리에이터의 주간 콘텐츠 생산 자동화"
+  }
+}
