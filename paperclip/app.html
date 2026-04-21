@@ -95,6 +95,30 @@
       .metric-value{font-size:18px}
       .header{padding:0 8px;gap:6px}
       .content{padding:8px}
+      .modal{padding:12px;margin:4px;max-height:94vh}
+      .modal h2,.modal h3{font-size:18px}
+      .btn{padding:8px 10px;font-size:12px}
+      .font-bold{font-size:16px}
+      /* 아티팩트 페이지 그리드 */
+      div[style*="grid-template-columns"][style*="auto-fill"]{grid-template-columns:1fr !important}
+      /* 데모 배너 */
+      div[style*="linear-gradient(90deg,#f59e0b"]{font-size:11px;padding:6px 8px;gap:6px}
+      div[style*="linear-gradient(90deg,#f59e0b"] button,
+      div[style*="linear-gradient(90deg,#f59e0b"] a{padding:2px 6px !important;font-size:10px !important}
+      /* 사이드바 너비 */
+      .sidebar{width:85vw;max-width:280px}
+      /* 대시보드 그리드 */
+      .card-grid.metrics{grid-template-columns:1fr 1fr}
+      /* 탭/버튼 그룹 */
+      div[style*="borderBottom:\"2px solid"]>button{padding:8px 10px !important;font-size:12px !important}
+    }
+    /* Very small screens (iPhone SE 등) */
+    @media(max-width:360px){
+      .hero h1{font-size:26px}
+      .section-title{font-size:22px}
+      .metric-value{font-size:16px}
+      .content{padding:6px}
+      .card{padding:10px}
     }
     /* Kanban */
     .kanban{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;min-height:0;flex:1}

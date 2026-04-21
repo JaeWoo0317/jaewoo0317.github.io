@@ -7,7 +7,32 @@
 <meta name="description" content="CEO·CTO·PM·엔지니어·마케터·디자이너 6명의 AI 에이전트가 협업해서 비즈니스 모델부터 HTML 랜딩페이지까지 진짜 결과물을 만듭니다. Haiku 4.5 기준 $0.5~2로 시작.">
 <meta property="og:title" content="JWAY Paperclip — AI 에이전트 경영 플랫폼">
 <meta property="og:description" content="6명의 AI 에이전트가 실제 비즈니스 결과물(HTML/JSON/Markdown)을 만듭니다. 컨설팅 펌 기획서가 아닌, 진짜 산출물.">
+<meta property="og:image" content="https://jwaytools.com/paperclip/og-image.svg">
+<meta property="og:url" content="https://jwaytools.com/paperclip/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="JWAY Tools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JWAY Paperclip — AI 에이전트 경영 플랫폼">
+<meta name="twitter:description" content="6명의 AI 에이전트가 실제 비즈니스 결과물을 만듭니다">
+<meta name="twitter:image" content="https://jwaytools.com/paperclip/og-image.svg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📎</text></svg>">
+
+<!--
+  Google Analytics 설치 안내:
+  1. https://analytics.google.com 에서 속성 생성
+  2. 측정 ID (G-XXXXXXXXXX) 복사
+  3. 아래 주석 해제하고 ID 교체
+  4. 자세한 가이드: docs/ANALYTICS_SETUP.md
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;color:#1f2937;background:#fff}
@@ -359,7 +384,125 @@ footer a:hover{color:#6366f1}
 @media(max-width:480px){
   #how-to-use > .container > div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr !important}
 }
+/* Screenshots 섹션 */
+.screenshots{padding:80px 20px;background:#1f2937;color:white;overflow:hidden}
+.screenshots .container{max-width:1100px;margin:0 auto}
+.screenshots .section-title{color:white}
+.screenshots .section-sub{color:#9ca3af}
+.mockup-browser{background:#111827;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);max-width:900px;margin:0 auto;border:1px solid #374151}
+.mockup-header{background:#1f2937;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #374151}
+.mockup-dot{width:12px;height:12px;border-radius:50%}
+.mockup-url{flex:1;background:#111827;border-radius:6px;padding:6px 12px;color:#9ca3af;font-size:12px;font-family:monospace;margin-left:16px}
+.mockup-body{padding:24px;min-height:400px}
+.mockup-tabs{display:flex;gap:16px;margin-bottom:24px;overflow-x:auto;scrollbar-width:none}
+.mockup-tabs::-webkit-scrollbar{display:none}
+.mockup-tab{padding:8px 16px;background:#374151;border-radius:8px;color:#d1d5db;font-size:13px;cursor:pointer;white-space:nowrap;border:1px solid transparent}
+.mockup-tab.active{background:#4f46e5;color:white;border-color:#6366f1}
+.mockup-content{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mockup-card{background:#1e293b;padding:16px;border-radius:8px;border:1px solid #334155}
+.mockup-card-title{font-size:13px;color:#94a3b8;margin-bottom:8px;font-weight:600}
+.mockup-card-body{font-size:12px;color:#cbd5e1;line-height:1.6}
+.mockup-agent{display:flex;align-items:center;gap:8px;padding:10px;background:#0f172a;border-radius:6px;margin-bottom:6px;border-left:3px solid #6366f1}
+.mockup-agent-icon{font-size:18px}
+.mockup-agent-name{flex:1;font-weight:600;font-size:12px;color:#e2e8f0}
+.mockup-agent-status{font-size:10px;padding:2px 8px;border-radius:10px;background:#059669;color:white}
+@media(max-width:640px){.mockup-content{grid-template-columns:1fr}}
 </style>
+
+<section class="screenshots">
+  <div class="container">
+    <h2 class="section-title">앱 미리보기</h2>
+    <p class="section-sub">실제 작동하는 화면입니다. <a href="app.html?demo=1" style="color:#6366f1;text-decoration:underline">🎬 데모로 직접 체험</a>해보세요.</p>
+
+    <div class="mockup-browser">
+      <div class="mockup-header">
+        <div class="mockup-dot" style="background:#ef4444"></div>
+        <div class="mockup-dot" style="background:#f59e0b"></div>
+        <div class="mockup-dot" style="background:#10b981"></div>
+        <div class="mockup-url">jwaytools.com/paperclip/app.html</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-tabs">
+          <div class="mockup-tab">📊 대시보드</div>
+          <div class="mockup-tab active">👥 에이전트</div>
+          <div class="mockup-tab">📋 이슈</div>
+          <div class="mockup-tab">🎯 목표</div>
+          <div class="mockup-tab">💬 대화</div>
+          <div class="mockup-tab">📎 아티팩트</div>
+          <div class="mockup-tab">💓 Heartbeat</div>
+        </div>
+
+        <div class="mockup-content">
+          <div>
+            <div class="mockup-card-title">활성 에이전트 (6명)</div>
+            <div class="mockup-agent">
+              <div class="mockup-agent-icon">👔</div>
+              <div class="mockup-agent-name">김리더 · CEO & 비전 리더</div>
+              <div class="mockup-agent-status">idle</div>
+            </div>
+            <div class="mockup-agent">
+              <div class="mockup-agent-icon">⚙️</div>
+              <div class="mockup-agent-name">이기술 · CTO</div>
+              <div class="mockup-agent-status" style="background:#f59e0b">working</div>
+            </div>
+            <div class="mockup-agent">
+              <div class="mockup-agent-icon">📱</div>
+              <div class="mockup-agent-name">박피엠 · PM</div>
+              <div class="mockup-agent-status">idle</div>
+            </div>
+            <div class="mockup-agent">
+              <div class="mockup-agent-icon">💻</div>
+              <div class="mockup-agent-name">최개발 · Engineer</div>
+              <div class="mockup-agent-status">idle</div>
+            </div>
+            <div class="mockup-agent">
+              <div class="mockup-agent-icon">📢</div>
+              <div class="mockup-agent-name">강마케팅 · Marketer</div>
+              <div class="mockup-agent-status">idle</div>
+            </div>
+            <div class="mockup-agent">
+              <div class="mockup-agent-icon">🎨</div>
+              <div class="mockup-agent-name">서디자인 · Designer</div>
+              <div class="mockup-agent-status">idle</div>
+            </div>
+          </div>
+          <div>
+            <div class="mockup-card">
+              <div class="mockup-card-title">🎯 목표 진행률</div>
+              <div class="mockup-card-body">
+                <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>🏢 Q2 MVP 출시</span><span style="color:#10b981;font-weight:700">100%</span></div><div style="height:6px;background:#334155;border-radius:3px"><div style="height:100%;width:100%;background:#10b981;border-radius:3px"></div></div></div>
+                <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>👥 MVP 핵심 기능 개발</span><span style="color:#f59e0b;font-weight:700">67%</span></div><div style="height:6px;background:#334155;border-radius:3px"><div style="height:100%;width:67%;background:#f59e0b;border-radius:3px"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>🤖 얼리 액세스 500명</span><span style="color:#10b981;font-weight:700">100%</span></div><div style="height:6px;background:#334155;border-radius:3px"><div style="height:100%;width:100%;background:#10b981;border-radius:3px"></div></div></div>
+              </div>
+            </div>
+
+            <div class="mockup-card" style="margin-top:16px">
+              <div class="mockup-card-title">📎 생성된 아티팩트</div>
+              <div class="mockup-card-body">
+                <div style="padding:6px 0;border-bottom:1px solid #334155;display:flex;align-items:center;gap:6px">🌐 <strong>landing-page.html</strong> <span style="color:#64748b;font-size:10px">16.8K자</span></div>
+                <div style="padding:6px 0;border-bottom:1px solid #334155;display:flex;align-items:center;gap:6px">📋 <strong>api-spec.json</strong> <span style="color:#64748b;font-size:10px">9.6K자</span></div>
+                <div style="padding:6px 0;display:flex;align-items:center;gap:6px">📝 <strong>business-roadmap.md</strong> <span style="color:#64748b;font-size:10px">5.2K자</span></div>
+              </div>
+            </div>
+
+            <div class="mockup-card" style="margin-top:16px">
+              <div class="mockup-card-title">💰 비용 (이번 달)</div>
+              <div class="mockup-card-body">
+                <div style="font-size:22px;font-weight:800;color:#10b981">$1.07</div>
+                <div style="font-size:11px;color:#64748b">협업 4회 실행 · 150 코멘트 · 5 아티팩트</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px">
+      <a href="app.html?demo=1" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;text-decoration:none;border-radius:10px;font-weight:700;font-size:15px;box-shadow:0 4px 20px rgba(239,68,68,0.3)">🎬 지금 데모 체험하기</a>
+      <p style="font-size:12px;color:#9ca3af;margin-top:12px">API 키 불필요 · 30초 소요</p>
+    </div>
+  </div>
+</section>
 
 <section class="section pricing" id="pricing">
   <div class="container">
@@ -398,7 +541,8 @@ footer a:hover{color:#6366f1}
           ⚠️ <strong>설정 파일만 제공 (실행 아님)</strong><br/>
           실행 시 본인 API 키 필요, API 비용 별도
         </div>
-        <a href="https://github.com/JaeWoo0317/jway-paperclip/tree/main/templates" class="cta">템플릿 보기</a>
+        <a href="https://github.com/JaeWoo0317/jway-paperclip/tree/main/templates" class="cta">무료 샘플 받기</a>
+        <div style="margin-top:12px;font-size:11px;color:#9ca3af">💡 유료 프리미엄 템플릿은 곧 출시 예정 (<a href="#pro-waitlist" style="color:#6366f1">대기자 등록</a>)</div>
       </div>
       <div class="price">
         <h3>1:1 컨설팅</h3>
