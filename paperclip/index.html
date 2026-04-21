@@ -415,7 +415,7 @@ footer a:hover{color:#6366f1}
           ✅ <strong>이 세션은 저희 API 크레딧 사용</strong><br/>
           첫 실행 비용 포함, 추가 비용 없음
         </div>
-        <a href="mailto:contact@example.com" class="cta secondary">문의하기</a>
+        <a href="mailto:jwaymanager@gmail.com" class="cta secondary">문의하기</a>
       </div>
     </div>
   </div>
@@ -458,11 +458,33 @@ footer a:hover{color:#6366f1}
 function handleWaitlist(e){
   e.preventDefault();
   var email = document.getElementById('waitlist-email').value;
-  // localStorage에 저장 (백엔드 없이 기초 수집)
-  var list = JSON.parse(localStorage.getItem('pro-waitlist') || '[]');
-  if (list.indexOf(email) === -1) list.push(email);
-  localStorage.setItem('pro-waitlist', JSON.stringify(list));
-  alert('✅ 등록되었습니다!\n\n이메일: '+email+'\n\n100명이 모이면 Pro 버전 개발을 시작하고 이메일로 알려드립니다.\n얼리버드 50% 할인 혜택도 적용됩니다.');
+  if (!email) return;
+  // localStorage에도 저장 (로컬 기록)
+  try {
+    var list = JSON.parse(localStorage.getItem('pro-waitlist') || '[]');
+    if (list.indexOf(email) === -1) list.push(email);
+    localStorage.setItem('pro-waitlist', JSON.stringify(list));
+  } catch(err) {}
+
+  // mailto로 실제 이메일 전송 (사용자 메일 클라이언트 자동 오픈)
+  var subject = encodeURIComponent('[JWAY Paperclip] Pro 대기자 등록');
+  var body = encodeURIComponent(
+    'JWAY Paperclip Pro 버전 대기자 등록을 신청합니다.\n\n' +
+    '이메일: ' + email + '\n' +
+    '등록일: ' + new Date().toLocaleString('ko-KR') + '\n\n' +
+    '---\n' +
+    '이 메일을 그대로 보내주시면 대기자 명단에 등록됩니다.\n' +
+    '100명이 모이면 Pro 버전 개발을 시작하고 얼리버드 50% 할인 쿠폰을 보내드립니다.'
+  );
+  var mailto = 'mailto:jwaymanager@gmail.com?subject=' + subject + '&body=' + body;
+
+  // 사용자 확인 후 메일 앱 오픈
+  if (confirm('✅ 등록을 위해 이메일 앱이 열립니다.\n\n이메일: ' + email + '\n\n열린 메일을 그대로 "보내기" 버튼만 누르면 등록 완료됩니다.\n\n계속하시겠습니까?')) {
+    window.location.href = mailto;
+    setTimeout(function(){
+      alert('💌 이메일 앱이 열리지 않았다면 직접 아래 주소로 이메일을 보내주세요:\n\njwaymanager@gmail.com\n\n제목: [JWAY Paperclip] Pro 대기자 등록\n본문: 이메일 주소');
+    }, 1500);
+  }
   e.target.reset();
 }
 </script>
@@ -526,8 +548,12 @@ function handleWaitlist(e){
       <a href="https://github.com/JaeWoo0317/jway-paperclip" target="_blank">GitHub</a>
       <a href="https://github.com/JaeWoo0317/jway-paperclip/tree/main/docs">Docs</a>
       <a href="https://github.com/JaeWoo0317/jway-paperclip/tree/main/templates">Templates</a>
+      <a href="terms.html">이용약관</a>
+      <a href="privacy.html">개인정보처리방침</a>
+      <a href="mailto:jwaymanager@gmail.com">문의</a>
     </div>
-    <p style="margin-top:16px">© 2026 JWAY Paperclip · MIT License · Made with Claude</p>
+    <p style="margin-top:16px">© 2026 JWAY Paperclip · MIT License · Made with Claude<br/>
+    <span style="font-size:12px;color:#9ca3af">문의: jwaymanager@gmail.com</span></p>
   </div>
 </footer>
 
