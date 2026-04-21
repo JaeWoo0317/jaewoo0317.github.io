@@ -949,7 +949,61 @@ async function runDemoSimulation(data, onUpdate, onProgress) {
   save(finalData);
   onUpdate(finalData);
   if (onProgress) onProgress(null);
+
+  // 완료 축하 + CTA 모달 표시
+  setTimeout(function() {
+    if (typeof window.__showDemoCompleteModal === "function") window.__showDemoCompleteModal();
+  }, 500);
+
   return { success: true, demo: true };
+}
+
+function DemoCompleteModal({ onClose }) {
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.6)",zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}>
+      <div style={{background:"white",borderRadius:16,maxWidth:520,width:"100%",padding:32,boxShadow:"0 20px 60px rgba(0,0,0,0.3)",textAlign:"center"}}>
+        <div style={{fontSize:64,marginBottom:16}}>🎉</div>
+        <h2 style={{margin:0,marginBottom:12,fontSize:24,color:"#1f2937"}}>데모 체험 완료!</h2>
+        <p style={{color:"#6b7280",marginBottom:24,lineHeight:1.6}}>
+          6명 AI 에이전트가 어떻게 협업하는지 확인하셨습니다.<br/>
+          이제 둘러보세요:
+        </p>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:24}}>
+          <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
+            <div style={{fontSize:20,marginBottom:4}}>📎</div>
+            <div style={{fontWeight:600,fontSize:13}}>아티팩트</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>생성된 파일 확인 + 다운로드</div>
+          </div>
+          <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
+            <div style={{fontSize:20,marginBottom:4}}>💬</div>
+            <div style={{fontWeight:600,fontSize:13}}>대화</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>에이전트 간 협업 타임라인</div>
+          </div>
+          <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
+            <div style={{fontSize:20,marginBottom:4}}>🎯</div>
+            <div style={{fontWeight:600,fontSize:13}}>목표</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>진행률 100% 완료 확인</div>
+          </div>
+          <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
+            <div style={{fontSize:20,marginBottom:4}}>📋</div>
+            <div style={{fontWeight:600,fontSize:13}}>이슈</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>칸반 보드 + 코멘트 내역</div>
+          </div>
+        </div>
+        <div style={{padding:16,background:"linear-gradient(135deg,#f59e0b,#ef4444)",borderRadius:12,color:"white",marginBottom:16}}>
+          <div style={{fontWeight:700,fontSize:15,marginBottom:6}}>💡 이건 시뮬레이션이었습니다</div>
+          <div style={{fontSize:13,lineHeight:1.6,opacity:0.95}}>
+            실제로는 <strong>당신의 아이디어에 맞춘 진짜 AI 답변</strong>이 생성됩니다.<br/>
+            첫 협업 비용 $0.5~$2 (Haiku 기준)
+          </div>
+        </div>
+        <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}}>
+          <button className="btn" style={{padding:"10px 20px"}} onClick={onClose}>계속 둘러보기</button>
+          <a href="./" className="btn btn-primary" style={{padding:"10px 24px",background:"linear-gradient(135deg,#10b981,#059669)",border:"none",color:"white",textDecoration:"none",fontWeight:700}}>🚀 정식 버전으로 실제 해보기</a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function LockScreen({ onUnlock }) {
@@ -1109,6 +1163,10 @@ function DashboardPage({ data, onUpdate }) {
 
   const analyzeTask = async () => {
     if (!quickInput.trim() || !data.settings.apiKey) return;
+    if (DEMO_MODE) {
+      alert("🎬 데모 모드에서는 퀵 실행을 사용할 수 없습니다.\n\n실제 AI 분석이 필요하므로 API 키가 필요합니다.\n\n정식 버전에서 이 기능을 사용하려면 오른쪽 위 '🚀 정식 시작' 버튼을 클릭하세요.");
+      return;
+    }
     setQuickLoading(true);
     setQuickResult(null);
     try {
@@ -1186,11 +1244,23 @@ function DashboardPage({ data, onUpdate }) {
 
   return (
     <div style={{display:"flex",flexDirection:"column",gap:16}}>
-      <div className="card" style={{padding:14}}>
-        <div className="font-medium" style={{marginBottom:8,fontSize:14}}>🚀 무엇을 하고 싶으세요?</div>
+      {DEMO_MODE && (
+        <div className="card" style={{padding:14,background:"linear-gradient(135deg,#fff7ed,#fef3c7)",border:"1px solid #fbbf24"}}>
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            <div style={{fontSize:32}}>🎬</div>
+            <div style={{flex:1}}>
+              <div style={{fontWeight:700,fontSize:15,color:"#92400e"}}>데모 모드 진행 방법</div>
+              <div style={{fontSize:13,color:"#78350f",marginTop:2}}>왼쪽 <strong>💓 Heartbeat</strong> → 상단 <strong>🤝 협업</strong> 버튼 클릭 → 30초 대기</div>
+            </div>
+            <button className="btn btn-primary" style={{background:"linear-gradient(135deg,#f59e0b,#ef4444)",border:"none",fontSize:13}} onClick={function(){ window.location.hash="#heartbeat"; }}>지금 시작 →</button>
+          </div>
+        </div>
+      )}
+      <div className="card" style={{padding:14,opacity:DEMO_MODE?0.5:1,position:"relative"}}>
+        <div className="font-medium" style={{marginBottom:8,fontSize:14}}>🚀 무엇을 하고 싶으세요? {DEMO_MODE && <span style={{fontSize:11,color:"var(--danger)",fontWeight:600}}>(데모 모드에서는 비활성)</span>}</div>
         <div style={{display:"flex",gap:8}}>
-          <input className="input" placeholder="예: 마케팅 전략을 세워줘, 랜딩 페이지 만들어줘, 블로그 글 써줘..." value={quickInput} onChange={e=>setQuickInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")analyzeTask()}} style={{flex:1}}/>
-          <button className="btn btn-primary" onClick={analyzeTask} disabled={quickLoading||!quickInput.trim()}>{quickLoading?"분석 중...":"🚀 실행"}</button>
+          <input className="input" placeholder={DEMO_MODE ? "정식 버전에서만 사용 가능합니다" : "예: 마케팅 전략을 세워줘, 랜딩 페이지 만들어줘, 블로그 글 써줘..."} value={quickInput} onChange={e=>setQuickInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")analyzeTask()}} style={{flex:1}} disabled={DEMO_MODE}/>
+          <button className="btn btn-primary" onClick={analyzeTask} disabled={quickLoading||!quickInput.trim()||DEMO_MODE}>{quickLoading?"분석 중...":"🚀 실행"}</button>
         </div>
         {quickResult && quickResult.team && (
           <div style={{marginTop:12,padding:12,background:"var(--bg-secondary)",borderRadius:"var(--radius)",border:"1px solid var(--border)"}}>
@@ -3833,6 +3903,142 @@ function ApprovalsPage({ data, onUpdate }) {
   );
 }
 
+// ========== 데모 환영 모달 ==========
+function DemoWelcomeModal({ onClose, onStart }) {
+  const [step, setStep] = useState(1);
+  var totalSteps = 4;
+
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.6)",zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}>
+      <div style={{background:"white",borderRadius:16,maxWidth:600,width:"100%",maxHeight:"90vh",overflow:"auto",boxShadow:"0 20px 60px rgba(0,0,0,0.3)"}}>
+        {/* 진행 표시 */}
+        <div style={{height:4,background:"#f3f4f6"}}>
+          <div style={{height:"100%",background:"linear-gradient(90deg,#f59e0b,#ef4444)",width:(step/totalSteps*100)+"%",transition:"width 0.3s"}}/>
+        </div>
+
+        <div style={{padding:"32px 28px"}}>
+          {step === 1 && (
+            <div>
+              <div style={{fontSize:56,textAlign:"center",marginBottom:16}}>🎬</div>
+              <h2 style={{margin:0,marginBottom:12,fontSize:24,textAlign:"center",color:"#1f2937"}}>데모 모드에 오신 것을 환영합니다</h2>
+              <p style={{color:"#6b7280",textAlign:"center",lineHeight:1.6,marginBottom:20,fontSize:14}}>
+                JWAY Paperclip의 협업 과정을 <strong>API 키 없이</strong> 체험해보세요.<br/>
+                30초 만에 6명 AI 에이전트가 어떻게 협업하는지 볼 수 있습니다.
+              </p>
+              <div style={{background:"#fff7ed",border:"1px solid #fed7aa",borderRadius:10,padding:16,fontSize:13,lineHeight:1.7,color:"#9a3412"}}>
+                <strong>⚠️ 중요한 점을 먼저 알려드립니다 (다음 단계에서 자세히)</strong><br/>
+                데모는 <strong>시뮬레이션</strong>이며 실제 AI 응답이 아닙니다.
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div>
+              <h2 style={{margin:0,marginBottom:16,fontSize:20,color:"#1f2937"}}>🚨 데모 모드의 제한사항</h2>
+              <div style={{display:"flex",flexDirection:"column",gap:12}}>
+                <div style={{padding:14,background:"#fef2f2",border:"1px solid #fecaca",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#dc2626",fontSize:14,marginBottom:4}}>❌ 실제 AI 응답이 아닙니다</div>
+                  <div style={{fontSize:13,color:"#7f1d1d",lineHeight:1.6}}>미리 작성된 15단계 이벤트가 순차 재생됩니다. 질문을 입력해도 맞춤 답변은 나오지 않습니다.</div>
+                </div>
+                <div style={{padding:14,background:"#fef2f2",border:"1px solid #fecaca",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#dc2626",fontSize:14,marginBottom:4}}>❌ 아티팩트는 샘플입니다</div>
+                  <div style={{fontSize:13,color:"#7f1d1d",lineHeight:1.6}}>생성되는 HTML/JSON/MD 파일은 예시 템플릿입니다. 당신의 프로젝트에 맞춘 내용이 아닙니다.</div>
+                </div>
+                <div style={{padding:14,background:"#fef2f2",border:"1px solid #fecaca",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#dc2626",fontSize:14,marginBottom:4}}>❌ 데이터는 저장되지 않습니다</div>
+                  <div style={{fontSize:13,color:"#7f1d1d",lineHeight:1.6}}>새로고침하면 처음 상태로 초기화됩니다. 설정 변경, 새 에이전트 생성 등은 임시입니다.</div>
+                </div>
+                <div style={{padding:14,background:"#fef2f2",border:"1px solid #fecaca",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#dc2626",fontSize:14,marginBottom:4}}>❌ 퀵 실행은 작동하지 않습니다</div>
+                  <div style={{fontSize:13,color:"#7f1d1d",lineHeight:1.6}}>대시보드의 "무엇을 하고 싶으세요?" 입력은 데모에서 비활성화됩니다. API 키가 필요합니다.</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div>
+              <h2 style={{margin:0,marginBottom:16,fontSize:20,color:"#1f2937"}}>✅ 데모 모드로 할 수 있는 것</h2>
+              <div style={{display:"flex",flexDirection:"column",gap:12}}>
+                <div style={{padding:14,background:"#f0fdf4",border:"1px solid #bbf7d0",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#166534",fontSize:14,marginBottom:4}}>✅ 🤝 협업 Heartbeat 체험</div>
+                  <div style={{fontSize:13,color:"#14532d",lineHeight:1.6}}>6명 에이전트가 순차적으로 코멘트/아티팩트를 생성하는 과정을 시각적으로 확인.</div>
+                </div>
+                <div style={{padding:14,background:"#f0fdf4",border:"1px solid #bbf7d0",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#166534",fontSize:14,marginBottom:4}}>✅ 모든 페이지 자유 탐색</div>
+                  <div style={{fontSize:13,color:"#14532d",lineHeight:1.6}}>대시보드, 에이전트, 이슈(칸반), 목표, 대화, 아티팩트, 비용 등 13개 페이지 UI 체험.</div>
+                </div>
+                <div style={{padding:14,background:"#f0fdf4",border:"1px solid #bbf7d0",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#166534",fontSize:14,marginBottom:4}}>✅ 결과물 내보내기</div>
+                  <div style={{fontSize:13,color:"#14532d",lineHeight:1.6}}>샘플 아티팩트를 다운로드, HTML 미리보기, ZIP 일괄 export 모두 정상 동작.</div>
+                </div>
+                <div style={{padding:14,background:"#f0fdf4",border:"1px solid #bbf7d0",borderRadius:10}}>
+                  <div style={{fontWeight:600,color:"#166534",fontSize:14,marginBottom:4}}>✅ 대화 & 타임라인 확인</div>
+                  <div style={{fontSize:13,color:"#14532d",lineHeight:1.6}}>💬 대화 페이지에서 에이전트 간 채팅 UI, 참여도, 이슈별 코멘트 확인 가능.</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div>
+              <h2 style={{margin:0,marginBottom:16,fontSize:20,color:"#1f2937"}}>🎯 데모 체험 순서</h2>
+              <ol style={{margin:0,padding:0,listStyle:"none",display:"flex",flexDirection:"column",gap:10}}>
+                <li style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,display:"flex",gap:12}}>
+                  <div style={{width:32,height:32,borderRadius:"50%",background:"#3b82f6",color:"white",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,flexShrink:0}}>1</div>
+                  <div>
+                    <div style={{fontWeight:600,marginBottom:2}}>왼쪽 사이드바에서 <strong>💓 Heartbeat</strong> 클릭</div>
+                    <div style={{fontSize:12,color:"#6b7280"}}>실행 엔진 페이지로 이동합니다</div>
+                  </div>
+                </li>
+                <li style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,display:"flex",gap:12}}>
+                  <div style={{width:32,height:32,borderRadius:"50%",background:"#3b82f6",color:"white",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,flexShrink:0}}>2</div>
+                  <div>
+                    <div style={{fontWeight:600,marginBottom:2}}><strong>🤝 협업</strong> 버튼 클릭</div>
+                    <div style={{fontSize:12,color:"#6b7280"}}>상단 가로줄의 주황색 버튼</div>
+                  </div>
+                </li>
+                <li style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,display:"flex",gap:12}}>
+                  <div style={{width:32,height:32,borderRadius:"50%",background:"#3b82f6",color:"white",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,flexShrink:0}}>3</div>
+                  <div>
+                    <div style={{fontWeight:600,marginBottom:2}}>30초 대기 (시뮬레이션)</div>
+                    <div style={{fontSize:12,color:"#6b7280"}}>에이전트들이 순차 실행되는 애니메이션</div>
+                  </div>
+                </li>
+                <li style={{padding:14,background:"#f0fdf4",border:"1px solid #bbf7d0",borderRadius:10,display:"flex",gap:12}}>
+                  <div style={{width:32,height:32,borderRadius:"50%",background:"#10b981",color:"white",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,flexShrink:0}}>4</div>
+                  <div>
+                    <div style={{fontWeight:600,marginBottom:2}}>결과 확인 (📎 아티팩트 / 💬 대화 / 🎯 목표)</div>
+                    <div style={{fontSize:12,color:"#6b7280"}}>각 페이지에서 생성된 결과 확인</div>
+                  </div>
+                </li>
+              </ol>
+              <div style={{marginTop:16,padding:12,background:"linear-gradient(135deg,#f59e0b,#ef4444)",borderRadius:10,color:"white",fontSize:13,textAlign:"center"}}>
+                💡 <strong>Tip:</strong> 체험 후 정식 버전으로 당신만의 프로젝트를 만들어보세요!
+              </div>
+            </div>
+          )}
+
+          {/* 네비게이션 버튼 */}
+          <div style={{marginTop:24,display:"flex",justifyContent:"space-between",alignItems:"center",gap:12}}>
+            <div style={{fontSize:12,color:"#9ca3af"}}>{step} / {totalSteps}</div>
+            <div style={{display:"flex",gap:8}}>
+              {step > 1 && <button className="btn" style={{padding:"10px 20px"}} onClick={function(){setStep(step-1)}}>← 이전</button>}
+              {step < totalSteps && <button className="btn btn-primary" style={{padding:"10px 20px",background:"linear-gradient(135deg,#f59e0b,#ef4444)",border:"none"}} onClick={function(){setStep(step+1)}}>다음 →</button>}
+              {step === totalSteps && <button className="btn btn-primary" style={{padding:"10px 24px",background:"linear-gradient(135deg,#10b981,#059669)",border:"none",fontWeight:700}} onClick={function(){ onStart && onStart(); onClose(); }}>🚀 Heartbeat로 시작하기</button>}
+            </div>
+          </div>
+          {step === 1 && (
+            <div style={{marginTop:12,textAlign:"center"}}>
+              <button className="btn" style={{padding:"6px 12px",fontSize:11,color:"#9ca3af",background:"transparent",border:"none"}} onClick={onClose}>건너뛰기</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [data, setData] = useState(function(){
     if (DEMO_MODE) {
@@ -3846,6 +4052,15 @@ function App() {
   const [page, setPage] = useState("dashboard");
   const [authed, setAuthed] = useState(function(){ return DEMO_MODE || sessionStorage.getItem(AUTH_KEY) === "1"; });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [demoWelcomeOpen, setDemoWelcomeOpen] = useState(function(){ return DEMO_MODE; });
+  const [demoCompleteOpen, setDemoCompleteOpen] = useState(false);
+
+  useEffect(function() {
+    if (DEMO_MODE) {
+      window.__showDemoCompleteModal = function() { setDemoCompleteOpen(true); };
+      return function() { window.__showDemoCompleteModal = null; };
+    }
+  }, []);
 
   useEffect(()=>{save(data);},[data]);
 
@@ -3879,11 +4094,15 @@ function App() {
   return (
     <React.Fragment>
       {DEMO_MODE && (
-        <div style={{position:"fixed",top:0,left:0,right:0,zIndex:9999,background:"linear-gradient(90deg,#f59e0b,#ef4444)",color:"white",padding:"8px 16px",textAlign:"center",fontSize:13,fontWeight:600,boxShadow:"0 2px 8px rgba(0,0,0,0.15)"}}>
-          🎬 <strong>데모 모드</strong> — 가상 시뮬레이션입니다. 💓 Heartbeat에서 "🤝 협업"을 눌러 체험하세요. 실제 사용 → <a href="./" style={{color:"white",textDecoration:"underline",fontWeight:700}}>정식 버전</a>
+        <div style={{position:"fixed",top:0,left:0,right:0,zIndex:9999,background:"linear-gradient(90deg,#f59e0b,#ef4444)",color:"white",padding:"8px 16px",display:"flex",alignItems:"center",justifyContent:"center",gap:12,fontSize:13,fontWeight:600,boxShadow:"0 2px 8px rgba(0,0,0,0.15)",flexWrap:"wrap"}}>
+          <span>🎬 <strong>데모 모드</strong> — 시뮬레이션, 실제 AI 응답 아님</span>
+          <button onClick={function(){setDemoWelcomeOpen(true)}} style={{background:"rgba(255,255,255,0.25)",color:"white",border:"1px solid rgba(255,255,255,0.4)",borderRadius:6,padding:"3px 10px",fontSize:12,fontWeight:600,cursor:"pointer"}}>❓ 사용법</button>
+          <a href="./" style={{background:"white",color:"#ef4444",textDecoration:"none",fontWeight:700,padding:"3px 10px",borderRadius:6,fontSize:12}}>🚀 정식 시작</a>
         </div>
       )}
-      <div className="app" style={DEMO_MODE ? {marginTop:36} : {}}>
+      {DEMO_MODE && demoWelcomeOpen && <DemoWelcomeModal onClose={function(){setDemoWelcomeOpen(false)}} onStart={function(){setPage("routines")}}/>}
+      {DEMO_MODE && demoCompleteOpen && <DemoCompleteModal onClose={function(){setDemoCompleteOpen(false)}}/>}
+      <div className="app" style={DEMO_MODE ? {marginTop:44} : {}}>
         <SidebarNav data={data} activePage={page} onNav={setPage} mobileOpen={menuOpen} onClose={()=>setMenuOpen(false)}/>
         <div className="main">
           <div className="header">
