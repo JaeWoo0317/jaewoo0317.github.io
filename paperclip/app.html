@@ -194,10 +194,19 @@ function now() { return new Date().toISOString(); }
 // ========== Claude API Service ==========
 async function callClaudeAPI(apiKey, model, systemPrompt, userMessage, maxTokens, tools) {
   maxTokens = maxTokens || 2048;
+  // 💸 비용 절감: 시스템 프롬프트 캐싱 (500자 이상일 때만 유효, 90% 입력 토큰 할인)
+  var systemContent;
+  if (systemPrompt && systemPrompt.length > 500) {
+    systemContent = [
+      { type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }
+    ];
+  } else {
+    systemContent = systemPrompt;
+  }
   var body = {
     model: model,
     max_tokens: maxTokens,
-    system: systemPrompt,
+    system: systemContent,
     messages: [{ role: "user", content: userMessage }],
   };
   if (tools && tools.length > 0) body.tools = tools;
@@ -338,8 +347,9 @@ function formatIssueWithComments(issue) {
   if (issue.description) line += "  설명: " + issue.description + "\n";
   var comments = issue.comments || [];
   if (comments.length > 0) {
-    comments.slice(-5).forEach(function(c) {
-      line += "  [comment:" + c.agentName + "] " + c.content.substring(0, 100) + "\n";
+    // 💸 비용 절감: 최근 3개만 + 80자로 축약 (과거 5개, 100자)
+    comments.slice(-3).forEach(function(c) {
+      line += "  [" + c.agentName + "] " + c.content.substring(0, 80) + "\n";
     });
   }
   return line;
@@ -587,10 +597,10 @@ async function executeHeartbeat(agent, data, onUpdate, runPrompt) {
     while (attemptCount < MAX_ATTEMPTS) {
       attemptCount++;
 
-      // 웹 검색 활성 시 max_tokens 자동 증가 (검색 결과가 토큰을 많이 소모)
+      // 💸 비용 절감: max_tokens 조건부 상향 (아티팩트/웹검색 있을 때만)
       var baseMaxTokens = (agent.adapterConfig && agent.adapterConfig.maxTokens) || 2048;
-      // 아티팩트/웹검색 활성 시 토큰 한도 상향
-      var effectiveMaxTokens = Math.max(baseMaxTokens, 8192);
+      var needsMoreTokens = webSearchEnabled || advisorEnabled;
+      var effectiveMaxTokens = needsMoreTokens ? Math.max(baseMaxTokens, 8192) : Math.max(baseMaxTokens, 4096);
       var response = await callClaudeAPI(data.settings.apiKey, model, systemPrompt, currentMessage, effectiveMaxTokens, advisorTools);
       var responseText = response.content.map(function(c) { return c.text || ""; }).join("\n");
       var usage = response.usage || {};
@@ -1825,7 +1835,7 @@ function HeartbeatPage({ data, onUpdate }) {
   const [lastResult, setLastResult] = useState(null);
   const [runPrompt, setRunPrompt] = useState("");
   const [collabProgress, setCollabProgress] = useState(null);
-  const [collabRounds, setCollabRounds] = useState(2);
+  const [collabRounds, setCollabRounds] = useState(1); // 💸 비용 절감: 기본 1라운드
   const [collabDelay, setCollabDelay] = useState(10); // rate limit 회피 지연(초)
 
   // 스케줄링 상태
@@ -2306,8 +2316,29 @@ function CostsPage({ data }) {
   // Recent events
   var recentEvents = data.costEvents.slice(-30).reverse();
 
+  // 💸 절감 팁 체크 (사용자 설정 분석)
+  var advisorAgents = data.agents.filter(function(a){return a.adapterConfig && a.adapterConfig.advisorEnabled}).length;
+  var webSearchAgents = data.agents.filter(function(a){return a.adapterConfig && a.adapterConfig.webSearchEnabled}).length;
+  var sonnetAgents = data.agents.filter(function(a){return a.adapterConfig && a.adapterConfig.model === "claude-sonnet-4-6"}).length;
+  var tips = [];
+  if (advisorAgents > 2) tips.push({icon:"🧠",msg:"Advisor를 " + advisorAgents + "명이 사용 중. 리더(CEO/CTO) 1~2명만 활성화하면 " + Math.round((advisorAgents-2)*15) + "% 절감"});
+  if (webSearchAgents > 2) tips.push({icon:"🔍",msg:"웹 검색을 " + webSearchAgents + "명이 사용 중. 리서치 역할(분석가/마케터)만 활성화하면 " + Math.round((webSearchAgents-2)*10) + "% 절감"});
+  if (sonnetAgents > 0) tips.push({icon:"⚡",msg:"Sonnet 4.6 사용 " + sonnetAgents + "명. Haiku 4.5로 변경 시 " + Math.round(sonnetAgents*30) + "% 절감"});
+  if (data.agents.length > 6) tips.push({icon:"👥",msg:"에이전트 " + data.agents.length + "명. 핵심 5~6명으로 줄이면 " + Math.round((data.agents.length-6)*12) + "% 절감"});
+
   return (
     <div style={{display:"flex",flexDirection:"column",gap:20}}>
+      {/* 💸 절감 팁 */}
+      {tips.length > 0 && (
+        <div className="card" style={{padding:14,background:"linear-gradient(135deg,#fef3c7,#fff7ed)",border:"1px solid #fbbf24"}}>
+          <div style={{fontWeight:700,fontSize:14,color:"#92400e",marginBottom:10}}>💸 비용 절감 팁 ({tips.length}건)</div>
+          <div style={{display:"flex",flexDirection:"column",gap:6}}>
+            {tips.map(function(t,i){return <div key={i} style={{display:"flex",gap:8,fontSize:13,color:"#78350f"}}><span>{t.icon}</span><span>{t.msg}</span></div>})}
+          </div>
+          <div style={{fontSize:11,color:"#b45309",marginTop:10}}>💡 ⚙️ 설정 → <strong>💸 전체 에이전트 저비용 모드로</strong> 버튼으로 일괄 적용 가능</div>
+        </div>
+      )}
+
       {/* Summary Cards */}
       <div className="card-grid">
         <div className="card metric-card">
@@ -3584,6 +3615,43 @@ function SettingsPage({ data, onUpdate }) {
         <div className="font-medium" style={{marginBottom:16}}>비밀번호 관리</div>
         <div style={{display:"flex",flexDirection:"column",gap:12}}>
           <PasswordManager/>
+        </div>
+      </div>
+
+      <div className="card" style={{borderLeft:"4px solid #10b981"}}>
+        <div className="font-medium" style={{marginBottom:8,color:"#059669"}}>💸 비용 절감 일괄 적용</div>
+        <div className="text-sm text-muted" style={{marginBottom:12}}>모든 에이전트를 저비용 모드로 전환합니다. <strong>최대 80% 비용 절감</strong> 가능.</div>
+        <div style={{display:"flex",flexDirection:"column",gap:6,fontSize:13,marginBottom:12,padding:10,background:"#f0fdf4",borderRadius:6,color:"#14532d"}}>
+          <div>✓ 모든 에이전트 Haiku 4.5로 변경</div>
+          <div>✓ Advisor 전부 OFF (리더만 유지 옵션)</div>
+          <div>✓ 웹 검색 전부 OFF</div>
+          <div>✓ maxTokens 4096으로 축소</div>
+        </div>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+          <button className="btn btn-primary" style={{background:"linear-gradient(135deg,#10b981,#059669)",border:"none"}} onClick={function(){
+            if (!confirm("모든 에이전트를 저비용 모드로 전환하시겠습니까?\n\n- 모델: Haiku 4.5\n- Advisor: OFF\n- 웹 검색: OFF\n- maxTokens: 4096\n\n리더(CEO/CTO/PM)만 Advisor 유지됩니다.")) return;
+            var updated = data.agents.map(function(a){
+              var isLeader = ["ceo","cto","pm"].indexOf(a.role) !== -1;
+              return {...a, adapterConfig: {
+                ...a.adapterConfig,
+                model: "claude-haiku-4-5-20251001",
+                maxTokens: 4096,
+                advisorEnabled: isLeader, // 리더만 유지
+                webSearchEnabled: false,
+              }};
+            });
+            var leaderCount = updated.filter(function(a){return a.adapterConfig.advisorEnabled}).length;
+            onUpdate({...data, agents: updated, activityLog: [...data.activityLog, {id:uid(),emoji:"💸",message:"저비용 모드로 일괄 전환: " + updated.length + "명 (리더 " + leaderCount + "명만 Advisor 유지)", createdAt:now()}]});
+            alert("✅ 완료!\n\n" + updated.length + "명 에이전트 저비용 모드 전환\n리더 " + leaderCount + "명만 Advisor 유지\n\n예상 절감: 50~80%");
+          }}>💸 전체 에이전트 저비용 모드로</button>
+          <button className="btn" style={{color:"#dc2626"}} onClick={function(){
+            if (!confirm("모든 에이전트의 Advisor와 웹 검색을 완전히 끄시겠습니까? (최대 절감)")) return;
+            var updated = data.agents.map(function(a){
+              return {...a, adapterConfig: {...a.adapterConfig, advisorEnabled: false, webSearchEnabled: false, maxTokens: 4096}};
+            });
+            onUpdate({...data, agents: updated, activityLog: [...data.activityLog, {id:uid(),emoji:"💸",message:"극한 절감 모드: 모든 에이전트 Advisor/웹검색 OFF", createdAt:now()}]});
+            alert("✅ 극한 절감 모드 적용!\n예상 절감: 최대 80%");
+          }}>🔻 극한 절감 (모두 OFF)</button>
         </div>
       </div>
 
