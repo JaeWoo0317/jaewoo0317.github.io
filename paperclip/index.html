@@ -408,7 +408,7 @@ footer a:hover{color:#6366f1}
 .screenshots .container{max-width:1100px;margin:0 auto}
 .screenshots .section-title{color:white}
 .screenshots .section-sub{color:#9ca3af}
-.mockup-browser{background:#111827;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);max-width:900px;margin:0 auto;border:1px solid #374151}
+.mockup-browser{background:#111827;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);max-width:960px;margin:0 auto;border:1px solid #374151}
 .mockup-header{background:#1f2937;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #374151}
 .mockup-dot{width:12px;height:12px;border-radius:50%}
 .mockup-url{flex:1;background:#111827;border-radius:6px;padding:6px 12px;color:#9ca3af;font-size:12px;font-family:monospace;margin-left:16px}
@@ -433,82 +433,135 @@ footer a:hover{color:#6366f1}
     <h2 class="section-title">앱 미리보기</h2>
     <p class="section-sub">실제 작동하는 화면입니다. <a href="app.html?demo=1" style="color:#6366f1;text-decoration:underline">🎬 데모로 직접 체험</a>해보세요.</p>
 
+    <!-- Live Heartbeat Status Bar (작동 중 연출) -->
+    <div style="max-width:900px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);border-radius:100px;font-size:13px;color:#a7f3d0">
+      <span style="display:inline-block;width:8px;height:8px;background:#10b981;border-radius:50%;animation:pulse 1.4s infinite"></span>
+      <strong>협업 Heartbeat 실행 중</strong> · 라운드 2/2 — 매니저 검토 단계 · <span style="color:#fde047">이기술(CTO) 응답 생성 중...</span>
+    </div>
+    <style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}</style>
+
     <div class="mockup-browser">
       <div class="mockup-header">
         <div class="mockup-dot" style="background:#ef4444"></div>
         <div class="mockup-dot" style="background:#f59e0b"></div>
         <div class="mockup-dot" style="background:#10b981"></div>
-        <div class="mockup-url">jwaytools.com/paperclip/app.html</div>
+        <div class="mockup-url">🔒 jwaytools.com/paperclip/app.html</div>
+        <div style="padding:4px 10px;background:rgba(16,185,129,0.2);color:#6ee7b7;border-radius:6px;font-size:10px;font-weight:700;font-family:system-ui">LIVE</div>
       </div>
       <div class="mockup-body">
         <div class="mockup-tabs">
           <div class="mockup-tab">📊 대시보드</div>
-          <div class="mockup-tab active">👥 에이전트</div>
-          <div class="mockup-tab">📋 이슈</div>
-          <div class="mockup-tab">🎯 목표</div>
-          <div class="mockup-tab">💬 대화</div>
-          <div class="mockup-tab">📎 아티팩트</div>
+          <div class="mockup-tab active">👥 에이전트 <span style="background:#6366f1;color:white;border-radius:8px;padding:1px 6px;font-size:9px;margin-left:4px">6</span></div>
+          <div class="mockup-tab">📋 이슈 <span style="background:#f59e0b;color:white;border-radius:8px;padding:1px 6px;font-size:9px;margin-left:4px">12</span></div>
+          <div class="mockup-tab">🎯 목표 <span style="background:#10b981;color:white;border-radius:8px;padding:1px 6px;font-size:9px;margin-left:4px">3</span></div>
+          <div class="mockup-tab">💬 대화 <span style="background:#8b5cf6;color:white;border-radius:8px;padding:1px 6px;font-size:9px;margin-left:4px">150</span></div>
+          <div class="mockup-tab">📎 아티팩트 <span style="background:#ec4899;color:white;border-radius:8px;padding:1px 6px;font-size:9px;margin-left:4px">5</span></div>
           <div class="mockup-tab">💓 Heartbeat</div>
         </div>
 
         <div class="mockup-content">
           <div>
-            <div class="mockup-card-title">활성 에이전트 (6명)</div>
+            <div class="mockup-card-title">👥 활성 에이전트 (6명)</div>
             <div class="mockup-agent">
               <div class="mockup-agent-icon">👔</div>
-              <div class="mockup-agent-name">김리더 · CEO & 비전 리더</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:12px;color:#e2e8f0">김리더 <span style="color:#94a3b8;font-weight:400">· CEO & 비전 리더</span></div>
+                <div style="font-size:10px;color:#a78bfa;margin-top:2px">🎭 Opus 4.6 · Advisor ON</div>
+              </div>
               <div class="mockup-agent-status">idle</div>
             </div>
-            <div class="mockup-agent">
+            <div class="mockup-agent" style="border-left-color:#f59e0b;background:#1c2444">
               <div class="mockup-agent-icon">⚙️</div>
-              <div class="mockup-agent-name">이기술 · CTO</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:12px;color:#e2e8f0">이기술 <span style="color:#94a3b8;font-weight:400">· CTO & 기술 아키텍트</span></div>
+                <div style="font-size:10px;color:#fde047;margin-top:2px">✍️ 응답 생성 중... (Opus 4.6)</div>
+              </div>
               <div class="mockup-agent-status" style="background:#f59e0b">working</div>
             </div>
             <div class="mockup-agent">
               <div class="mockup-agent-icon">📱</div>
-              <div class="mockup-agent-name">박피엠 · PM</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:12px;color:#e2e8f0">박피엠 <span style="color:#94a3b8;font-weight:400">· PM & 제품 전략가</span></div>
+                <div style="font-size:10px;color:#a78bfa;margin-top:2px">🎭 Opus 4.6</div>
+              </div>
               <div class="mockup-agent-status">idle</div>
             </div>
             <div class="mockup-agent">
               <div class="mockup-agent-icon">💻</div>
-              <div class="mockup-agent-name">최개발 · Engineer</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:12px;color:#e2e8f0">최개발 <span style="color:#94a3b8;font-weight:400">· 풀스택 엔지니어</span></div>
+                <div style="font-size:10px;color:#60a5fa;margin-top:2px">🎭 Sonnet 4.6 · 웹검색 ON</div>
+              </div>
               <div class="mockup-agent-status">idle</div>
             </div>
             <div class="mockup-agent">
               <div class="mockup-agent-icon">📢</div>
-              <div class="mockup-agent-name">강마케팅 · Marketer</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:12px;color:#e2e8f0">강마케팅 <span style="color:#94a3b8;font-weight:400">· 그로스 마케터</span></div>
+                <div style="font-size:10px;color:#60a5fa;margin-top:2px">🎭 Sonnet 4.6 · 웹검색 ON</div>
+              </div>
               <div class="mockup-agent-status">idle</div>
             </div>
             <div class="mockup-agent">
               <div class="mockup-agent-icon">🎨</div>
-              <div class="mockup-agent-name">서디자인 · Designer</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:12px;color:#e2e8f0">서디자인 <span style="color:#94a3b8;font-weight:400">· UX/UI 디자이너</span></div>
+                <div style="font-size:10px;color:#60a5fa;margin-top:2px">🎭 Sonnet 4.6</div>
+              </div>
               <div class="mockup-agent-status">idle</div>
+            </div>
+
+            <!-- 실시간 대화 로그 미니 -->
+            <div class="mockup-card" style="margin-top:14px">
+              <div class="mockup-card-title">💬 실시간 대화 로그</div>
+              <div class="mockup-card-body" style="font-size:11px;line-height:1.6">
+                <div style="padding:4px 0;color:#cbd5e1"><strong style="color:#a78bfa">👔 김리더</strong> → <strong>박피엠</strong>: "JTBD 관점에서 페르소나 3개 더 구체화 필요..."</div>
+                <div style="padding:4px 0;color:#cbd5e1"><strong style="color:#60a5fa">🎨 서디자인</strong> 📎 <em style="color:#f472b6">landing-page.html (16.8K자)</em> 생성 완료</div>
+                <div style="padding:4px 0;color:#cbd5e1"><strong style="color:#fde047">⚙️ 이기술</strong> ✍️ <em>타이핑 중...</em></div>
+              </div>
             </div>
           </div>
           <div>
-            <div class="mockup-card">
+            <!-- 비용 카드 상단 -->
+            <div class="mockup-card" style="background:linear-gradient(135deg,#0f2034,#1e293b);border-color:#10b981">
+              <div class="mockup-card-title" style="color:#6ee7b7">💰 이번 달 누적 비용</div>
+              <div class="mockup-card-body">
+                <div style="display:flex;align-items:baseline;gap:6px">
+                  <div style="font-size:28px;font-weight:800;color:#10b981">$1.07</div>
+                  <div style="font-size:11px;color:#64748b">/ $30.00 예산</div>
+                </div>
+                <div style="height:4px;background:#334155;border-radius:2px;margin-top:8px"><div style="height:100%;width:3.5%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:2px"></div></div>
+                <div style="font-size:10px;color:#94a3b8;margin-top:6px">협업 4회 · 150 코멘트 · 5 아티팩트</div>
+              </div>
+            </div>
+
+            <div class="mockup-card" style="margin-top:14px">
               <div class="mockup-card-title">🎯 목표 진행률</div>
               <div class="mockup-card-body">
-                <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>🏢 Q2 MVP 출시</span><span style="color:#10b981;font-weight:700">100%</span></div><div style="height:6px;background:#334155;border-radius:3px"><div style="height:100%;width:100%;background:#10b981;border-radius:3px"></div></div></div>
-                <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>👥 MVP 핵심 기능 개발</span><span style="color:#f59e0b;font-weight:700">67%</span></div><div style="height:6px;background:#334155;border-radius:3px"><div style="height:100%;width:67%;background:#f59e0b;border-radius:3px"></div></div></div>
-                <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>🤖 얼리 액세스 500명</span><span style="color:#10b981;font-weight:700">100%</span></div><div style="height:6px;background:#334155;border-radius:3px"><div style="height:100%;width:100%;background:#10b981;border-radius:3px"></div></div></div>
+                <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>🏢 Q2 MVP 출시</span><span style="color:#10b981;font-weight:700">100%</span></div><div style="height:6px;background:#334155;border-radius:3px;overflow:hidden"><div style="height:100%;width:100%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:3px"></div></div></div>
+                <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>👥 MVP 핵심 기능 개발</span><span style="color:#f59e0b;font-weight:700">67%</span></div><div style="height:6px;background:#334155;border-radius:3px;overflow:hidden"><div style="height:100%;width:67%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:3px"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>🤖 얼리 액세스 500명</span><span style="color:#10b981;font-weight:700">100%</span></div><div style="height:6px;background:#334155;border-radius:3px;overflow:hidden"><div style="height:100%;width:100%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:3px"></div></div></div>
               </div>
             </div>
 
-            <div class="mockup-card" style="margin-top:16px">
+            <div class="mockup-card" style="margin-top:14px">
               <div class="mockup-card-title">📎 생성된 아티팩트</div>
-              <div class="mockup-card-body">
-                <div style="padding:6px 0;border-bottom:1px solid #334155;display:flex;align-items:center;gap:6px">🌐 <strong>landing-page.html</strong> <span style="color:#64748b;font-size:10px">16.8K자</span></div>
-                <div style="padding:6px 0;border-bottom:1px solid #334155;display:flex;align-items:center;gap:6px">📋 <strong>api-spec.json</strong> <span style="color:#64748b;font-size:10px">9.6K자</span></div>
-                <div style="padding:6px 0;display:flex;align-items:center;gap:6px">📝 <strong>business-roadmap.md</strong> <span style="color:#64748b;font-size:10px">5.2K자</span></div>
-              </div>
-            </div>
-
-            <div class="mockup-card" style="margin-top:16px">
-              <div class="mockup-card-title">💰 비용 (이번 달)</div>
-              <div class="mockup-card-body">
-                <div style="font-size:22px;font-weight:800;color:#10b981">$1.07</div>
-                <div style="font-size:11px;color:#64748b">협업 4회 실행 · 150 코멘트 · 5 아티팩트</div>
+              <div class="mockup-card-body" style="font-size:11px">
+                <div style="padding:8px 8px;border:1px solid #334155;border-radius:6px;margin-bottom:6px;display:flex;align-items:center;gap:8px;background:#0f172a">
+                  <span style="font-size:20px">🌐</span>
+                  <div style="flex:1"><div style="color:#e2e8f0;font-weight:600">landing-page.html</div><div style="color:#64748b;font-size:10px">서디자인 · 16.8K자 · 2분 전</div></div>
+                  <span style="padding:2px 8px;background:#10b981;color:white;border-radius:10px;font-size:9px;font-weight:700">HTML</span>
+                </div>
+                <div style="padding:8px 8px;border:1px solid #334155;border-radius:6px;margin-bottom:6px;display:flex;align-items:center;gap:8px;background:#0f172a">
+                  <span style="font-size:20px">📋</span>
+                  <div style="flex:1"><div style="color:#e2e8f0;font-weight:600">api-spec.json</div><div style="color:#64748b;font-size:10px">최개발 · 9.6K자 · 5분 전</div></div>
+                  <span style="padding:2px 8px;background:#f59e0b;color:white;border-radius:10px;font-size:9px;font-weight:700">JSON</span>
+                </div>
+                <div style="padding:8px 8px;border:1px solid #334155;border-radius:6px;display:flex;align-items:center;gap:8px;background:#0f172a">
+                  <span style="font-size:20px">📝</span>
+                  <div style="flex:1"><div style="color:#e2e8f0;font-weight:600">business-roadmap.md</div><div style="color:#64748b;font-size:10px">김리더 · 5.2K자 · 12분 전</div></div>
+                  <span style="padding:2px 8px;background:#8b5cf6;color:white;border-radius:10px;font-size:9px;font-weight:700">MD</span>
+                </div>
               </div>
             </div>
           </div>
