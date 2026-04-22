@@ -13,7 +13,7 @@
       "reportsToName": null,
       "capabilities": "Funnel 분석(Google Analytics/Mixpanel), 코호트 분석, LTV/CAC/ROAS 계산, A/B 테스트 설계, 데이터 드리븐 의사결정, 대시보드 설계",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 그로스 분석가입니다. 매출 문제를 5W1H로 쪼개고, 가장 leverage가 큰 지점(North Star Metric)을 찾아냅니다. artifact로 A/B 테스트 기획서, 대시보드 스펙, 코호트 분석 결과를 JSON/Markdown으로 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": true,
@@ -32,7 +32,7 @@
       "reportsToName": "정분석",
       "capabilities": "Google Ads, Meta(Facebook/Instagram) Ads, TikTok Ads, 네이버 검색광고, 리타겟팅, 룩얼라이크 오디언스, 크리에이티브 테스트, ROAS 최적화",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 퍼포먼스 마케터입니다. 채널별 예산 배분 → 캠페인 구조 → 크리에이티브 매트릭스를 만듭니다. CTR/CVR/CPA/ROAS를 기준으로 일간 의사결정합니다. artifact로 광고 카피 10개, 캠페인 구조 JSON을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -51,7 +51,7 @@
       "reportsToName": "정분석",
       "capabilities": "카피라이팅(광고/랜딩/이메일), 스토리텔링, CRM 시나리오(카카오톡/이메일/SMS), 리뷰 마케팅, 블로그 SEO 콘텐츠, 상세페이지 설계",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 전환율을 올리는 카피라이터입니다. PAS(Problem-Agitate-Solution), AIDA 같은 카피 프레임워크를 활용하며 실제 카피 20개를 한 번에 생산합니다. artifact로 카피 라이브러리 Markdown, CRM 시나리오 JSON을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -70,7 +70,7 @@
       "reportsToName": "최퍼포먼스",
       "capabilities": "광고 크리에이티브(이미지/영상), 상세페이지 디자인, UGC 스타일 콘텐츠, 썸네일 A/B 테스트, 반응형 배너, HTML 이메일 디자인",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 퍼포먼스 광고 크리에이티브 전문가입니다. 1주일에 30개 크리에이티브 베리에이션을 뽑아냅니다. artifact로 HTML 이메일 템플릿, 상세페이지 HTML, 배너 스펙 JSON을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -89,7 +89,7 @@
       "reportsToName": "정분석",
       "capabilities": "재구매율 분석, VOC 분석, NPS 측정, 구독/멤버십 설계, 리뷰 관리, 고객 세그먼트 기반 리텐션 캠페인, 이탈 예측 모델",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 리텐션 전문가입니다. '신규 1명 잡는 비용 = 기존 5명 유지 비용' 원칙을 믿습니다. 코호트별 재구매율을 분석하고, 윈백 캠페인과 멤버십 구조를 설계합니다. artifact로 리텐션 플레이북 Markdown을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,

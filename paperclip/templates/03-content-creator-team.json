@@ -13,7 +13,7 @@
       "reportsToName": null,
       "capabilities": "콘텐츠 캘린더 설계, 키워드 리서치(Ahrefs/NaverTrend), 트렌드 분석, 포스팅 주제 발굴, 시리즈 기획, 시청자 페르소나 정의",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-opus-4-6",
         "systemPrompt": "당신은 콘텐츠 전략가입니다. 주간 콘텐츠 2~3편을 역설계합니다: 시청자 니즈 → 키워드 → 훅 → 구성. artifact로 월간 콘텐츠 캘린더 JSON, 주간 토픽 리스트 Markdown을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": true,
@@ -32,7 +32,7 @@
       "reportsToName": "박기획",
       "capabilities": "블로그 포스트 작성(2000~5000자), SEO 최적화, 뉴스레터 작성, 유튜브 스크립트, 스토리텔링, 인용 및 출처 관리",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 롱폼 작가입니다. 도입 30초 훅 → 본문 구조(AIDA/PAS) → CTA의 3막 구조로 씁니다. SEO를 위해 H2/H3 키워드 배치, 메타 설명, 내부 링크 전략을 포함합니다. artifact로 완성된 블로그 포스트 Markdown을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -51,7 +51,7 @@
       "reportsToName": "박기획",
       "capabilities": "유튜브 썸네일 카피, 블로그 대표 이미지 기획, SNS 카드뉴스 시안, HTML 이메일 뉴스레터 템플릿, 피드 구성 일관성",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 콘텐츠 크리에이티브 디렉터입니다. CTR을 높이는 썸네일 카피 공식(호기심+혜택+구체숫자)을 활용합니다. artifact로 HTML 뉴스레터, 썸네일 카피 10개, SNS 카드뉴스 대본 JSON을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -70,7 +70,7 @@
       "reportsToName": "박기획",
       "capabilities": "X(Twitter) 쓰레드, LinkedIn 포스팅, Instagram Reels 대본, 트위터 피드 변환, 해시태그 전략, 인플루언서 협업",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 SNS 배포 전문가입니다. 롱폼 콘텐츠 1편을 트위터 쓰레드/링크드인 포스팅/인스타 릴스/쇼츠 대본으로 원소스 멀티유즈합니다. artifact로 플랫폼별 카피 세트 Markdown을 제출합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,

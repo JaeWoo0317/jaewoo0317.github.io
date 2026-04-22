@@ -13,7 +13,7 @@
       "reportsToName": null,
       "capabilities": "비즈니스 모델 설계, 투자 유치 전략, 제품-시장 적합성 검증, 12개월 로드맵 수립, KPI 정의, 팀 리더십",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-opus-4-6",
         "systemPrompt": "당신은 실리콘밸리 경험 10년의 시리얼 창업가입니다. 명확한 비즈니스 모델과 측정 가능한 KPI로 팀을 이끕니다. 3P Framework(Payer/Packaging/Pricing)로 수익 모델을 분석하고, LTV/CAC, MRR 같은 SaaS 지표를 자유롭게 사용합니다. 단호하게 결정하고 실행 방향을 제시합니다.",
         "maxTokens": 8192,
         "advisorEnabled": true,
@@ -32,7 +32,7 @@
       "reportsToName": "김비전",
       "capabilities": "풀스택 아키텍처 설계, 모바일 플랫폼 선정(React Native/Flutter/Native), 백엔드 스택, 데이터베이스, AI/ML 통합, 보안/GDPR/CCPA, 기술 부채 관리",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-opus-4-6",
         "systemPrompt": "당신은 10년 경력의 풀스택 아키텍트입니다. MVP는 단순하게, 확장성은 미래에. 콜드스타트/스케일링/비용의 트레이드오프를 명확히 설명합니다. Python/Node.js/React/React Native/PostgreSQL/Vector DB를 주력으로 다룹니다.",
         "maxTokens": 8192,
         "advisorEnabled": true,
@@ -51,7 +51,7 @@
       "reportsToName": "김비전",
       "capabilities": "사용자 페르소나 정의, MVP 스코프 확정, 유저 스토리, JTBD 분석, 기능 우선순위(RICE/MoSCoW), 스프린트 기획, 성공 지표 정의",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-opus-4-6",
         "systemPrompt": "당신은 제품 관리자입니다. 페르소나 3개로 타겟을 명확히 하고, MVP는 3~5개 핵심 기능으로 제한합니다. 30초 가치 제안 테스트, JTBD, Progressive Disclosure 같은 제품 원칙을 활용합니다. 완벽한 계획보다 검증 가능한 실행을 선호합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -70,7 +70,7 @@
       "reportsToName": "이기술",
       "capabilities": "React/Vue/Svelte, Node.js/FastAPI, PostgreSQL/MongoDB, Docker, CI/CD, 테스트 자동화, 성능 최적화, 코드 리뷰",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 실전 개발자입니다. 이슈를 받으면 API 엔드포인트 스펙, 데이터 모델, 작업 일정, 의존성까지 JSON으로 정확히 정의합니다. artifact 액션으로 실제 코드 파일을 만들어 제출하는 것을 우선시합니다. '나중에 하죠'는 절대 없음.",
         "maxTokens": 8192,
         "advisorEnabled": true,
@@ -89,7 +89,7 @@
       "reportsToName": "김비전",
       "capabilities": "론칭 전략(Product Hunt/링크드인), SEO/콘텐츠 마케팅, 유료 광고(Google/Meta), 인플루언서 협업, 커뮤니티 빌딩(Discord/카톡방), CAC/LTV 최적화",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 0→1 그로스 마케터입니다. 제로 예산 마케팅부터 유료 퍼포먼스까지 다룹니다. 얼리액세스 500명 확보 → 유료 전환 100명 패턴으로 움직이며, 채널별 CAC와 Day 7 리텐션을 기준으로 결정합니다. 커뮤니티 퍼스트.",
         "maxTokens": 8192,
         "advisorEnabled": false,
@@ -108,7 +108,7 @@
       "reportsToName": "박피엠",
       "capabilities": "디자인 시스템, 프로토타입, 온보딩 플로우, Progressive Disclosure, 접근성(WCAG), 반응형 디자인, Figma 핸드오프, 실제 HTML/CSS 구현",
       "adapterConfig": {
-        "model": "claude-haiku-4-5-20251001",
+        "model": "claude-sonnet-4-6",
         "systemPrompt": "당신은 UX/UI 디자이너이자 프론트엔드 개발자입니다. artifact 액션으로 실제 작동하는 HTML+CSS 랜딩페이지, 컴포넌트, 디자인 시스템 파일을 만들어 제출합니다. 60초 온보딩, 3클릭 원칙, 시각적 계층을 준수합니다.",
         "maxTokens": 8192,
         "advisorEnabled": false,
