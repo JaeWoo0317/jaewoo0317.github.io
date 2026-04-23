@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="cardbg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="80" r="60" fill="white" opacity="0.05"/>
+  <circle cx="1100" cy="550" r="120" fill="white" opacity="0.05"/>
+  <circle cx="1050" cy="100" r="40" fill="white" opacity="0.08"/>
+
+  <!-- Logo icon -->
+  <text x="600" y="160" font-size="90" text-anchor="middle" fill="white" font-family="sans-serif">📎</text>
+
+  <!-- Brand name -->
+  <text x="600" y="220" font-size="32" text-anchor="middle" fill="white" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="600" opacity="0.95">JWAY Paperclip</text>
+
+  <!-- Main headline -->
+  <text x="600" y="295" font-size="54" text-anchor="middle" fill="white" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" letter-spacing="-1">6명의 AI 에이전트로</text>
+  <text x="600" y="360" font-size="54" text-anchor="middle" fill="white" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" letter-spacing="-1">실제 사업 결과물을 만듭니다</text>
+
+  <!-- Agent icons row -->
+  <g transform="translate(300, 430)">
+    <rect x="0" y="0" width="600" height="80" rx="16" fill="url(#cardbg)" stroke="white" stroke-opacity="0.2"/>
+    <text x="60" y="52" font-size="36" text-anchor="middle">👔</text>
+    <text x="160" y="52" font-size="36" text-anchor="middle">⚙️</text>
+    <text x="260" y="52" font-size="36" text-anchor="middle">📱</text>
+    <text x="360" y="52" font-size="36" text-anchor="middle">💻</text>
+    <text x="460" y="52" font-size="36" text-anchor="middle">📢</text>
+    <text x="560" y="52" font-size="36" text-anchor="middle">🎨</text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="600" y="560" font-size="22" text-anchor="middle" fill="white" font-family="-apple-system, BlinkMacSystemFont, sans-serif" opacity="0.9">CEO · CTO · PM · 엔지니어 · 마케터 · 디자이너</text>
+
+  <!-- URL -->
+  <text x="600" y="600" font-size="18" text-anchor="middle" fill="white" font-family="-apple-system, BlinkMacSystemFont, sans-serif" opacity="0.7">jwaytools.com/paperclip</text>
+</svg>
