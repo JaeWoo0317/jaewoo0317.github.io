@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>직장인 날짜 계산 실전 가이드 — 수습기간·연차·D-Day·계약만료 | JWAY 블로그</title>
+<meta name="description" content="직장에서 자주 만나는 날짜 계산 상황 — 수습 90일, 연차 발생, 계약 만료, 퇴사 통보 기한까지. 실제 사례로 정확히 계산하는 방법을 정리합니다.">
+<meta name="keywords" content="수습기간 계산, 연차 발생, 계약 만료, D-Day 계산, 퇴사 통보, 날짜 계산">
+<meta property="og:title" content="직장인 날짜 계산 실전 가이드 | JWAY 블로그">
+<meta property="og:description" content="수습·연차·계약·퇴사 등 실제 사례로 보는 날짜 계산">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jwaytools.com/date-calculator/og-image.png">
+<link rel="canonical" href="https://jwaytools.com/blog/date-calculator-work/">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F5F1;--surface:#FFF;--surface-alt:#EDECE8;--text-primary:#1A1A1A;--text-secondary:#5C5C5C;--text-tertiary:#9E9E9E;--accent:#6C5CE7;--accent-light:#F0EDFF;--border:#E2E1DD;--radius:14px;--radius-sm:10px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;line-height:1.8}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100}.nav-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.nav-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none}.nav-logo span{color:var(--accent)}.nav-links{display:flex;gap:20px}.nav-links a{font-size:14px;color:var(--text-secondary);text-decoration:none;font-weight:500}.nav-links a:hover{color:var(--accent)}
+.nav-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font-size:20px;cursor:pointer;color:var(--text-secondary);line-height:1}
+@media(max-width:640px){.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 20px;flex-direction:column;gap:12px}.nav-links.open{display:flex}.nav{position:relative}}
+.container{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:13px;color:var(--text-tertiary);margin-bottom:20px}.breadcrumb a{color:var(--text-secondary);text-decoration:none}
+.post-category{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.post-title{font-size:clamp(26px,4.5vw,36px);font-weight:700;line-height:1.35;letter-spacing:-1px;margin-bottom:16px}
+.post-meta{font-size:13px;color:var(--text-tertiary);margin-bottom:32px;font-family:'JetBrains Mono',monospace}
+.post-content h2{font-size:22px;font-weight:700;margin:40px 0 16px}
+.post-content h3{font-size:18px;font-weight:700;margin:28px 0 12px}
+.post-content p{margin-bottom:16px;color:var(--text-secondary)}
+.post-content strong{color:var(--text-primary);font-weight:600}
+.post-content table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.post-content th,.post-content td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:left}
+.post-content th{background:var(--surface-alt);font-weight:600}.post-content td{color:var(--text-secondary)}
+.post-content ul,.post-content ol{margin:0 0 16px 20px}.post-content li{color:var(--text-secondary);margin-bottom:6px}
+.tip-box{background:var(--accent-light);border-left:4px solid var(--accent);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;font-size:15px;color:var(--text-secondary)}.tip-box strong{color:var(--text-primary)}
+.cta-box{background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--radius);padding:24px;margin:32px 0;text-align:center}.cta-box p{font-size:15px;color:var(--text-secondary);margin-bottom:16px}
+.cta-btn{display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
+.ad-banner{border:1.5px dashed var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;margin:32px 0}
+.related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
+.related-title{font-size:18px;font-weight:700;margin-bottom:16px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.related-links{grid-template-columns:1fr}}
+.related-link{padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text-primary);font-size:14px;font-weight:500}.related-link:hover{border-color:var(--accent);color:var(--accent)}
+.footer{margin-top:60px;background:var(--surface);border-top:1px solid var(--border);padding:32px 20px 20px}.footer-inner{max-width:760px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px}.footer-col{display:flex;flex-direction:column;gap:6px}.footer-col p{font-size:13px;color:var(--text-secondary);max-width:240px}.footer-col a{font-size:13px;color:var(--text-secondary);text-decoration:none}.footer-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none}.footer-logo span{color:var(--accent)}.footer-bottom{max-width:760px;margin:16px auto 0;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text-tertiary);text-align:center}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
+</head><body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="nav-logo">J<span>WAY</span></a><button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button><div class="nav-links"><a href="/">홈</a><a href="/blog/">블로그</a><a href="/#tools">도구 모음</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div></nav>
+
+<article class="container">
+<div class="breadcrumb"><a href="/">JWAY</a> › <a href="/blog/">블로그</a> › 직장·생활</div>
+<span class="post-category">직장·생활</span>
+<h1 class="post-title">직장인 날짜 계산 실전 가이드 — 수습기간·연차·D-Day·계약만료</h1>
+<div class="post-meta">2026-04-24 · 읽는 데 약 7분</div>
+
+<div class="post-content">
+<p>직장 생활하다 보면 의외로 날짜 계산이 자주 필요합니다. "수습 90일 만료가 언제?", "입사한 지 1년 되는 날이 언제?", "계약 만료 한 달 전 통보 기한은?" 같은 질문이 끊이지 않습니다. 잘못 계산하면 <strong>연차 손실, 계약 자동갱신 실수, 퇴사 통보 누락</strong> 같은 문제가 발생할 수 있어요.</p>
+
+<p>이 글에서는 직장인이 꼭 알아야 할 <strong>10가지 날짜 계산 상황</strong>을 실제 사례로 정리합니다.</p>
+
+<h2>1. 수습기간 90일 만료일</h2>
+
+<p>근로계약서에 "수습기간 90일"이라고 명시된 경우 <strong>연속 90일(달력일)</strong>을 세야 합니다. 주말·공휴일 모두 포함됩니다.</p>
+
+<p>예: 2026년 3월 1일 입사 → 90일 후 = <strong>2026년 5월 29일</strong>까지 수습</p>
+
+<h3>"90일"과 "3개월"은 다르다</h3>
+<table>
+<tr><th>입사일</th><th>90일 후</th><th>3개월 후</th><th>차이</th></tr>
+<tr><td>2026-01-01</td><td>2026-04-01</td><td>2026-04-01</td><td>0일</td></tr>
+<tr><td>2026-03-01</td><td>2026-05-30</td><td>2026-06-01</td><td>2일</td></tr>
+<tr><td>2026-11-01</td><td>2027-01-30</td><td>2027-02-01</td><td>2일</td></tr>
+</table>
+
+<div class="tip-box"><strong>중요:</strong> 근로계약서에 "90일"과 "3개월" 중 어느 표현이 쓰였는지 확인하세요. 수습기간 중에는 급여 10% 감액 가능(최저임금 미만 금지)이므로, 며칠 차이가 임금 계산에 영향을 줍니다.</div>
+
+<h2>2. 연차 발생일 (1년 근속)</h2>
+
+<p>근로기준법상 <strong>1년간 80% 이상 출근</strong> 시 15일의 연차가 발생합니다. 입사 1년 되는 날 기준으로 연차가 생깁니다.</p>
+
+<p>예: 2025-04-01 입사 → 2026-04-01에 15일 연차 발생 (2026-04-01 ~ 2027-03-31 사용 가능)</p>
+
+<h3>입사 1년 미만의 월차</h3>
+<p>1년 미만 근로자는 <strong>1개월 개근 시 1일씩</strong> 최대 11일의 월차가 발생합니다. 이는 1년 근속 시 발생하는 15일 연차와 별개가 아니라, <strong>15일에서 기사용분을 차감</strong>하는 방식입니다.</p>
+
+<p>예: 1년차에 월차 5일 사용 → 2년차 연차는 15 − 5 = <strong>10일</strong>만 추가 발생</p>
+
+<h2>3. 연차 휴가 증가 (2년마다 1일)</h2>
+
+<p>근속 2년마다 연차가 1일씩 추가되어 최대 25일까지 늘어납니다.</p>
+<table>
+<tr><th>근속</th><th>연차</th></tr>
+<tr><td>1~2년</td><td>15일</td></tr>
+<tr><td>3~4년</td><td>16일</td></tr>
+<tr><td>5~6년</td><td>17일</td></tr>
+<tr><td>7~8년</td><td>18일</td></tr>
+<tr><td>...</td><td>...</td></tr>
+<tr><td>21년 이상</td><td>25일 (최대)</td></tr>
+</table>
+
+<h2>4. 계약직 무기계약직 전환</h2>
+
+<p>기간제법상 <strong>2년 초과 사용 시 자동으로 무기계약직</strong>으로 전환됩니다. 즉, 2년 직전에 해고하지 않으면 정년까지 고용 의무가 발생합니다.</p>
+
+<p>예: 2024-04-01 계약 시작 → 2026-03-31까지 2년 → <strong>2026-04-01부터 무기계약직</strong>으로 자동 전환</p>
+
+<h2>5. 퇴직금 발생 기준</h2>
+
+<p>1년 이상 계속 근로한 직원은 퇴직금을 받을 권리가 있습니다.</p>
+<ul>
+<li>계속근로연수 ≥ 1년</li>
+<li>주 15시간 이상 근무</li>
+</ul>
+
+<p>2025-05-01 입사 → 2026-05-01에 퇴직금 발생권 생성. 그 전에 퇴사하면 퇴직금 없음.</p>
+
+<h2>6. 퇴사 통보 기한</h2>
+
+<p>민법상 퇴사 통보는 <strong>통보 후 다음달 말일까지</strong> 효력이 발생합니다. 근로계약서에 별도 조항이 없으면 이 기준이 적용됩니다.</p>
+
+<ul>
+<li>3월 15일 통보 → 4월 30일 퇴사 가능 (1.5개월)</li>
+<li>3월 31일 통보 → 4월 30일 퇴사 가능 (1개월)</li>
+<li>4월 1일 통보 → 5월 31일 퇴사 가능 (2개월)</li>
+</ul>
+
+<p>근로계약서에 "1개월 전 통보"라고 되어 있으면 그 기준을 따릅니다.</p>
+
+<h2>7. 4대보험 자격 상실일</h2>
+
+<p>퇴사일 다음날이 4대보험 자격 상실일입니다. 건강보험·국민연금 등의 공백 없이 이직하려면 이 날짜를 정확히 알아야 합니다.</p>
+
+<p>예: 2026-04-30 퇴사 → 2026-05-01 자격 상실 → 새 회사 입사는 5월 1일 이후로 맞추면 공백 없음.</p>
+
+<h2>8. 실업급여 수급 기간</h2>
+
+<p>고용보험 가입기간에 따라 실업급여 수급 일수가 달라집니다(2026년 기준).</p>
+<table>
+<tr><th>고용보험 가입기간</th><th>50세 미만 수급일수</th><th>50세 이상 수급일수</th></tr>
+<tr><td>1~3년</td><td>150일</td><td>180일</td></tr>
+<tr><td>3~5년</td><td>180일</td><td>210일</td></tr>
+<tr><td>5~10년</td><td>210일</td><td>240일</td></tr>
+<tr><td>10년 이상</td><td>240일</td><td>270일</td></tr>
+</table>
+
+<p>퇴사 후 <strong>12개월 이내</strong>에 수급 신청을 해야 합니다.</p>
+
+<h2>9. 출산전후휴가·육아휴직</h2>
+
+<ul>
+<li><strong>출산전후휴가</strong>: 90일 (출산 후 45일 이상)</li>
+<li><strong>육아휴직</strong>: 최대 1년 (자녀 만 8세 또는 초등 2학년까지)</li>
+<li><strong>배우자 출산휴가</strong>: 10일 유급 (출산일로부터 90일 내 사용)</li>
+</ul>
+
+<h2>10. D-Day 카운트다운</h2>
+
+<p>시험·프로젝트·중요 회의 등 D-Day 관리도 날짜 계산의 중요한 용도입니다.</p>
+
+<ul>
+<li>수능 2026-11-13 기준 D-Day</li>
+<li>변호사·회계사 시험 일정</li>
+<li>프로젝트 납기일</li>
+<li>연차 소멸 기한</li>
+<li>기념일 (입사 100일, 1000일 등)</li>
+</ul>
+
+<div class="tip-box"><strong>팁:</strong> D-Day는 포함 계산이 헷갈립니다. "오늘이 D-100"이면 100일 후인지 99일 후인지 기준이 엇갈립니다. 일반적으로 "D-Day - 오늘 = 남은 일수"로 계산하며, 시작일 미포함이 표준입니다.</div>
+
+<h2>실제 사례 — 이직 타임라인 계산</h2>
+
+<p>2026년 3월 15일 퇴사 통보 후 7월 1일 새 회사 입사를 원하는 경우:</p>
+
+<ol>
+<li><strong>3월 15일</strong>: 퇴사 통보 (민법상 4월 30일 효력)</li>
+<li><strong>4월 30일</strong>: 현 회사 마지막 근무일</li>
+<li><strong>5월 1일</strong>: 4대보험 자격 상실</li>
+<li><strong>5~6월</strong>: 공백기 (건강보험 임의계속가입 고려)</li>
+<li><strong>7월 1일</strong>: 새 회사 입사, 재가입</li>
+</ol>
+
+<p>공백기가 2개월을 넘으면 건강보험료 지역가입자 전환이 되므로 <strong>임의계속가입(이직 전 직장가입자 보험료 유지, 최대 36개월)</strong>을 활용할 수 있습니다.</p>
+
+<div class="cta-box">
+<p>입사일 기준으로 수습·연차·D-Day를 정확히 계산해보세요</p>
+<a href="/date-calculator/" class="cta-btn">날짜 계산기 바로가기 →</a>
+</div>
+
+<h2>마치며</h2>
+
+<p>직장 관련 날짜 계산은 <strong>단 하루 차이로 권리가 달라질 수 있습니다</strong>. 수습 90일 만료 전 해고는 기본 30일 예고 없이 가능하지만 91일부터는 반드시 30일 예고가 필요합니다. 연차 15일은 정확히 1년 근속한 날 발생하므로, 이직 전에 연차를 다 쓰려면 입사일부터 정확히 계산해야 합니다. 이 글에 나온 기준을 날짜 계산기와 함께 활용하시면 실수 없이 본인 권리를 챙길 수 있습니다.</p>
+
+<div class="ad-banner"><ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-dY7YmaHnk31ijIwa" data-ad-width="300" data-ad-height="250"></ins><script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script></div>
+
+<div class="related">
+<div class="related-title">📌 관련 계산기 & 글</div>
+<div class="related-links">
+<a href="/date-calculator/" class="related-link">📅 날짜 계산기</a>
+<a href="/salary-calculator/" class="related-link">💰 연봉 실수령액</a>
+<a href="/age-calculator/" class="related-link">🎂 만 나이 계산기</a>
+<a href="/blog/salary-5000-real/" class="related-link">💵 연봉 5천만원 실수령액</a>
+</div>
+</div>
+</div>
+</article>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-col"><a href="/" class="footer-logo">J<span>WAY</span></a><p>매일 필요한 실용 도구와 실전 가이드를 무료로 제공합니다.</p></div><div class="footer-col"><a href="/">JWAY 홈</a><a href="/blog/">블로그</a><a href="/#tools">도구 모음</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div><div class="footer-bottom">© 2025 JWAY. All rights reserved.</div></footer>
+</body></html>
