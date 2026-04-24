@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1억 대출 상환 방식 총이자 비교 — 원리금·원금·만기 실제 시뮬레이션 | JWAY 블로그</title>
+<meta name="description" content="주택담보대출 1억원을 연 4.5%, 30년으로 받을 때 상환 방식별 총이자가 2,500만원까지 차이 납니다. 실제 월별 스케줄로 비교합니다.">
+<meta name="keywords" content="대출 이자 비교, 원리금균등 원금균등, 주택담보대출, 1억 대출, 총이자 계산, 상환 방식">
+<meta property="og:title" content="1억 대출 상환 방식 총이자 비교 | JWAY 블로그">
+<meta property="og:description" content="원리금균등·원금균등·만기일시상환 실제 시뮬레이션 비교">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jwaytools.com/loan-calculator/og-image.png">
+<link rel="canonical" href="https://jwaytools.com/blog/loan-comparison-100m/">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F5F1;--surface:#FFF;--surface-alt:#EDECE8;--text-primary:#1A1A1A;--text-secondary:#5C5C5C;--text-tertiary:#9E9E9E;--accent:#1E40AF;--accent-light:#DBEAFE;--border:#E2E1DD;--shadow-md:0 4px 16px rgba(0,0,0,.06);--radius:14px;--radius-sm:10px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;line-height:1.8}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100}.nav-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.nav-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none}.nav-logo span{color:var(--accent)}.nav-links{display:flex;gap:20px}.nav-links a{font-size:14px;color:var(--text-secondary);text-decoration:none;font-weight:500}.nav-links a:hover{color:var(--accent)}
+.nav-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font-size:20px;cursor:pointer;color:var(--text-secondary);line-height:1}
+@media(max-width:640px){.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 20px;flex-direction:column;gap:12px}.nav-links.open{display:flex}.nav{position:relative}}
+.container{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:13px;color:var(--text-tertiary);margin-bottom:20px}.breadcrumb a{color:var(--text-secondary);text-decoration:none}
+.post-category{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.post-title{font-size:clamp(26px,4.5vw,36px);font-weight:700;line-height:1.35;letter-spacing:-1px;margin-bottom:16px}
+.post-meta{font-size:13px;color:var(--text-tertiary);margin-bottom:32px;font-family:'JetBrains Mono',monospace}
+.post-content h2{font-size:22px;font-weight:700;margin:40px 0 16px;letter-spacing:-.5px}
+.post-content h3{font-size:18px;font-weight:700;margin:28px 0 12px}
+.post-content p{margin-bottom:16px;color:var(--text-secondary)}
+.post-content strong{color:var(--text-primary);font-weight:600}
+.post-content table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.post-content th,.post-content td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:left}
+.post-content th{background:var(--surface-alt);font-weight:600}
+.post-content td{color:var(--text-secondary)}
+.tip-box{background:var(--accent-light);border-left:4px solid var(--accent);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;font-size:15px;color:var(--text-secondary);line-height:1.8}.tip-box strong{color:var(--text-primary)}
+.cta-box{background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--radius);padding:24px;margin:32px 0;text-align:center}
+.cta-box p{font-size:15px;color:var(--text-secondary);margin-bottom:16px}
+.cta-btn{display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px}
+.ad-banner{border:1.5px dashed var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;margin:32px 0}
+.related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
+.related-title{font-size:18px;font-weight:700;margin-bottom:16px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.related-links{grid-template-columns:1fr}}
+.related-link{padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text-primary);font-size:14px;font-weight:500}.related-link:hover{border-color:var(--accent);color:var(--accent)}
+.footer{margin-top:60px;background:var(--surface);border-top:1px solid var(--border);padding:32px 20px 20px}.footer-inner{max-width:760px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px}.footer-col{display:flex;flex-direction:column;gap:6px}.footer-col p{font-size:13px;color:var(--text-secondary);max-width:240px;line-height:1.6}.footer-col a{font-size:13px;color:var(--text-secondary);text-decoration:none}.footer-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none;margin-bottom:6px}.footer-logo span{color:var(--accent)}.footer-bottom{max-width:760px;margin:16px auto 0;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text-tertiary);text-align:center}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
+</head><body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="nav-logo">J<span>WAY</span></a><button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button><div class="nav-links"><a href="/">홈</a><a href="/blog/">블로그</a><a href="/#tools">도구 모음</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div></nav>
+
+<article class="container">
+<div class="breadcrumb"><a href="/">JWAY</a> › <a href="/blog/">블로그</a> › 대출·재테크</div>
+
+<span class="post-category">대출·재테크</span>
+<h1 class="post-title">1억 대출 상환 방식 총이자 비교 — 원리금·원금·만기 실제 시뮬레이션</h1>
+<div class="post-meta">2026-04-24 · 읽는 데 약 8분</div>
+
+<div class="post-content">
+<p>집을 살 때 대출은 피할 수 없는 선택입니다. 그런데 은행에서 "원리금균등으로 하시겠어요, 원금균등으로 하시겠어요?"라고 물으면 망설이게 됩니다. 용어는 비슷해 보여도 <strong>같은 원금·같은 이자율·같은 기간이라도 실제로 내는 총이자가 2,500만원 가까이 차이</strong> 납니다.</p>
+
+<p>이 글에서는 <strong>1억원을 연 4.5%, 30년으로 대출</strong>받는 상황을 가정해 세 가지 상환 방식을 월별 스케줄까지 시뮬레이션합니다. 어떤 방식이 본인에게 맞을지 명확히 판단할 수 있도록 실제 숫자로 비교하겠습니다.</p>
+
+<h2>세 가지 상환 방식 한눈에 이해하기</h2>
+
+<h3>1. 원리금균등</h3>
+<p>매월 같은 금액(원금+이자)을 상환합니다. <strong>가장 대중적인 방식</strong>으로 주택담보대출의 80% 이상이 이 방식을 선택합니다. 매월 똑같은 금액이 빠져나가므로 가계부 관리가 쉽다는 장점이 있습니다.</p>
+
+<h3>2. 원금균등</h3>
+<p>매월 같은 원금을 갚으면서 남은 잔액에 대한 이자를 함께 내는 방식입니다. 초기에는 상환 부담이 크지만 <strong>총이자가 가장 적습니다</strong>.</p>
+
+<h3>3. 만기일시상환</h3>
+<p>대출 기간 동안 이자만 내다가 만기에 원금 전체를 한 번에 상환하는 방식입니다. 월 부담은 가장 작지만 <strong>총이자가 가장 큽니다</strong>. 전세자금대출이나 단기 사업자 운영자금에 주로 쓰입니다.</p>
+
+<h2>1억원 연 4.5% 30년 시뮬레이션</h2>
+
+<h3>원리금균등</h3>
+<p>매월 상환금 = 1억 × (0.00375 × 1.00375^360) / (1.00375^360 - 1) ≈ <strong>506,685원</strong></p>
+<ul>
+<li>월 상환금: 506,685원 (일정)</li>
+<li>총 상환금: 506,685 × 360 = <strong>182,406,600원</strong></li>
+<li><strong>총이자: 82,406,600원</strong></li>
+</ul>
+
+<h3>원금균등</h3>
+<p>월 원금 = 1억 ÷ 360 = 277,778원 (일정), 이자는 잔액 기준으로 점점 감소</p>
+<ul>
+<li>첫 달 상환금: 277,778 + 375,000 (이자) = <strong>652,778원</strong></li>
+<li>마지막 달 상환금: 277,778 + 1,042 (이자) ≈ <strong>278,820원</strong></li>
+<li>총 상환금: <strong>167,687,500원</strong></li>
+<li><strong>총이자: 67,687,500원</strong></li>
+</ul>
+
+<h3>만기일시상환</h3>
+<p>매월 이자 = 1억 × 0.00375 = <strong>375,000원</strong> (일정), 만기에 원금 1억 한 번에 상환</p>
+<ul>
+<li>월 이자만: 375,000원</li>
+<li>총 이자: 375,000 × 360 = <strong>135,000,000원</strong></li>
+<li>총 상환금: <strong>235,000,000원</strong> (만기에 원금 1억 포함)</li>
+</ul>
+
+<h2>한눈에 비교</h2>
+
+<table>
+<tr><th>방식</th><th>첫달 상환</th><th>총이자</th><th>총 상환</th></tr>
+<tr><td>원리금균등</td><td>506,685원</td><td>82,407천원</td><td>182,407천원</td></tr>
+<tr><td>원금균등</td><td>652,778원</td><td><strong>67,688천원</strong></td><td><strong>167,688천원</strong></td></tr>
+<tr><td>만기일시상환</td><td>375,000원</td><td>135,000천원</td><td>235,000천원</td></tr>
+</table>
+
+<p><strong>원금균등이 원리금균등보다 총이자가 1,472만원 덜 나갑니다.</strong> 만기일시상환과 원금균등은 <strong>약 6,730만원 차이</strong>가 납니다. 무려 1억의 67%에 해당하는 돈입니다.</p>
+
+<div class="tip-box"><strong>왜 원금균등이 총이자가 적을까?</strong> 원금을 빨리 갚을수록 남은 잔액이 줄어들고, 잔액에 붙는 이자도 같이 줄어들기 때문입니다. 만기일시상환은 30년 내내 1억원 전체에 이자가 붙으니 당연히 이자가 가장 큽니다.</div>
+
+<h2>실제 월별 상환 스케줄 (원리금균등)</h2>
+
+<table>
+<tr><th>회차</th><th>원금</th><th>이자</th><th>상환금</th><th>잔액</th></tr>
+<tr><td>1회</td><td>131,685원</td><td>375,000원</td><td>506,685원</td><td>99,868,315원</td></tr>
+<tr><td>12회 (1년)</td><td>137,741원</td><td>368,944원</td><td>506,685원</td><td>98,314,958원</td></tr>
+<tr><td>60회 (5년)</td><td>166,218원</td><td>340,467원</td><td>506,685원</td><td>90,623,842원</td></tr>
+<tr><td>120회 (10년)</td><td>208,523원</td><td>298,162원</td><td>506,685원</td><td>79,241,762원</td></tr>
+<tr><td>240회 (20년)</td><td>328,495원</td><td>178,190원</td><td>506,685원</td><td>47,189,234원</td></tr>
+<tr><td>360회 (30년)</td><td>504,795원</td><td>1,890원</td><td>506,685원</td><td>0원</td></tr>
+</table>
+
+<p>흥미로운 점은 <strong>대출 초기에는 상환금의 74%가 이자</strong>라는 것입니다. 10년이 지나야 원금 비중이 40%를 넘고, 20년차가 되어서야 이자보다 원금 비중이 더 커집니다. "5년만에 집값 절반 갚았다"는 기대는 현실과 다릅니다.</p>
+
+<h2>상황별 추천 상환 방식</h2>
+
+<h3>✅ 원리금균등을 선택해야 하는 경우</h3>
+<ul>
+<li>고정 월급으로 예산 관리가 중요한 경우</li>
+<li>초기 소득이 넉넉하지 않은 경우</li>
+<li>중도상환 계획이 없는 장기 보유</li>
+<li>가계부 관리가 편한 방식을 선호</li>
+</ul>
+
+<h3>✅ 원금균등을 선택해야 하는 경우</h3>
+<ul>
+<li>현재 소득이 충분히 여유 있는 경우</li>
+<li>10년 이내에 소득 감소가 예상되는 경우 (은퇴 등)</li>
+<li>총이자를 최대한 줄이고 싶은 경우</li>
+<li>DSR 여유가 충분한 경우</li>
+</ul>
+
+<h3>✅ 만기일시상환을 선택해야 하는 경우</h3>
+<ul>
+<li>전세자금대출 (2년 후 전세 만료 시 보증금으로 상환)</li>
+<li>사업 자금으로 단기 운영하다 상환 예정</li>
+<li>만기 시점에 거액 자금 회수 예정 (퇴직금, 매도 등)</li>
+</ul>
+
+<h2>중도상환 고려하기</h2>
+
+<p>원리금균등 대출 중 여유 자금이 생겨 조기 상환할 때 주의할 점이 있습니다. <strong>중도상환수수료는 보통 1.2~1.4%</strong>가 부과되며, 3년이 지나면 면제되는 경우가 많습니다.</p>
+
+<p>예: 대출 1년차에 5,000만원 중도상환 시 수수료 = 5,000만원 × 1.4% × (잔여기간 29년 / 총 기간 30년) ≈ <strong>676,667원</strong>. 중도상환으로 절약되는 이자와 비교해 이득이 크다면 상환하는 것이 맞습니다.</p>
+
+<div class="cta-box">
+<p>본인 대출 조건으로 월 상환금·총이자를 계산해보세요</p>
+<a href="/loan-calculator/" class="cta-btn">대출 이자 계산기 바로가기 →</a>
+</div>
+
+<h2>DSR 규제도 꼭 확인</h2>
+
+<p>2024년부터 강화된 DSR(총부채원리금상환비율) 규제는 <strong>연간 원리금 상환액이 연 소득의 40%(은행) 또는 50%(제2금융권)</strong>를 넘지 않아야 합니다.</p>
+
+<p>예: 연봉 5천만원 → 연 원리금 2천만원 이하 → 월 약 167만원 이하. 이미 자동차 할부 월 30만원이 있다면 주택담보대출로는 월 137만원까지만 가능합니다. 원리금균등 1억/30년이 월 50만원이므로 여유가 있지만, 3억 대출은 월 150만원이라 초과됩니다.</p>
+
+<h2>마치며</h2>
+
+<p>같은 조건의 대출이라도 상환 방식에 따라 <strong>수천만원 단위로 총이자가 달라집니다</strong>. 무엇을 선택할지는 본인의 소득 안정성, 자금 계획, 중도상환 가능성을 종합해 판단해야 합니다. 막연히 "매월 같은 금액이 편하다"며 원리금균등을 선택하기 전에, 본인 상황에 더 유리한 방식이 있는지 꼭 시뮬레이션 해보시기 바랍니다.</p>
+
+<div class="ad-banner"><ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-dY7YmaHnk31ijIwa" data-ad-width="300" data-ad-height="250"></ins><script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script></div>
+
+<div class="related">
+<div class="related-title">📌 관련 계산기 & 글</div>
+<div class="related-links">
+<a href="/loan-calculator/" class="related-link">🏠 대출 이자 계산기</a>
+<a href="/savings-calculator/" class="related-link">🏦 예적금 이자 계산기</a>
+<a href="/blog/salary-5000-real/" class="related-link">💰 연봉 5천만원 실수령액</a>
+<a href="/blog/savings-vs-fund/" class="related-link">📈 예적금 vs 펀드 비교</a>
+</div>
+</div>
+</div>
+</article>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-col"><a href="/" class="footer-logo">J<span>WAY</span></a><p>매일 필요한 실용 도구와 실전 가이드를 무료로 제공합니다.</p></div><div class="footer-col"><a href="/">JWAY 홈</a><a href="/blog/">블로그</a><a href="/#tools">도구 모음</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div><div class="footer-bottom">© 2025 JWAY. All rights reserved.</div></footer>
+</body></html>

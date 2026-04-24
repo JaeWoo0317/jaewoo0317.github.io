@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JWAY 블로그 — 실수령액·환율·대출 실전 가이드</title>
+<meta name="description" content="JWAY 블로그. 연봉 실수령액, 대출 이자, 환율, 세금 관련 실용 가이드와 꿀팁을 제공합니다. 계산기와 함께 활용하세요.">
+<meta name="keywords" content="JWAY 블로그, 실수령액, 대출, 환율, 세금, 재테크, 계산기">
+<meta property="og:title" content="JWAY 블로그 — 실용 재테크·계산 가이드">
+<meta property="og:description" content="연봉·대출·환율·세금 실전 가이드와 꿀팁">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jwaytools.com/blog/og-image.png">
+<link rel="canonical" href="https://jwaytools.com/blog/">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F5F1;--surface:#FFF;--surface-alt:#EDECE8;--text-primary:#1A1A1A;--text-secondary:#5C5C5C;--text-tertiary:#9E9E9E;--accent:#2D5BE3;--accent-light:#EBF0FF;--border:#E2E1DD;--shadow-md:0 4px 16px rgba(0,0,0,.06);--radius:14px;--radius-sm:10px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;line-height:1.7;-webkit-font-smoothing:antialiased}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100}.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.nav-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none}.nav-logo span{color:var(--accent)}.nav-links{display:flex;gap:20px}.nav-links a{font-size:14px;color:var(--text-secondary);text-decoration:none;font-weight:500}.nav-links a:hover{color:var(--accent)}.nav-links a.active{color:var(--accent);font-weight:700}
+.nav-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font-size:20px;cursor:pointer;color:var(--text-secondary);line-height:1}
+@media(max-width:640px){.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 20px;flex-direction:column;gap:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08)}.nav-links.open{display:flex}.nav{position:relative}}
+.hero{text-align:center;padding:60px 20px 40px;max-width:700px;margin:0 auto}
+.hero h1{font-size:clamp(28px,5vw,42px);font-weight:700;letter-spacing:-1.5px;line-height:1.3;margin-bottom:16px}.hero h1 span{color:var(--accent)}
+.hero p{font-size:16px;color:var(--text-secondary);max-width:520px;margin:0 auto;line-height:1.8}
+.container{max-width:900px;margin:0 auto;padding:0 20px 60px}
+.post-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:600px){.post-grid{grid-template-columns:1fr}}
+.post-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;text-decoration:none;color:var(--text-primary);transition:all .25s;display:flex;flex-direction:column}
+.post-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.post-category{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:20px;margin-bottom:12px;align-self:flex-start}
+.post-title{font-size:18px;font-weight:700;line-height:1.4;margin-bottom:10px;letter-spacing:-.5px}
+.post-excerpt{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;flex:1}
+.post-meta{font-size:12px;color:var(--text-tertiary);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between}
+.footer{margin-top:80px;background:var(--surface);border-top:1px solid var(--border);padding:32px 20px 20px}
+.footer-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.footer-col{display:flex;flex-direction:column;gap:6px}
+.footer-col p{font-size:13px;color:var(--text-secondary);max-width:240px;line-height:1.6}
+.footer-col a{font-size:13px;color:var(--text-secondary);text-decoration:none}
+.footer-col a:hover{color:var(--accent)}
+.footer-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none;margin-bottom:6px}
+.footer-logo span{color:var(--accent)}
+.footer-bottom{max-width:900px;margin:16px auto 0;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text-tertiary);text-align:center}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
+</head><body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="nav-logo">J<span>WAY</span></a><button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button><div class="nav-links"><a href="/">홈</a><a href="/blog/" class="active">블로그</a><a href="/#tools">도구 모음</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div></nav>
+
+<section class="hero">
+<h1>JWAY <span>블로그</span></h1>
+<p>연봉, 대출, 환율, 세금 등 실생활 돈 관리를 위한 실전 가이드와 꿀팁. 계산기와 함께 활용하세요.</p>
+</section>
+
+<div class="container">
+<div class="post-grid">
+
+<a href="/blog/salary-5000-real/" class="post-card">
+<span class="post-category">연봉·세금</span>
+<div class="post-title">연봉 5,000만원 실수령액 완벽 해부 — 부양가족·비과세 변수별 차이</div>
+<p class="post-excerpt">같은 연봉 5천만원이라도 부양가족 수와 비과세 항목에 따라 월 실수령액이 15만원 이상 차이 납니다. 실제 4가지 사례로 계산해보고 절세 방법까지 정리했습니다.</p>
+<div class="post-meta"><span>연봉 계산</span><span>2026-04-24</span></div>
+</a>
+
+<a href="/blog/loan-comparison-100m/" class="post-card">
+<span class="post-category">대출·재테크</span>
+<div class="post-title">1억 대출 상환 방식 총이자 비교 — 원리금·원금·만기 실제 시뮬레이션</div>
+<p class="post-excerpt">주택담보대출 1억원을 연 4.5%, 30년으로 받을 때 상환 방식별 총이자가 2,500만원까지 차이 납니다. 실제 월별 스케줄로 비교하고 상황별 최적 선택을 안내합니다.</p>
+<div class="post-meta"><span>대출 가이드</span><span>2026-04-24</span></div>
+</a>
+
+<a href="/blog/exchange-rate-tips/" class="post-card">
+<span class="post-category">해외직구·환율</span>
+<div class="post-title">해외직구 환율 손실 줄이는 7가지 실전 팁 — 카드별 수수료 비교</div>
+<p class="post-excerpt">같은 100달러 결제도 카드에 따라 환율 차이가 3% 이상 납니다. 주요 해외결제 카드와 트래블월렛·트래블로그 비교, 환전 타이밍 잡는 법까지 정리했습니다.</p>
+<div class="post-meta"><span>해외결제</span><span>2026-04-24</span></div>
+</a>
+
+<a href="/blog/korean-age-qna/" class="post-card">
+<span class="post-category">생활·법률</span>
+<div class="post-title">만 나이 통일법 실생활 Q&A — 민방위·음주·학교 나이 헷갈리는 것들</div>
+<p class="post-excerpt">2023년 만 나이 통일법 이후에도 음주·병역·민방위 등은 여전히 연 나이를 쓰는 경우가 많습니다. 실제 헷갈리는 18가지 사례를 정리하고 정확히 어떤 나이를 쓰는지 안내합니다.</p>
+<div class="post-meta"><span>만 나이</span><span>2026-04-24</span></div>
+</a>
+
+<a href="/blog/savings-vs-fund/" class="post-card">
+<span class="post-category">재테크·투자</span>
+<div class="post-title">예적금 vs 적립식 펀드, 5년 후 수익률 비교 — 세금까지 반영한 실수령액</div>
+<p class="post-excerpt">매월 50만원씩 5년간 투자할 때 예금·적금·적립식 펀드의 실제 수령액은 얼마나 차이 날까요? 세전·세후 수익률을 투자 성향별로 시뮬레이션합니다.</p>
+<div class="post-meta"><span>재테크</span><span>2026-04-24</span></div>
+</a>
+
+<a href="/blog/bmi-hidden-obesity/" class="post-card">
+<span class="post-category">건강·다이어트</span>
+<div class="post-title">BMI가 정상인데 건강이 안 좋은 이유 — 마른 비만과 체지방률</div>
+<p class="post-excerpt">BMI 22의 "정상" 체형도 체지방률이 30% 넘으면 당뇨·고혈압 위험이 높습니다. 마른 비만 자가 진단법과 체지방률 낮추는 실전 방법을 소개합니다.</p>
+<div class="post-meta"><span>건강 관리</span><span>2026-04-24</span></div>
+</a>
+
+</div>
+</div>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-col"><a href="/" class="footer-logo">J<span>WAY</span></a><p>매일 필요한 실용 도구와 실전 가이드를 무료로 제공합니다.</p></div><div class="footer-col"><a href="/">JWAY 홈</a><a href="/blog/">블로그</a><a href="/#tools">도구 모음</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div><div class="footer-bottom">© 2025 JWAY. All rights reserved.</div></footer>
+</body></html>
