@@ -426,12 +426,55 @@ footer a:hover{color:#6366f1}
 .mockup-agent-name{flex:1;font-weight:600;font-size:12px;color:#e2e8f0}
 .mockup-agent-status{font-size:10px;padding:2px 8px;border-radius:10px;background:#059669;color:white}
 @media(max-width:640px){.mockup-content{grid-template-columns:1fr}}
+
+/* 실제 스크린샷 갤러리 */
+.ss-tabs{display:flex;gap:8px;justify-content:center;margin:0 0 16px;flex-wrap:wrap}
+.ss-tab-btn{padding:10px 20px;background:rgba(255,255,255,0.06);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s;font-family:inherit}
+.ss-tab-btn:hover{background:rgba(255,255,255,0.1);color:white}
+.ss-tab-btn.active{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border-color:transparent;box-shadow:0 4px 14px rgba(99,102,241,0.4)}
+.ss-frame{max-width:1000px;margin:0 auto;background:#0f172a;border-radius:14px;padding:12px;border:1px solid #1e293b;box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+.ss-pane{display:none}
+.ss-pane.active{display:block}
+.ss-pane img{width:100%;height:auto;border-radius:8px;display:block;cursor:zoom-in;transition:transform 0.2s;border:1px solid #1e293b}
+.ss-pane img:hover{transform:scale(1.005)}
+.ss-cap{padding:14px 8px 6px;color:#94a3b8;font-size:13px;text-align:center;line-height:1.6}
+.ss-cap strong{color:#e2e8f0}
+
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;cursor:zoom-out;padding:40px;align-items:center;justify-content:center;flex-direction:column}
+.lightbox.open{display:flex}
+.lightbox img{max-width:96%;max-height:84vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+.lightbox .lb-cap{color:#cbd5e1;font-size:14px;margin-top:16px;text-align:center}
+.lightbox .lb-close{position:absolute;top:20px;right:30px;color:white;font-size:32px;font-weight:300;background:none;border:none;cursor:pointer;line-height:1}
 </style>
 
 <section class="screenshots">
   <div class="container">
     <h2 class="section-title">앱 미리보기</h2>
-    <p class="section-sub">실제 작동하는 화면입니다. <a href="app.html?demo=1" style="color:#6366f1;text-decoration:underline">🎬 데모로 직접 체험</a>해보세요.</p>
+    <p class="section-sub">실제 작동 화면입니다. 클릭하면 크게 볼 수 있어요. <a href="app.html?demo=1" style="color:#a78bfa;text-decoration:underline">🎬 데모로 직접 체험</a>도 가능합니다.</p>
+
+    <!-- 실제 스크린샷 갤러리 -->
+    <div class="ss-tabs">
+      <button class="ss-tab-btn active" data-tab="dashboard">📊 대시보드</button>
+      <button class="ss-tab-btn" data-tab="agents">👥 에이전트</button>
+      <button class="ss-tab-btn" data-tab="issues">📋 이슈 (칸반)</button>
+    </div>
+    <div class="ss-frame">
+      <div class="ss-pane active" data-pane="dashboard">
+        <img src="screenshots/dashboard.png" alt="대시보드 화면" onclick="openLightbox(this.src,'대시보드 — 비용/목표/활동 한눈에 보기')">
+        <div class="ss-cap">📊 <strong>대시보드</strong> — 비용·목표 진행률·최근 활동을 한 화면에서 추적</div>
+      </div>
+      <div class="ss-pane" data-pane="agents">
+        <img src="screenshots/agents.png" alt="에이전트 관리 화면" onclick="openLightbox(this.src,'에이전트 — 6명 AI 팀 구성 및 모델/예산 관리')">
+        <div class="ss-cap">👥 <strong>에이전트</strong> — 역할별 모델·프롬프트·예산을 직접 조정</div>
+      </div>
+      <div class="ss-pane" data-pane="issues">
+        <img src="screenshots/issues.png" alt="이슈 칸반 보드" onclick="openLightbox(this.src,'이슈 — 칸반 보드로 진행 상황 시각화')">
+        <div class="ss-cap">📋 <strong>이슈</strong> — 칸반 보드로 todo → in_progress → done 흐름 시각화</div>
+      </div>
+    </div>
+
+    <h3 style="text-align:center;color:#c7d2fe;font-size:18px;margin:48px 0 16px;font-weight:700">⚡ 협업 Heartbeat 실행 중 미리보기 (목업)</h3>
 
     <!-- Live Heartbeat Status Bar (작동 중 연출) -->
     <div style="max-width:900px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);border-radius:100px;font-size:13px;color:#a7f3d0">
@@ -824,6 +867,36 @@ function handleWaitlist(e){
     </div>
   </div>
 </section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="ss-lightbox" onclick="closeLightbox()">
+  <button class="lb-close" aria-label="닫기">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+<script>
+function openLightbox(src, cap){
+  var lb = document.getElementById('ss-lightbox');
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-cap').textContent = cap || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('ss-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+// 스크린샷 탭 전환
+document.querySelectorAll('.ss-tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var tab = this.dataset.tab;
+    document.querySelectorAll('.ss-tab-btn').forEach(function(b){ b.classList.toggle('active', b===btn); });
+    document.querySelectorAll('.ss-pane').forEach(function(p){ p.classList.toggle('active', p.dataset.pane===tab); });
+  });
+});
+</script>
 
 <footer>
   <div class="container">
