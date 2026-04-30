@@ -1,91 +1,186 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개인정보처리방침 | JWAY</title>
-    <meta name="description" content="JWAY 개인정보처리방침. 사용자의 개인정보 보호 및 쿠키 정책에 대해 안내합니다.">
-    <link rel="canonical" href="https://jaewoo0317.github.io/privacy-policy.html">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --bg:#F6F5F1; --surface:#FFFFFF; --text-primary:#1A1A1A; --text-secondary:#5C5C5C; --border:#E2E1DD; --accent:#2D5BE3; --radius:14px; }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text-primary); line-height:1.8; -webkit-font-smoothing:antialiased; }
-        .nav { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 20px; }
-        .nav-inner { max-width:800px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
-        .nav-logo { font-size:18px; font-weight:700; color:var(--text-primary); text-decoration:none; }
-        .nav-logo span { color:var(--accent); }
-        .nav-links { display:flex; gap:20px; }
-        .nav-links a { font-size:14px; color:var(--text-secondary); text-decoration:none; font-weight:500; }
-        .nav-links a:hover { color:var(--accent); }
-        .container { max-width:800px; margin:40px auto; padding:0 20px 60px; }
-        .content-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:40px 36px; }
-        h1 { font-size:28px; font-weight:700; letter-spacing:-1px; margin-bottom:8px; }
-        .update-date { font-size:13px; color:var(--text-secondary); margin-bottom:32px; }
-        h2 { font-size:19px; font-weight:700; margin:32px 0 12px; letter-spacing:-0.5px; }
-        h2:first-of-type { margin-top:0; }
-        p { font-size:15px; color:var(--text-secondary); margin-bottom:14px; line-height:1.9; }
-        ul { margin:10px 0 14px 20px; }
-        li { font-size:15px; color:var(--text-secondary); margin-bottom:6px; line-height:1.8; }
-        a { color:var(--accent); }
-        .footer { text-align:center; padding:24px 20px; font-size:13px; color:var(--text-secondary); }
-        @media (max-width:480px) { .content-card { padding:24px 18px; } }
-    </style>
-</head>
-<body>
-<nav class="nav">
-    <div class="nav-inner">
-        <a href="/" class="nav-logo">J<span>WAY</span></a>
-        <div class="nav-links">
-            <a href="/">홈</a>
-            <a href="/privacy-policy.html">개인정보처리방침</a>
-        </div>
-    </div>
-</nav>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인정보처리방침 | JWAY</title>
+<meta name="description" content="JWAY 개인정보처리방침. 사용자 개인정보 보호, 쿠키 정책, Google AdSense 광고 데이터 처리에 대한 상세 안내.">
+<meta name="keywords" content="개인정보처리방침, 쿠키 정책, 광고 정책, Google AdSense, JWAY">
+<link rel="canonical" href="https://jwaytools.com/privacy-policy.html">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F5F1;--surface:#FFF;--text-primary:#1A1A1A;--text-secondary:#5C5C5C;--border:#E2E1DD;--accent:#2D5BE3;--radius:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.8}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:18px}.nav-links a{font-size:14px;color:var(--text-secondary);text-decoration:none;font-weight:500}.nav-links a:hover{color:var(--accent)}
+.nav-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font-size:20px;cursor:pointer;color:var(--text-secondary);line-height:1}
+@media(max-width:640px){.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 20px;flex-direction:column;gap:12px}.nav-links.open{display:flex}.nav{position:relative}}
+.container{max-width:800px;margin:40px auto;padding:0 20px 60px}
+.content-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:40px 36px}
+h1{font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:8px}
+.update-date{font-size:13px;color:var(--text-secondary);margin-bottom:32px}
+h2{font-size:19px;font-weight:700;margin:32px 0 12px;letter-spacing:-0.5px}
+h2:first-of-type{margin-top:0}
+h3{font-size:16px;font-weight:700;margin:20px 0 10px}
+p{font-size:15px;color:var(--text-secondary);margin-bottom:14px;line-height:1.9}
+ul,ol{margin:10px 0 14px 22px}
+li{font-size:15px;color:var(--text-secondary);margin-bottom:6px;line-height:1.8}
+strong{color:var(--text-primary)}
+a{color:var(--accent)}
+.highlight-box{background:#EBF0FF;border-left:4px solid var(--accent);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;font-size:15px}
+.contact-box{background:#F0FDF4;border:1.5px solid #10B981;border-radius:10px;padding:20px;margin:20px 0}
+.contact-box strong{color:#047857}
+.footer{margin-top:48px;text-align:center;padding:24px 20px;font-size:13px;color:var(--text-secondary)}
+.footer a{color:var(--text-secondary);text-decoration:none;margin:0 8px}
+@media(max-width:480px){.content-card{padding:24px 18px}}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
+</head><body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="nav-logo">J<span>WAY</span></a><button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button><div class="nav-links"><a href="/">홈</a><a href="/blog/">블로그</a><a href="/about.html">소개</a><a href="/contact.html">문의</a><a href="/terms.html">이용약관</a><a href="/privacy-policy.html">개인정보처리방침</a></div></div></nav>
 
 <div class="container">
-    <div class="content-card">
-        <h1>개인정보처리방침</h1>
-        <p class="update-date">최종 업데이트: 2025년 3월 3일</p>
+<div class="content-card">
+<h1>개인정보처리방침</h1>
+<p class="update-date">최종 업데이트: 2026년 4월 24일 · 시행일: 2026년 4월 24일</p>
 
-        <h2>1. 개인정보의 수집 및 이용 목적</h2>
-        <p>JWAY(이하 "본 사이트")는 사용자의 개인정보를 수집하지 않습니다. 본 사이트에서 제공하는 모든 도구(글자수 세기, 날짜 계산기, 퍼센트 계산기, 연봉 실수령액 계산기)는 사용자의 브라우저 내에서 작동하며, 입력된 텍스트나 숫자 등의 데이터는 외부 서버로 전송되거나 저장되지 않습니다.</p>
+<div class="highlight-box">
+<strong>핵심 요약:</strong> JWAY는 사용자 개인정보를 직접 수집하지 않습니다. 모든 계산은 사용자 브라우저에서 이루어지며 외부로 전송되지 않습니다. 단, 광고 게재(Google AdSense, 카카오 애드핏)와 사이트 분석을 위해 일부 쿠키가 사용될 수 있습니다.
+</div>
 
-        <h2>2. 쿠키(Cookie) 사용</h2>
-        <p>본 사이트는 직접적으로 쿠키를 사용하지 않습니다. 다만, 본 사이트에 표시되는 제3자 광고 서비스(Google AdSense)가 광고 게재 및 최적화를 위해 쿠키를 사용할 수 있습니다.</p>
-        <p>Google은 사용자의 웹사이트 방문 기록을 기반으로 관심 기반 광고를 표시할 수 있습니다. 사용자는 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 광고 설정</a>에서 개인 맞춤 광고를 비활성화할 수 있으며, <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">aboutads.info</a>에서 제3자 광고 쿠키 사용을 거부할 수 있습니다.</p>
+<h2>1. 개요</h2>
+<p>JWAY(이하 "사이트", https://jwaytools.com)는 사용자의 개인정보를 매우 중요하게 생각하며, 「개인정보 보호법」을 비롯한 관련 법령을 준수합니다. 본 방침은 사이트가 어떤 정보를 어떻게 수집·이용하며, 사용자의 권리를 어떻게 보호하는지 안내합니다.</p>
 
-        <h2>3. Google AdSense 및 제3자 광고</h2>
-        <p>본 사이트는 Google AdSense를 통해 광고를 게재하고 있습니다. Google AdSense는 다음과 같은 기술을 사용할 수 있습니다.</p>
-        <ul>
-            <li>쿠키를 사용하여 사용자의 이전 방문 기록을 기반으로 광고를 게재합니다.</li>
-            <li>DoubleClick 쿠키를 사용하여 본 사이트 및 인터넷의 다른 사이트 방문 기록을 기반으로 광고를 게재합니다.</li>
-            <li>사용자는 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 광고 설정 페이지</a>에서 DoubleClick 쿠키 사용을 비활성화할 수 있습니다.</li>
-        </ul>
+<h2>2. 수집하는 개인정보</h2>
+<h3>2-1. 사이트가 직접 수집하지 않는 정보</h3>
+<p>JWAY는 다음 정보를 <strong>직접 수집하지 않습니다</strong>:</p>
+<ul>
+<li>이름, 이메일, 전화번호 등 식별 정보</li>
+<li>주소, 직업, 소득 등 인적사항</li>
+<li>회원가입 정보 (회원가입 기능 자체가 없음)</li>
+<li>도구 사용 시 입력한 데이터 (키, 몸무게, 연봉, 텍스트 등)</li>
+</ul>
+<p>모든 계산은 사용자 브라우저(클라이언트 사이드) 내에서만 처리되며, 입력한 데이터는 서버로 전송되거나 어디에도 저장되지 않습니다. 페이지를 닫으면 모든 입력값은 즉시 사라집니다.</p>
 
-        <h2>4. Google 애널리틱스</h2>
-        <p>본 사이트는 웹사이트 트래픽 분석을 위해 Google 애널리틱스를 사용할 수 있습니다. Google 애널리틱스는 쿠키를 사용하여 사용자의 사이트 이용 정보를 수집하지만, 이 정보는 익명으로 처리되며 개인을 식별할 수 없습니다. 자세한 내용은 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a>을 참고하시기 바랍니다.</p>
+<h3>2-2. 자동 수집되는 정보 (제3자 서비스에 의함)</h3>
+<p>사이트는 다음 제3자 서비스를 통해 일부 비개인 정보를 자동으로 수집할 수 있습니다:</p>
+<ul>
+<li><strong>접속 로그</strong>: GitHub Pages 호스팅에 의한 IP 주소, 접속 시각, 사용 브라우저 정보 (서버 보안 및 트래픽 분석 목적)</li>
+<li><strong>광고 쿠키</strong>: Google AdSense, 카카오 애드핏의 광고 게재를 위한 쿠키</li>
+<li><strong>분석 도구</strong>: Google Search Console, 네이버 서치어드바이저의 검색 통계 데이터</li>
+</ul>
 
-        <h2>5. 외부 링크</h2>
-        <p>본 사이트는 다른 웹사이트로의 링크를 포함할 수 있습니다. 외부 사이트의 개인정보 보호 관행에 대해서는 해당 사이트의 개인정보처리방침을 확인해 주시기 바랍니다. 본 사이트는 외부 사이트의 콘텐츠나 개인정보 보호 관행에 대해 책임을 지지 않습니다.</p>
+<h2>3. Google AdSense 광고 정책</h2>
+<p>JWAY는 운영비용 충당을 위해 Google AdSense를 통한 광고를 게재합니다. 이와 관련하여 다음 사항을 안내드립니다:</p>
 
-        <h2>6. 아동의 개인정보 보호</h2>
-        <p>본 사이트는 만 14세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다. 만약 부모 또는 보호자가 자녀의 개인정보가 수집되었다고 판단하는 경우, 즉시 연락해 주시면 해당 정보를 삭제하겠습니다.</p>
+<h3>3-1. 제3자 광고 사업자로서의 Google</h3>
+<ul>
+<li>Google은 제3자 공급업체로서 사용자가 본 사이트를 방문한 기록을 바탕으로 쿠키를 사용하여 광고를 게재합니다.</li>
+<li>Google은 DoubleClick DART 쿠키를 사용해 사용자가 본 사이트 및 다른 사이트에 방문한 정보를 바탕으로 맞춤형 광고를 표시합니다.</li>
+<li>사용자는 <a href="https://www.google.com/policies/technologies/ads/" target="_blank" rel="noopener">Google 광고 정책</a> 페이지에서 DART 쿠키 사용을 거부할 수 있습니다.</li>
+</ul>
 
-        <h2>7. 개인정보처리방침의 변경</h2>
-        <p>본 개인정보처리방침은 법률이나 서비스의 변경에 따라 수정될 수 있습니다. 변경 사항이 있을 경우 본 페이지에 업데이트하겠습니다. 본 방침은 2025년 3월 3일부터 적용됩니다.</p>
+<h3>3-2. 사용자의 광고 설정 권한</h3>
+<p>사용자는 Google 광고 설정 페이지(<a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">https://www.google.com/settings/ads</a>)에서 다음을 직접 관리할 수 있습니다:</p>
+<ul>
+<li>맞춤 광고 설정 변경</li>
+<li>특정 광고주의 광고 차단</li>
+<li>맞춤 광고 완전 비활성화</li>
+</ul>
 
-        <h2>8. 면책 조항</h2>
-        <p>본 사이트에서 제공하는 모든 도구의 계산 결과는 참고용이며, 정확성을 보장하지 않습니다. 특히 연봉 실수령액 계산기의 결과는 간이세액표 기준 추정치이며, 실제 급여명세서와 차이가 있을 수 있습니다. 중요한 의사결정에는 반드시 전문가의 조언을 구하시기 바랍니다.</p>
+<h3>3-3. 카카오 애드핏</h3>
+<p>JWAY는 일부 페이지에 카카오 애드핏 광고를 게재할 수 있습니다. 카카오 애드핏의 광고 정책은 <a href="https://policy.daum.net/kakaoad" target="_blank" rel="noopener">카카오 광고 정책</a>을 참고하시기 바랍니다.</p>
 
-        <h2>9. 연락처</h2>
-        <p>본 개인정보처리방침에 대한 문의사항이 있으시면 아래로 연락해 주시기 바랍니다.</p>
-        <p>사이트명: JWAY<br>URL: https://jaewoo0317.github.io</p>
-    </div>
+<h2>4. 쿠키(Cookie) 정책</h2>
+<p>JWAY 자체는 쿠키를 사용하지 않습니다. 단, 사이트에 통합된 제3자 서비스(Google AdSense, 카카오 애드핏 등)가 쿠키를 사용할 수 있습니다.</p>
+
+<h3>4-1. 쿠키의 종류와 용도</h3>
+<ul>
+<li><strong>광고 쿠키</strong>: 사용자에게 관련성 높은 광고를 표시하기 위해 사용</li>
+<li><strong>분석 쿠키</strong>: 사이트 트래픽 및 사용자 동작 분석을 위해 사용</li>
+<li><strong>기능 쿠키</strong>: 폰트 등 외부 리소스 로딩 최적화를 위해 사용</li>
+</ul>
+
+<h3>4-2. 쿠키 거부 방법</h3>
+<p>사용자는 브라우저 설정을 통해 쿠키 저장을 거부할 수 있습니다:</p>
+<ul>
+<li><strong>Chrome</strong>: 설정 → 개인정보 보호 및 보안 → 쿠키 및 기타 사이트 데이터</li>
+<li><strong>Edge</strong>: 설정 → 쿠키 및 사이트 권한 → 쿠키 관리</li>
+<li><strong>Safari</strong>: 환경설정 → 개인 정보 보호 → 쿠키 및 웹 사이트 데이터</li>
+<li><strong>Firefox</strong>: 옵션 → 개인 정보 → 쿠키 및 사이트 데이터</li>
+</ul>
+<p>단, 쿠키를 거부하면 일부 광고 기능이 제한될 수 있으나, 사이트의 도구 기능 자체는 정상 작동합니다.</p>
+
+<h2>5. 개인정보의 보유 및 이용 기간</h2>
+<p>JWAY는 사용자 개인정보를 직접 수집·보유하지 않습니다. 제3자 서비스가 수집하는 쿠키 정보는 각 서비스의 정책에 따라 보유·이용됩니다:</p>
+<ul>
+<li>Google AdSense 쿠키: 일반적으로 30일 ~ 13개월 (Google 정책 기준)</li>
+<li>접속 로그(GitHub Pages): 약 90일</li>
+</ul>
+
+<h2>6. 개인정보의 제3자 제공</h2>
+<p>JWAY는 사용자 개인정보를 제3자에게 제공하지 않습니다. 단, 다음의 경우 예외로 합니다:</p>
+<ul>
+<li>법령에 따라 수사기관의 정당한 요청이 있는 경우</li>
+<li>사용자가 사전에 동의한 경우</li>
+</ul>
+
+<h2>7. 개인정보의 안전성 확보 조치</h2>
+<p>JWAY는 사용자 데이터 보호를 위해 다음 기술적 조치를 취합니다:</p>
+<ul>
+<li><strong>HTTPS 암호화 통신</strong>: 모든 페이지가 SSL/TLS 인증서로 암호화되어 전송됩니다.</li>
+<li><strong>클라이언트 사이드 처리</strong>: 모든 계산은 사용자 브라우저에서 처리되어 데이터가 외부로 전송되지 않습니다.</li>
+<li><strong>최소 권한 원칙</strong>: 외부 API 호출 시(예: 환율 정보) 필요 최소한의 데이터만 사용합니다.</li>
+</ul>
+
+<h2>8. 사용자의 권리</h2>
+<p>「개인정보 보호법」 제35조부터 제37조에 따라 사용자는 다음 권리를 갖습니다:</p>
+<ul>
+<li>개인정보 열람 요구</li>
+<li>오류 등이 있을 경우 정정 요구</li>
+<li>삭제 요구</li>
+<li>처리 정지 요구</li>
+</ul>
+<p>JWAY는 직접 개인정보를 수집하지 않으므로 위 권리 행사 대상이 일반적으로 발생하지 않습니다. 다만 광고 쿠키와 관련된 권리는 위 4-2 또는 3-2 항목을 참고하여 직접 행사하실 수 있습니다.</p>
+
+<h2>9. 아동의 개인정보 보호</h2>
+<p>JWAY는 만 14세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다. 만 14세 미만 아동이 본 사이트를 사용하는 경우 보호자의 지도하에 이용하시기 바랍니다.</p>
+
+<h2>10. 외부 링크 정책</h2>
+<p>JWAY는 다른 웹사이트로의 링크를 포함할 수 있습니다. 이러한 외부 사이트에서의 개인정보 처리는 해당 사이트의 정책에 따르며, JWAY는 외부 사이트의 콘텐츠나 정책에 대해 책임지지 않습니다.</p>
+
+<h2>11. 개인정보처리방침의 변경</h2>
+<p>본 방침은 법령·정책·서비스 변경에 따라 수정될 수 있습니다. 변경 시 본 페이지에 게시하며 중요한 변경의 경우 시행일 7일 전 공지합니다. 변경 후에도 사이트를 계속 이용하시면 변경된 방침에 동의한 것으로 간주됩니다.</p>
+
+<h2>12. 개인정보 보호 책임자 및 연락처</h2>
+<div class="contact-box">
+<p><strong>📋 개인정보 보호 책임자</strong></p>
+<ul>
+<li><strong>운영 주체</strong>: JWAY (1인 운영 사이트)</li>
+<li><strong>운영자 이메일</strong>: <a href="mailto:zeus0317@gmail.com">zeus0317@gmail.com</a></li>
+<li><strong>사이트 URL</strong>: https://jwaytools.com</li>
+<li><strong>응답 시간</strong>: 영업일 기준 1~3일 이내</li>
+</ul>
+<p>개인정보 처리에 관한 문의, 불만 처리, 피해 구제 등은 위 이메일로 연락 주시기 바랍니다.</p>
+</div>
+
+<h2>13. 권익침해 구제 방법</h2>
+<p>개인정보 침해로 인한 신고나 상담이 필요할 경우 아래 기관에 문의하실 수 있습니다:</p>
+<ul>
+<li>개인정보분쟁조정위원회: 1833-6972 (<a href="https://www.kopico.go.kr" target="_blank" rel="noopener">www.kopico.go.kr</a>)</li>
+<li>개인정보침해신고센터: 118 (<a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener">privacy.kisa.or.kr</a>)</li>
+<li>대검찰청 사이버수사과: 1301 (<a href="https://www.spo.go.kr" target="_blank" rel="noopener">www.spo.go.kr</a>)</li>
+<li>경찰청 사이버수사국: 182 (<a href="https://ecrm.cyber.go.kr" target="_blank" rel="noopener">ecrm.cyber.go.kr</a>)</li>
+</ul>
+
+<h2>부칙</h2>
+<p>본 개인정보처리방침은 2026년 4월 24일부터 시행됩니다.</p>
+</div>
 </div>
 
 <footer class="footer">
-    © 2025 JWAY. All rights reserved. | <a href="/">홈으로 돌아가기</a>
+© 2025 JWAY. All rights reserved.<br>
+<a href="/">홈</a> · <a href="/blog/">블로그</a> · <a href="/about.html">소개</a> · <a href="/contact.html">문의</a> · <a href="/terms.html">이용약관</a> · <a href="/privacy-policy.html">개인정보처리방침</a>
 </footer>
-</body>
-</html>
+</body></html>

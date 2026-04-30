@@ -151,6 +151,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://jwaytools.com/about.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jwaytools.com/contact.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jwaytools.com/terms.html</loc>
+    <lastmod>2026-04-24</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://jwaytools.com/privacy-policy.html</loc>
     <lastmod>2025-03-03</lastmod>
     <priority>0.5</priority>
