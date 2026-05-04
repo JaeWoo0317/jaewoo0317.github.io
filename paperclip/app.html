@@ -17,6 +17,7 @@
   <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
     :root {
       --bg-primary:#ffffff;--bg-secondary:#f8f9fa;--bg-tertiary:#f1f3f5;
@@ -1165,6 +1166,7 @@ function SidebarNav({ data, activePage, onNav, mobileOpen, onClose }) {
   const items = [
     {id:"dashboard",icon:"📊",label:"대시보드"},
     {id:"agents",icon:"👥",label:"에이전트",badge:wa||null},
+    {id:"office",icon:"🏢",label:"가상 사무실"},
     {id:"orgchart",icon:"🏛️",label:"조직도"},
     {id:"issues",icon:"📋",label:"이슈"},
     {id:"projects",icon:"📁",label:"프로젝트"},
@@ -1173,6 +1175,7 @@ function SidebarNav({ data, activePage, onNav, mobileOpen, onClose }) {
     {id:"costs",icon:"💰",label:"비용"},
     {id:"conversations",icon:"💬",label:"대화"},
     {id:"artifacts",icon:"📎",label:"아티팩트"},
+    {id:"brain",icon:"🧠",label:"지식 네트워크"},
     {id:"routines",icon:"💓",label:"Heartbeat"},
     {id:"activity",icon:"📜",label:"활동 로그"},
     {id:"help",icon:"❓",label:"도움말"},
@@ -1844,6 +1847,297 @@ function IssuesPage({ data, onUpdate }) {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ========== 가상 사무실 (CSS 픽셀 사무실 스타일) ==========
+function OfficePage({ data }) {
+  const [tick, setTick] = useState(0);
+  useEffect(() => { const t = setInterval(() => setTick(x => x+1), 1000); return () => clearInterval(t); }, []);
+
+  const agents = data.agents || [];
+  const allComments = (data.issues || []).flatMap(i => (i.comments || []).map(c => ({...c, issueTitle: i.title, issueId: i.id})));
+  const allArtifacts = (data.issues || []).flatMap(i => (i.artifacts || []).map(a => ({...a, issueTitle: i.title})));
+
+  // 에이전트 별 최신 코멘트 (가상 말풍선용)
+  const latestByAgent = {};
+  allComments.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(c => {
+    if (!latestByAgent[c.agentId]) latestByAgent[c.agentId] = c;
+  });
+
+  // 활동 로그 (최신순)
+  const activityFeed = (data.activityLog || []).slice(-30).reverse();
+
+  // 가상 시계 (실제 시간으로)
+  const now = new Date();
+  const clock = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  const dayCount = Math.max(1, Math.ceil((Date.now() - new Date(data.companies[0]?.createdAt || Date.now()).getTime()) / 86400000));
+
+  // 통계
+  const workingCount = agents.filter(a => a.status === "working").length;
+  const totalArtifacts = allArtifacts.length;
+  const totalComments = allComments.length;
+
+  // 책상 배치 — 에이전트 수에 따라 grid columns 동적
+  const gridCols = agents.length <= 4 ? 2 : agents.length <= 6 ? 3 : agents.length <= 9 ? 3 : 4;
+
+  // 역할별 색상 매핑
+  var roleColors = {
+    ceo:'#a78bfa', cto:'#a78bfa', cmo:'#a78bfa', coo:'#a78bfa', pm:'#a78bfa',
+    engineer:'#60a5fa', developer:'#60a5fa',
+    designer:'#f472b6',
+    marketer:'#fb923c', writer:'#fb923c',
+    analyst:'#34d399', researcher:'#34d399',
+    secretary:'#fbbf24',
+  };
+  var deskColor = function(role){ return roleColors[(role||'').toLowerCase()] || '#94a3b8'; };
+
+  // 상태별 이모지
+  var statusEmoji = function(s){ return s === 'working' ? '✍️' : s === 'thinking' ? '💭' : s === 'reviewing' ? '👀' : '💤'; };
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",gap:16}}>
+      {/* 상단 대시보드 바 */}
+      <div style={{display:"flex",gap:12,flexWrap:"wrap",alignItems:"center",padding:"14px 18px",background:"linear-gradient(135deg,#1e1b4b,#312e81)",borderRadius:12,color:"white",boxShadow:"0 4px 20px rgba(99,102,241,0.2)"}}>
+        <div style={{fontSize:20,fontWeight:800}}>🏢 가상 사무실</div>
+        <div style={{flex:1}}/>
+        <div style={{display:"flex",gap:14,alignItems:"center",fontSize:13}}>
+          <div><span style={{opacity:0.7}}>DAY</span> <strong style={{fontSize:16,color:"#fde047"}}>{dayCount}</strong></div>
+          <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
+          <div><span style={{opacity:0.7}}>TIME</span> <strong style={{fontSize:16,color:"#fde047",fontFamily:"monospace"}}>{clock}</strong></div>
+          <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
+          <div><span style={{opacity:0.7}}>WORKING</span> <strong style={{fontSize:16,color:workingCount>0?"#34d399":"#94a3b8"}}>{workingCount}/{agents.length}</strong></div>
+          <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
+          <div><span style={{opacity:0.7}}>📎</span> <strong style={{fontSize:16,color:"#f472b6"}}>{totalArtifacts}</strong></div>
+          <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
+          <div><span style={{opacity:0.7}}>💬</span> <strong style={{fontSize:16,color:"#a78bfa"}}>{totalComments}</strong></div>
+        </div>
+      </div>
+
+      {agents.length === 0 ? (
+        <div className="card" style={{textAlign:"center",padding:40,color:"var(--text-secondary)"}}>
+          🪑 빈 사무실입니다. <strong>👥 에이전트</strong> 페이지에서 팀원을 추가하세요.
+        </div>
+      ) : (
+        <div style={{display:"grid",gridTemplateColumns:"1fr 320px",gap:16}}>
+          {/* 사무실 본체 */}
+          <div style={{background:"linear-gradient(135deg,#fef3c7 0%,#fde68a 50%,#fed7aa 100%)",borderRadius:16,padding:20,minHeight:480,position:"relative",backgroundImage:"linear-gradient(135deg,#fef3c7 0%,#fde68a 50%,#fed7aa 100%), repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,83,9,0.06) 39px, rgba(180,83,9,0.06) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,83,9,0.06) 39px, rgba(180,83,9,0.06) 40px)",border:"3px solid #92400e",boxShadow:"inset 0 0 60px rgba(180,83,9,0.15), 0 8px 32px rgba(0,0,0,0.1)"}}>
+            {/* 회의 테이블 (장식) */}
+            <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:160,height:80,background:"radial-gradient(ellipse,#fbbf24,#d97706)",borderRadius:"50%",opacity:0.3,zIndex:0,boxShadow:"inset 0 0 20px rgba(0,0,0,0.2)"}}>
+              <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",fontSize:32,opacity:0.5}}>☕</div>
+            </div>
+
+            {/* 책상 그리드 */}
+            <div style={{display:"grid",gridTemplateColumns:`repeat(${gridCols},1fr)`,gap:12,position:"relative",zIndex:1}}>
+              {agents.map(function(a){
+                var c = deskColor(a.role);
+                var latest = latestByAgent[a.id];
+                var isWorking = a.status === 'working';
+                return (
+                  <div key={a.id} style={{position:"relative",padding:"10px 8px 8px",background:"rgba(255,255,255,0.85)",borderRadius:8,border:"2px solid "+c,boxShadow:isWorking?"0 0 0 3px "+c+"55, 0 4px 12px rgba(0,0,0,0.1)":"0 2px 6px rgba(0,0,0,0.08)",transition:"all 0.3s",animation:isWorking?"deskPulse 2s infinite":"none"}}>
+                    {/* 말풍선 (최신 코멘트가 있고 working일 때) */}
+                    {latest && (
+                      <div style={{position:"absolute",top:-32,left:"50%",transform:"translateX(-50%)",background:"white",border:"1px solid "+c,borderRadius:10,padding:"3px 8px",fontSize:10,whiteSpace:"nowrap",maxWidth:180,overflow:"hidden",textOverflow:"ellipsis",boxShadow:"0 2px 8px rgba(0,0,0,0.1)",zIndex:5,color:"#1f2937"}} title={latest.content}>
+                        💬 {latest.content.slice(0, 28)}{latest.content.length > 28 ? '…' : ''}
+                      </div>
+                    )}
+                    {/* 캐릭터 */}
+                    <div style={{textAlign:"center"}}>
+                      <div style={{fontSize:36,lineHeight:1,marginBottom:4,position:"relative",display:"inline-block"}}>
+                        {a.icon || '🤖'}
+                        {/* 상태 인디케이터 */}
+                        <span style={{position:"absolute",top:-4,right:-12,fontSize:14,background:"white",borderRadius:"50%",padding:1,border:"1px solid #e5e7eb"}}>{statusEmoji(a.status)}</span>
+                      </div>
+                      <div style={{fontSize:11,fontWeight:700,color:"#1f2937",lineHeight:1.2}}>{a.name}</div>
+                      <div style={{fontSize:9,color:"#6b7280",marginTop:2,textTransform:"uppercase",letterSpacing:0.3}}>{a.role || 'general'}</div>
+                      {/* 책상 (장식) */}
+                      <div style={{marginTop:4,height:4,background:"linear-gradient(180deg,#92400e,#78350f)",borderRadius:2,boxShadow:"0 1px 2px rgba(0,0,0,0.2)"}}/>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 활동 로그 사이드바 */}
+          <div style={{background:"#0f172a",borderRadius:12,padding:14,maxHeight:600,overflowY:"auto",color:"#cbd5e1"}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12,paddingBottom:10,borderBottom:"1px solid #1e293b"}}>
+              <span style={{display:"inline-block",width:8,height:8,background:"#10b981",borderRadius:"50%",animation:"deskPulse 1.4s infinite"}}/>
+              <strong style={{color:"white",fontSize:13}}>활동 로그 LIVE</strong>
+              <span style={{marginLeft:"auto",fontSize:10,color:"#64748b"}}>{activityFeed.length}건</span>
+            </div>
+            {activityFeed.length === 0 ? (
+              <div style={{color:"#64748b",fontSize:12,textAlign:"center",padding:20}}>아직 활동이 없습니다.<br/>💓 Heartbeat을 실행해보세요.</div>
+            ) : (
+              activityFeed.map(function(ev){
+                var t = new Date(ev.createdAt);
+                var hh = String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0');
+                return (
+                  <div key={ev.id} style={{display:"flex",gap:8,padding:"6px 0",borderBottom:"1px dashed #1e293b",fontSize:11,lineHeight:1.5}}>
+                    <span style={{color:"#64748b",fontFamily:"monospace",flexShrink:0}}>{hh}</span>
+                    <span style={{flexShrink:0}}>{ev.emoji || '•'}</span>
+                    <span style={{color:"#cbd5e1",wordBreak:"break-all"}}>{ev.message}</span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes deskPulse {
+          0%,100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(0.95); }
+        }
+      `}</style>
+
+      {/* 하단 안내 */}
+      <div style={{padding:"10px 14px",background:"#fef3c7",borderRadius:8,fontSize:11,color:"#78350f",lineHeight:1.6}}>
+        💡 <strong>가상 사무실</strong> — 에이전트들이 책상에서 일하는 모습을 시각화합니다. 💓 Heartbeat 실행 중에는 status가 working으로 바뀌며 책상에 펄스 효과가 표시됩니다. 말풍선은 최근 코멘트를 보여줍니다.
+      </div>
+    </div>
+  );
+}
+
+// ========== 지식 네트워크 (D3 force-directed graph) ==========
+function BrainGraphPage({ data }) {
+  const svgRef = React.useRef(null);
+  const [selected, setSelected] = useState(null);
+  const [showAgents, setShowAgents] = useState(true);
+  const [showIssues, setShowIssues] = useState(true);
+  const [showComments, setShowComments] = useState(true);
+  const [showArtifacts, setShowArtifacts] = useState(true);
+
+  React.useEffect(function() {
+    if (!window.d3 || !svgRef.current) return;
+    var d3 = window.d3;
+    var nodes = [];
+    var links = [];
+
+    if (showAgents) {
+      data.agents.forEach(function(a){
+        nodes.push({ id: 'a:'+a.id, type:'agent', label: a.icon+' '+a.name, sub: a.role, color: '#6366f1', size: 28, raw: a });
+      });
+      data.agents.forEach(function(a){
+        if (a.reportsTo && data.agents.find(function(x){return x.id===a.reportsTo})) {
+          links.push({ source:'a:'+a.id, target:'a:'+a.reportsTo, kind:'reports', color:'#6366f1' });
+        }
+      });
+    }
+    if (showIssues) {
+      data.issues.forEach(function(i){
+        nodes.push({ id: 'i:'+i.id, type:'issue', label: '📋 '+i.title.slice(0,30), sub: i.status, color: i.status==='done'?'#10b981':i.status==='in_progress'?'#f59e0b':'#94a3b8', size: 18, raw: i });
+        if (showAgents && i.assigneeAgentId) {
+          links.push({ source:'a:'+i.assigneeAgentId, target:'i:'+i.id, kind:'assigned', color:'#6366f1' });
+        }
+      });
+    }
+    if (showComments) {
+      data.issues.forEach(function(i){
+        (i.comments||[]).slice(-12).forEach(function(c){
+          var cid = 'c:'+c.id;
+          nodes.push({ id: cid, type:'comment', label: '💬 '+(c.content||'').slice(0,18), sub: c.agentName, color:'#a78bfa', size:8, raw:c });
+          if (showAgents) links.push({ source:'a:'+c.agentId, target: cid, kind:'wrote', color:'#a78bfa' });
+          if (showIssues) links.push({ source: cid, target: 'i:'+i.id, kind:'on', color:'#cbd5e1' });
+        });
+      });
+    }
+    if (showArtifacts) {
+      data.issues.forEach(function(i){
+        (i.artifacts||[]).forEach(function(ar){
+          var aid = 'r:'+ar.id;
+          nodes.push({ id: aid, type:'artifact', label: '📎 '+(ar.title||'').slice(0,20), sub: ar.type, color: ar.type==='html'?'#10b981':ar.type==='json'?'#f59e0b':ar.type==='markdown'?'#8b5cf6':'#94a3b8', size: 14, raw: ar });
+          if (showAgents && ar.agentId) links.push({ source:'a:'+ar.agentId, target: aid, kind:'made', color:'#ec4899' });
+          if (showIssues) links.push({ source: aid, target: 'i:'+i.id, kind:'for', color:'#cbd5e1' });
+        });
+      });
+    }
+
+    var svg = d3.select(svgRef.current);
+    svg.selectAll('*').remove();
+    var W = svgRef.current.clientWidth || 800;
+    var H = 540;
+    svg.attr('viewBox', '0 0 '+W+' '+H);
+
+    if (nodes.length === 0) {
+      svg.append('text').attr('x', W/2).attr('y', H/2).attr('text-anchor','middle').attr('fill','#94a3b8').attr('font-size', 14).text('표시할 노드가 없습니다. Heartbeat을 실행해 데이터를 쌓으세요.');
+      return;
+    }
+
+    var sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).id(function(d){return d.id}).distance(function(l){ return l.kind==='reports'?80:l.kind==='wrote'?40:l.kind==='made'?50:60; }))
+      .force('charge', d3.forceManyBody().strength(-180))
+      .force('center', d3.forceCenter(W/2, H/2))
+      .force('collide', d3.forceCollide().radius(function(d){return d.size+6}));
+
+    var link = svg.append('g').attr('stroke-opacity', 0.5).selectAll('line').data(links).enter().append('line')
+      .attr('stroke', function(d){return d.color}).attr('stroke-width', function(d){return d.kind==='reports'?2:1});
+
+    var node = svg.append('g').selectAll('g').data(nodes).enter().append('g').style('cursor','pointer')
+      .on('click', function(ev, d){ setSelected(d); })
+      .call(d3.drag()
+        .on('start', function(ev,d){ if(!ev.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+        .on('drag', function(ev,d){ d.fx=ev.x; d.fy=ev.y; })
+        .on('end', function(ev,d){ if(!ev.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
+
+    node.append('circle').attr('r', function(d){return d.size}).attr('fill', function(d){return d.color}).attr('stroke','white').attr('stroke-width', 2);
+    node.append('text').text(function(d){return d.label}).attr('x', function(d){return d.size+4}).attr('y', 4).attr('font-size', 10).attr('fill','#1f2937');
+
+    sim.on('tick', function(){
+      link.attr('x1', function(d){return d.source.x}).attr('y1', function(d){return d.source.y}).attr('x2', function(d){return d.target.x}).attr('y2', function(d){return d.target.y});
+      node.attr('transform', function(d){return 'translate('+d.x+','+d.y+')'});
+    });
+
+    return function(){ sim.stop(); };
+  }, [data, showAgents, showIssues, showComments, showArtifacts]);
+
+  var stats = {
+    agents: data.agents.length,
+    issues: data.issues.length,
+    comments: (data.issues||[]).reduce(function(s,i){return s+(i.comments||[]).length},0),
+    artifacts: (data.issues||[]).reduce(function(s,i){return s+(i.artifacts||[]).length},0),
+  };
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",gap:14}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,padding:"14px 18px",background:"linear-gradient(135deg,#0f172a,#1e293b)",borderRadius:12,color:"white"}}>
+        <div style={{fontSize:20,fontWeight:800}}>🧠 지식 네트워크 LIVE</div>
+        <div style={{fontSize:12,color:"#94a3b8"}}>에이전트·이슈·코멘트·아티팩트의 관계 그래프</div>
+        <div style={{flex:1}}/>
+        <div style={{display:"flex",gap:14,fontSize:12,alignItems:"center"}}>
+          <div><span style={{color:"#94a3b8"}}>👥</span> <strong>{stats.agents}</strong></div>
+          <div><span style={{color:"#94a3b8"}}>📋</span> <strong>{stats.issues}</strong></div>
+          <div><span style={{color:"#94a3b8"}}>💬</span> <strong>{stats.comments}</strong></div>
+          <div><span style={{color:"#94a3b8"}}>📎</span> <strong>{stats.artifacts}</strong></div>
+        </div>
+      </div>
+
+      <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+        {[{k:'showAgents',v:showAgents,s:setShowAgents,l:'👥 에이전트',c:'#6366f1'},{k:'showIssues',v:showIssues,s:setShowIssues,l:'📋 이슈',c:'#94a3b8'},{k:'showComments',v:showComments,s:setShowComments,l:'💬 코멘트',c:'#a78bfa'},{k:'showArtifacts',v:showArtifacts,s:setShowArtifacts,l:'📎 아티팩트',c:'#ec4899'}].map(function(f){
+          return (
+            <button key={f.k} onClick={function(){f.s(!f.v)}} style={{padding:"6px 12px",borderRadius:18,border:"1px solid "+(f.v?f.c:"#e5e7eb"),background:f.v?f.c:"white",color:f.v?"white":"#6b7280",cursor:"pointer",fontSize:12,fontWeight:600}}>{f.l}</button>
+          );
+        })}
+        <div style={{marginLeft:"auto",fontSize:11,color:"#9ca3af"}}>💡 노드를 끌어 옮길 수 있고, 클릭하면 상세를 봅니다</div>
+      </div>
+
+      <div style={{display:"grid",gridTemplateColumns: selected ? "1fr 320px" : "1fr",gap:12}}>
+        <div className="card" style={{padding:0,overflow:"hidden",background:"radial-gradient(ellipse at center, #1e293b 0%, #0f172a 100%)"}}>
+          <svg ref={svgRef} style={{width:"100%",height:540,display:"block"}}/>
+        </div>
+        {selected && (
+          <div className="card" style={{padding:14}}>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
+              <div style={{fontWeight:700}}>{selected.label}</div>
+              <button onClick={function(){setSelected(null)}} style={{background:"none",border:"none",fontSize:18,cursor:"pointer",color:"#9ca3af"}}>✕</button>
+            </div>
+            <div style={{fontSize:11,color:"#9ca3af",marginBottom:10,padding:"3px 8px",background:"#f3f4f6",borderRadius:10,display:"inline-block"}}>{selected.type} · {selected.sub||''}</div>
+            <pre style={{background:"#f9fafb",padding:10,borderRadius:8,fontSize:11,whiteSpace:"pre-wrap",wordBreak:"break-all",maxHeight:380,overflowY:"auto",color:"#374151"}}>{JSON.stringify(selected.raw, null, 2).slice(0, 2000)}</pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -4198,6 +4492,7 @@ function App() {
   const pages = {
     dashboard: <DashboardPage data={data} onUpdate={setData}/>,
     agents: <AgentsPage data={data} onUpdate={setData}/>,
+    office: <OfficePage data={data}/>,
     orgchart: <OrgChartPage data={data}/>,
     issues: <IssuesPage data={data} onUpdate={setData}/>,
     projects: <ProjectsPage data={data} onUpdate={setData}/>,
@@ -4206,6 +4501,7 @@ function App() {
     costs: <CostsPage data={data}/>,
     conversations: <ConversationsPage data={data}/>,
     artifacts: <ArtifactsPage data={data}/>,
+    brain: <BrainGraphPage data={data}/>,
     routines: <HeartbeatPage data={data} onUpdate={setData}/>,
     activity: <ActivityPage data={data}/>,
     help: <HelpPage data={data} onNav={setPage}/>,
