@@ -583,6 +583,17 @@ async function executeHeartbeat(agent, data, onUpdate, runPrompt) {
   if (runPrompt) {
     systemPrompt += "\n\n[이번 실행 지시]\n" + runPrompt;
   }
+  // Brain Pack 자동 주입 — 이 에이전트에 연결된 지식 추가
+  var attachedPacks = (data.brainPacks || []).filter(function(p){
+    return (p.attachedAgentIds || []).indexOf(agent.id) !== -1;
+  });
+  if (attachedPacks.length > 0) {
+    systemPrompt += "\n\n[🧠 주입된 지식 — Brain Pack " + attachedPacks.length + "개]\n";
+    attachedPacks.forEach(function(p){
+      // 각 팩당 최대 8KB 만 주입 (토큰 비용 관리)
+      systemPrompt += "\n## " + (p.name || "Untitled") + "\n" + (p.content || "").slice(0, 8000) + "\n";
+    });
+  }
 
   var userMessage = buildAgentPrompt(agent, data.issues, data);
   var runId = uid();
@@ -1008,36 +1019,49 @@ async function runDemoSimulation(data, onUpdate, onProgress) {
   return { success: true, demo: true };
 }
 
-function DemoCompleteModal({ onClose }) {
+function DemoCompleteModal({ onClose, onGoOffice, onGoBrain }) {
   return (
     <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.6)",zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}>
-      <div style={{background:"white",borderRadius:16,maxWidth:520,width:"100%",padding:32,boxShadow:"0 20px 60px rgba(0,0,0,0.3)",textAlign:"center"}}>
+      <div style={{background:"white",borderRadius:16,maxWidth:560,width:"100%",padding:32,boxShadow:"0 20px 60px rgba(0,0,0,0.3)",textAlign:"center",maxHeight:"90vh",overflowY:"auto"}}>
         <div style={{fontSize:64,marginBottom:16}}>🎉</div>
         <h2 style={{margin:0,marginBottom:12,fontSize:24,color:"#1f2937"}}>데모 체험 완료!</h2>
-        <p style={{color:"#6b7280",marginBottom:24,lineHeight:1.6}}>
+        <p style={{color:"#6b7280",marginBottom:20,lineHeight:1.6}}>
           6명 AI 에이전트가 어떻게 협업하는지 확인하셨습니다.<br/>
-          이제 둘러보세요:
+          <strong>📍 추천: 먼저 가상 사무실/지식 네트워크부터 보세요</strong>
         </p>
+        {/* 시그니처 시각화 강조 */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:14}}>
+          <button onClick={onGoOffice} style={{padding:16,background:"linear-gradient(135deg,#fef3c7,#fde68a)",border:"2px solid #f59e0b",borderRadius:12,textAlign:"left",cursor:"pointer",fontFamily:"inherit"}}>
+            <div style={{fontSize:24,marginBottom:6}}>🏢</div>
+            <div style={{fontWeight:700,fontSize:14,color:"#78350f"}}>가상 사무실</div>
+            <div style={{fontSize:11,color:"#92400e",lineHeight:1.5,marginTop:2}}>6명이 책상에서 일하는 모습 · 말풍선 · 활동 로그</div>
+          </button>
+          <button onClick={onGoBrain} style={{padding:16,background:"linear-gradient(135deg,#ede9fe,#ddd6fe)",border:"2px solid #8b5cf6",borderRadius:12,textAlign:"left",cursor:"pointer",fontFamily:"inherit"}}>
+            <div style={{fontSize:24,marginBottom:6}}>🧠</div>
+            <div style={{fontWeight:700,fontSize:14,color:"#5b21b6"}}>지식 네트워크</div>
+            <div style={{fontSize:11,color:"#6d28d9",lineHeight:1.5,marginTop:2}}>D3 그래프 · 에이전트/이슈/코멘트/아티팩트 관계</div>
+          </button>
+        </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:24}}>
           <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
             <div style={{fontSize:20,marginBottom:4}}>📎</div>
             <div style={{fontWeight:600,fontSize:13}}>아티팩트</div>
-            <div style={{fontSize:11,color:"#6b7280"}}>생성된 파일 확인 + 다운로드</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>생성된 파일 + 다운로드</div>
           </div>
           <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
             <div style={{fontSize:20,marginBottom:4}}>💬</div>
             <div style={{fontWeight:600,fontSize:13}}>대화</div>
-            <div style={{fontSize:11,color:"#6b7280"}}>에이전트 간 협업 타임라인</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>협업 타임라인</div>
           </div>
           <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
             <div style={{fontSize:20,marginBottom:4}}>🎯</div>
             <div style={{fontWeight:600,fontSize:13}}>목표</div>
-            <div style={{fontSize:11,color:"#6b7280"}}>진행률 100% 완료 확인</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>진행률 100%</div>
           </div>
           <div style={{padding:14,background:"#eff6ff",border:"1px solid #bfdbfe",borderRadius:10,textAlign:"left"}}>
             <div style={{fontSize:20,marginBottom:4}}>📋</div>
             <div style={{fontWeight:600,fontSize:13}}>이슈</div>
-            <div style={{fontSize:11,color:"#6b7280"}}>칸반 보드 + 코멘트 내역</div>
+            <div style={{fontSize:11,color:"#6b7280"}}>칸반 + 코멘트</div>
           </div>
         </div>
         <div style={{padding:16,background:"linear-gradient(135deg,#f59e0b,#ef4444)",borderRadius:12,color:"white",marginBottom:16}}>
@@ -1856,9 +1880,65 @@ function OfficePage({ data }) {
   const [tick, setTick] = useState(0);
   useEffect(() => { const t = setInterval(() => setTick(x => x+1), 1000); return () => clearInterval(t); }, []);
 
+  // 책상 위치 추적 (위임 화살표용)
+  const officeRef = React.useRef(null);
+  const deskRefs = React.useRef({});
+  const [arrows, setArrows] = useState([]);  // {id, x1,y1,x2,y2, kind, expireAt}
+  const lastSeenComment = React.useRef({});
+  const lastSeenArtifact = React.useRef({});
+
   const agents = data.agents || [];
   const allComments = (data.issues || []).flatMap(i => (i.comments || []).map(c => ({...c, issueTitle: i.title, issueId: i.id})));
   const allArtifacts = (data.issues || []).flatMap(i => (i.artifacts || []).map(a => ({...a, issueTitle: i.title})));
+
+  // 새 코멘트/아티팩트 감지 → 화살표 생성 (writer → assignee)
+  React.useEffect(function(){
+    if (!officeRef.current) return;
+    var newArrows = [];
+    var ob = officeRef.current.getBoundingClientRect();
+
+    function deskCenter(agentId) {
+      var el = deskRefs.current[agentId];
+      if (!el) return null;
+      var r = el.getBoundingClientRect();
+      return { x: r.left + r.width/2 - ob.left, y: r.top + r.height/2 - ob.top };
+    }
+
+    // 신규 코멘트 = 위임/대화로 간주
+    (data.issues || []).forEach(function(issue){
+      (issue.comments || []).forEach(function(c){
+        if (lastSeenComment.current[c.id]) return;
+        lastSeenComment.current[c.id] = true;
+        var fromAgent = c.agentId;
+        var toAgent = issue.assigneeAgentId;
+        if (!fromAgent || !toAgent || fromAgent === toAgent) return;
+        var p1 = deskCenter(fromAgent), p2 = deskCenter(toAgent);
+        if (!p1 || !p2) return;
+        newArrows.push({ id: 'c'+c.id, x1:p1.x, y1:p1.y, x2:p2.x, y2:p2.y, kind:'comment', expireAt: Date.now()+3500 });
+      });
+      // 아티팩트 = 결과물 제출
+      (issue.artifacts || []).forEach(function(ar){
+        if (lastSeenArtifact.current[ar.id]) return;
+        lastSeenArtifact.current[ar.id] = true;
+        var fromAgent = ar.agentId;
+        var toAgent = issue.assigneeAgentId;
+        if (!fromAgent || !toAgent || fromAgent === toAgent) return;
+        var p1 = deskCenter(fromAgent), p2 = deskCenter(toAgent);
+        if (!p1 || !p2) return;
+        newArrows.push({ id: 'r'+ar.id, x1:p1.x, y1:p1.y, x2:p2.x, y2:p2.y, kind:'artifact', expireAt: Date.now()+4000 });
+      });
+    });
+    if (newArrows.length) setArrows(function(prev){ return prev.concat(newArrows); });
+  }, [data]);
+
+  // 만료된 화살표 정리
+  React.useEffect(function(){
+    var t = setInterval(function(){
+      var now = Date.now();
+      setArrows(function(prev){ return prev.filter(function(a){return a.expireAt > now}); });
+    }, 500);
+    return function(){ clearInterval(t); };
+  }, []);
 
   // 에이전트 별 최신 코멘트 (가상 말풍선용)
   const latestByAgent = {};
@@ -1922,7 +2002,7 @@ function OfficePage({ data }) {
       ) : (
         <div style={{display:"grid",gridTemplateColumns:"1fr 320px",gap:16}}>
           {/* 사무실 본체 */}
-          <div style={{background:"linear-gradient(135deg,#fef3c7 0%,#fde68a 50%,#fed7aa 100%)",borderRadius:16,padding:20,minHeight:480,position:"relative",backgroundImage:"linear-gradient(135deg,#fef3c7 0%,#fde68a 50%,#fed7aa 100%), repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,83,9,0.06) 39px, rgba(180,83,9,0.06) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,83,9,0.06) 39px, rgba(180,83,9,0.06) 40px)",border:"3px solid #92400e",boxShadow:"inset 0 0 60px rgba(180,83,9,0.15), 0 8px 32px rgba(0,0,0,0.1)"}}>
+          <div ref={officeRef} style={{background:"linear-gradient(135deg,#fef3c7 0%,#fde68a 50%,#fed7aa 100%)",borderRadius:16,padding:20,minHeight:480,position:"relative",backgroundImage:"linear-gradient(135deg,#fef3c7 0%,#fde68a 50%,#fed7aa 100%), repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,83,9,0.06) 39px, rgba(180,83,9,0.06) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,83,9,0.06) 39px, rgba(180,83,9,0.06) 40px)",border:"3px solid #92400e",boxShadow:"inset 0 0 60px rgba(180,83,9,0.15), 0 8px 32px rgba(0,0,0,0.1)"}}>
             {/* 회의 테이블 (장식) */}
             <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:160,height:80,background:"radial-gradient(ellipse,#fbbf24,#d97706)",borderRadius:"50%",opacity:0.3,zIndex:0,boxShadow:"inset 0 0 20px rgba(0,0,0,0.2)"}}>
               <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",fontSize:32,opacity:0.5}}>☕</div>
@@ -1935,7 +2015,7 @@ function OfficePage({ data }) {
                 var latest = latestByAgent[a.id];
                 var isWorking = a.status === 'working';
                 return (
-                  <div key={a.id} style={{position:"relative",padding:"10px 8px 8px",background:"rgba(255,255,255,0.85)",borderRadius:8,border:"2px solid "+c,boxShadow:isWorking?"0 0 0 3px "+c+"55, 0 4px 12px rgba(0,0,0,0.1)":"0 2px 6px rgba(0,0,0,0.08)",transition:"all 0.3s",animation:isWorking?"deskPulse 2s infinite":"none"}}>
+                  <div key={a.id} ref={function(el){deskRefs.current[a.id]=el}} style={{position:"relative",padding:"10px 8px 8px",background:"rgba(255,255,255,0.85)",borderRadius:8,border:"2px solid "+c,boxShadow:isWorking?"0 0 0 3px "+c+"55, 0 4px 12px rgba(0,0,0,0.1)":"0 2px 6px rgba(0,0,0,0.08)",transition:"all 0.3s",animation:isWorking?"deskPulse 2s infinite":"none"}}>
                     {/* 말풍선 (최신 코멘트가 있고 working일 때) */}
                     {latest && (
                       <div style={{position:"absolute",top:-32,left:"50%",transform:"translateX(-50%)",background:"white",border:"1px solid "+c,borderRadius:10,padding:"3px 8px",fontSize:10,whiteSpace:"nowrap",maxWidth:180,overflow:"hidden",textOverflow:"ellipsis",boxShadow:"0 2px 8px rgba(0,0,0,0.1)",zIndex:5,color:"#1f2937"}} title={latest.content}>
@@ -1958,6 +2038,32 @@ function OfficePage({ data }) {
                 );
               })}
             </div>
+
+            {/* 위임/제출 화살표 SVG 오버레이 */}
+            {arrows.length > 0 && (
+              <svg style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:10}}>
+                <defs>
+                  <marker id="arrowhead-comment" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#a78bfa"/>
+                  </marker>
+                  <marker id="arrowhead-artifact" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#ec4899"/>
+                  </marker>
+                </defs>
+                {arrows.map(function(ar){
+                  var color = ar.kind === 'artifact' ? '#ec4899' : '#a78bfa';
+                  var marker = ar.kind === 'artifact' ? 'url(#arrowhead-artifact)' : 'url(#arrowhead-comment)';
+                  return (
+                    <g key={ar.id}>
+                      <line x1={ar.x1} y1={ar.y1} x2={ar.x2} y2={ar.y2} stroke={color} strokeWidth="2.5" strokeDasharray="6 4" markerEnd={marker} style={{animation:"arrowFade 3.5s ease-out forwards"}}/>
+                      <text x={(ar.x1+ar.x2)/2} y={(ar.y1+ar.y2)/2 - 6} fill={color} fontSize="14" fontWeight="700" textAnchor="middle" style={{animation:"arrowFade 3.5s ease-out forwards"}}>
+                        {ar.kind === 'artifact' ? '📎' : '💬'}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
+            )}
           </div>
 
           {/* 활동 로그 사이드바 */}
@@ -1991,6 +2097,12 @@ function OfficePage({ data }) {
           0%,100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.6; transform: scale(0.95); }
         }
+        @keyframes arrowFade {
+          0% { opacity: 0; transform: scale(0.7); }
+          15% { opacity: 1; transform: scale(1); }
+          70% { opacity: 1; }
+          100% { opacity: 0; }
+        }
       `}</style>
 
       {/* 하단 안내 */}
@@ -2002,13 +2114,76 @@ function OfficePage({ data }) {
 }
 
 // ========== 지식 네트워크 (D3 force-directed graph) ==========
-function BrainGraphPage({ data }) {
+function BrainGraphPage({ data, onUpdate }) {
   const svgRef = React.useRef(null);
+  const fileInputRef = React.useRef(null);
   const [selected, setSelected] = useState(null);
   const [showAgents, setShowAgents] = useState(true);
   const [showIssues, setShowIssues] = useState(true);
   const [showComments, setShowComments] = useState(true);
   const [showArtifacts, setShowArtifacts] = useState(true);
+  const [showBrainPacks, setShowBrainPacks] = useState(true);
+  const [linkAgentId, setLinkAgentId] = useState("");
+
+  var brainPacks = data.brainPacks || [];
+
+  // Brain Pack import
+  function importBrainPack(e) {
+    var files = e.target.files;
+    if (!files || !files.length) return;
+    var loaded = [];
+    var pending = files.length;
+    Array.from(files).forEach(function(f){
+      var r = new FileReader();
+      r.onload = function(ev){
+        var content = ev.target.result || "";
+        var name = f.name.replace(/\.(md|txt|json)$/i, "");
+        loaded.push({
+          id: uid(),
+          name: name,
+          fileName: f.name,
+          content: content.slice(0, 50000),  // 50KB 제한
+          size: content.length,
+          tags: [],
+          attachedAgentIds: linkAgentId ? [linkAgentId] : [],
+          createdAt: now(),
+        });
+        pending--;
+        if (pending === 0) {
+          onUpdate(Object.assign({}, data, {
+            brainPacks: (data.brainPacks || []).concat(loaded),
+            activityLog: (data.activityLog || []).concat([{
+              id: uid(), emoji: "🧠",
+              message: "Brain Pack " + loaded.length + "개 import: " + loaded.map(function(p){return p.name}).join(", "),
+              createdAt: now()
+            }])
+          }));
+          alert("✅ Brain Pack " + loaded.length + "개 추가 완료\n\n" + loaded.map(function(p){return "• "+p.name+" ("+Math.round(p.size/1024)+"KB)"}).join("\n") + (linkAgentId ? "\n\n선택한 에이전트에 연결됨." : "\n\n에이전트에 연결하려면 노드 클릭 → 에이전트 선택"));
+        }
+      };
+      r.readAsText(f);
+    });
+    e.target.value = "";
+  }
+
+  function deleteBrainPack(id) {
+    if (!confirm("Brain Pack을 삭제하시겠습니까?")) return;
+    onUpdate(Object.assign({}, data, {
+      brainPacks: (data.brainPacks || []).filter(function(p){return p.id !== id}),
+    }));
+    setSelected(null);
+  }
+
+  function attachBrainPackTo(packId, agentId) {
+    onUpdate(Object.assign({}, data, {
+      brainPacks: (data.brainPacks || []).map(function(p){
+        if (p.id !== packId) return p;
+        var ids = p.attachedAgentIds || [];
+        if (ids.indexOf(agentId) !== -1) return Object.assign({}, p, {attachedAgentIds: ids.filter(function(x){return x !== agentId})});
+        return Object.assign({}, p, {attachedAgentIds: ids.concat([agentId])});
+      })
+    }));
+  }
 
   React.useEffect(function() {
     if (!window.d3 || !svgRef.current) return;
@@ -2054,6 +2229,19 @@ function BrainGraphPage({ data }) {
         });
       });
     }
+    if (showBrainPacks) {
+      brainPacks.forEach(function(p){
+        var bid = 'b:'+p.id;
+        nodes.push({ id: bid, type:'brainpack', label: '🧠 '+(p.name||'').slice(0,22), sub: Math.round((p.size||0)/1024)+'KB', color:'#22d3ee', size: 20, raw: p });
+        if (showAgents && p.attachedAgentIds) {
+          p.attachedAgentIds.forEach(function(aid){
+            if (data.agents.find(function(x){return x.id===aid})) {
+              links.push({ source: bid, target: 'a:'+aid, kind:'injected', color:'#22d3ee' });
+            }
+          });
+        }
+      });
+    }
 
     var svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
@@ -2091,31 +2279,47 @@ function BrainGraphPage({ data }) {
     });
 
     return function(){ sim.stop(); };
-  }, [data, showAgents, showIssues, showComments, showArtifacts]);
+  }, [data, showAgents, showIssues, showComments, showArtifacts, showBrainPacks]);
 
   var stats = {
     agents: data.agents.length,
     issues: data.issues.length,
     comments: (data.issues||[]).reduce(function(s,i){return s+(i.comments||[]).length},0),
     artifacts: (data.issues||[]).reduce(function(s,i){return s+(i.artifacts||[]).length},0),
+    brainPacks: brainPacks.length,
   };
 
   return (
     <div style={{display:"flex",flexDirection:"column",gap:14}}>
-      <div style={{display:"flex",alignItems:"center",gap:12,padding:"14px 18px",background:"linear-gradient(135deg,#0f172a,#1e293b)",borderRadius:12,color:"white"}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,padding:"14px 18px",background:"linear-gradient(135deg,#0f172a,#1e293b)",borderRadius:12,color:"white",flexWrap:"wrap"}}>
         <div style={{fontSize:20,fontWeight:800}}>🧠 지식 네트워크 LIVE</div>
-        <div style={{fontSize:12,color:"#94a3b8"}}>에이전트·이슈·코멘트·아티팩트의 관계 그래프</div>
+        <div style={{fontSize:12,color:"#94a3b8"}}>에이전트·이슈·코멘트·아티팩트·Brain Pack 관계 그래프</div>
         <div style={{flex:1}}/>
-        <div style={{display:"flex",gap:14,fontSize:12,alignItems:"center"}}>
+        <div style={{display:"flex",gap:14,fontSize:12,alignItems:"center",flexWrap:"wrap"}}>
           <div><span style={{color:"#94a3b8"}}>👥</span> <strong>{stats.agents}</strong></div>
           <div><span style={{color:"#94a3b8"}}>📋</span> <strong>{stats.issues}</strong></div>
           <div><span style={{color:"#94a3b8"}}>💬</span> <strong>{stats.comments}</strong></div>
           <div><span style={{color:"#94a3b8"}}>📎</span> <strong>{stats.artifacts}</strong></div>
+          <div><span style={{color:"#94a3b8"}}>🧠</span> <strong style={{color:"#22d3ee"}}>{stats.brainPacks}</strong></div>
         </div>
       </div>
 
+      {/* Brain Pack import 영역 */}
+      <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",background:"linear-gradient(90deg,#cffafe,#ecfeff)",border:"1px dashed #22d3ee",borderRadius:10,flexWrap:"wrap"}}>
+        <span style={{fontSize:18}}>🧠</span>
+        <strong style={{fontSize:13,color:"#155e75"}}>Brain Pack 주입</strong>
+        <span style={{fontSize:11,color:"#0e7490"}}>지식(.md/.txt/.json) 파일을 에이전트에 주입해서 추가 컨텍스트로 활용</span>
+        <div style={{flex:1}}/>
+        <select value={linkAgentId} onChange={function(e){setLinkAgentId(e.target.value)}} style={{padding:"6px 10px",border:"1px solid #67e8f9",borderRadius:8,fontSize:12,background:"white",color:"#155e75"}}>
+          <option value="">전체 (에이전트 미연결)</option>
+          {data.agents.map(function(a){ return <option key={a.id} value={a.id}>{a.icon} {a.name} ({a.role})</option> })}
+        </select>
+        <button onClick={function(){fileInputRef.current && fileInputRef.current.click()}} style={{padding:"6px 14px",background:"#0891b2",color:"white",border:"none",borderRadius:8,fontSize:12,fontWeight:700,cursor:"pointer"}}>📥 파일 선택 (.md/.txt/.json)</button>
+        <input ref={fileInputRef} type="file" accept=".md,.txt,.json,.markdown" multiple style={{display:"none"}} onChange={importBrainPack}/>
+      </div>
+
       <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
-        {[{k:'showAgents',v:showAgents,s:setShowAgents,l:'👥 에이전트',c:'#6366f1'},{k:'showIssues',v:showIssues,s:setShowIssues,l:'📋 이슈',c:'#94a3b8'},{k:'showComments',v:showComments,s:setShowComments,l:'💬 코멘트',c:'#a78bfa'},{k:'showArtifacts',v:showArtifacts,s:setShowArtifacts,l:'📎 아티팩트',c:'#ec4899'}].map(function(f){
+        {[{k:'showAgents',v:showAgents,s:setShowAgents,l:'👥 에이전트',c:'#6366f1'},{k:'showIssues',v:showIssues,s:setShowIssues,l:'📋 이슈',c:'#94a3b8'},{k:'showComments',v:showComments,s:setShowComments,l:'💬 코멘트',c:'#a78bfa'},{k:'showArtifacts',v:showArtifacts,s:setShowArtifacts,l:'📎 아티팩트',c:'#ec4899'},{k:'showBrainPacks',v:showBrainPacks,s:setShowBrainPacks,l:'🧠 Brain Pack',c:'#22d3ee'}].map(function(f){
           return (
             <button key={f.k} onClick={function(){f.s(!f.v)}} style={{padding:"6px 12px",borderRadius:18,border:"1px solid "+(f.v?f.c:"#e5e7eb"),background:f.v?f.c:"white",color:f.v?"white":"#6b7280",cursor:"pointer",fontSize:12,fontWeight:600}}>{f.l}</button>
           );
@@ -2134,7 +2338,34 @@ function BrainGraphPage({ data }) {
               <button onClick={function(){setSelected(null)}} style={{background:"none",border:"none",fontSize:18,cursor:"pointer",color:"#9ca3af"}}>✕</button>
             </div>
             <div style={{fontSize:11,color:"#9ca3af",marginBottom:10,padding:"3px 8px",background:"#f3f4f6",borderRadius:10,display:"inline-block"}}>{selected.type} · {selected.sub||''}</div>
-            <pre style={{background:"#f9fafb",padding:10,borderRadius:8,fontSize:11,whiteSpace:"pre-wrap",wordBreak:"break-all",maxHeight:380,overflowY:"auto",color:"#374151"}}>{JSON.stringify(selected.raw, null, 2).slice(0, 2000)}</pre>
+
+            {/* Brain Pack 전용 — 에이전트 연결/삭제 */}
+            {selected.type === 'brainpack' && (
+              <div style={{marginBottom:12,padding:10,background:"#cffafe",borderRadius:8,border:"1px solid #67e8f9"}}>
+                <div style={{fontSize:11,fontWeight:700,color:"#155e75",marginBottom:6}}>📡 연결된 에이전트</div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:8}}>
+                  {data.agents.map(function(a){
+                    var attached = (selected.raw.attachedAgentIds || []).indexOf(a.id) !== -1;
+                    return (
+                      <button key={a.id} onClick={function(){attachBrainPackTo(selected.raw.id, a.id)}} style={{padding:"3px 8px",borderRadius:14,border:"1px solid "+(attached?"#0891b2":"#cbd5e1"),background:attached?"#0891b2":"white",color:attached?"white":"#475569",fontSize:11,cursor:"pointer",fontWeight:600}}>
+                        {attached ? '✓ ' : ''}{a.icon} {a.name}
+                      </button>
+                    );
+                  })}
+                </div>
+                <button onClick={function(){deleteBrainPack(selected.raw.id)}} style={{padding:"4px 10px",background:"#fee2e2",color:"#b91c1c",border:"1px solid #fca5a5",borderRadius:6,fontSize:11,fontWeight:600,cursor:"pointer"}}>🗑️ 삭제</button>
+              </div>
+            )}
+
+            {/* 내용 미리보기 */}
+            {selected.type === 'brainpack' ? (
+              <div>
+                <div style={{fontSize:11,color:"#6b7280",marginBottom:4}}>📄 내용 ({Math.round((selected.raw.size||0)/1024)}KB)</div>
+                <pre style={{background:"#f9fafb",padding:10,borderRadius:8,fontSize:11,whiteSpace:"pre-wrap",wordBreak:"break-all",maxHeight:280,overflowY:"auto",color:"#374151"}}>{(selected.raw.content || '').slice(0, 3000)}{(selected.raw.content || '').length > 3000 ? '\n...(중략)' : ''}</pre>
+              </div>
+            ) : (
+              <pre style={{background:"#f9fafb",padding:10,borderRadius:8,fontSize:11,whiteSpace:"pre-wrap",wordBreak:"break-all",maxHeight:380,overflowY:"auto",color:"#374151"}}>{JSON.stringify(selected.raw, null, 2).slice(0, 2000)}</pre>
+            )}
           </div>
         )}
       </div>
@@ -4501,7 +4732,7 @@ function App() {
     costs: <CostsPage data={data}/>,
     conversations: <ConversationsPage data={data}/>,
     artifacts: <ArtifactsPage data={data}/>,
-    brain: <BrainGraphPage data={data}/>,
+    brain: <BrainGraphPage data={data} onUpdate={setData}/>,
     routines: <HeartbeatPage data={data} onUpdate={setData}/>,
     activity: <ActivityPage data={data}/>,
     help: <HelpPage data={data} onNav={setPage}/>,
@@ -4518,7 +4749,7 @@ function App() {
         </div>
       )}
       {DEMO_MODE && demoWelcomeOpen && <DemoWelcomeModal onClose={function(){setDemoWelcomeOpen(false)}} onStart={function(){setPage("routines")}}/>}
-      {DEMO_MODE && demoCompleteOpen && <DemoCompleteModal onClose={function(){setDemoCompleteOpen(false)}}/>}
+      {DEMO_MODE && demoCompleteOpen && <DemoCompleteModal onClose={function(){setDemoCompleteOpen(false)}} onGoOffice={function(){setDemoCompleteOpen(false);setPage("office")}} onGoBrain={function(){setDemoCompleteOpen(false);setPage("brain")}}/>}
       <div className="app" style={DEMO_MODE ? {marginTop:44} : {}}>
         <SidebarNav data={data} activePage={page} onNav={setPage} mobileOpen={menuOpen} onClose={()=>setMenuOpen(false)}/>
         <div className="main">
