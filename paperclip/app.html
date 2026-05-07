@@ -1959,8 +1959,25 @@ function OfficePage({ data }) {
   const totalArtifacts = allArtifacts.length;
   const totalComments = allComments.length;
 
-  // 책상 배치 — 에이전트 수에 따라 grid columns 동적
-  const gridCols = agents.length <= 4 ? 2 : agents.length <= 6 ? 3 : agents.length <= 9 ? 3 : 4;
+  // 책상 배치 — 에이전트 수에 정확히 맞춰 빈 칸 없이 균형있게
+  // 예: 4→2x2, 5→3x2(3-2), 6→3x2, 7→4x2(4-3), 8→4x2, 9→3x3, 10→5x2, 12→4x3
+  const n = agents.length;
+  const gridCols = (
+    n <= 0 ? 1 :
+    n === 1 ? 1 :
+    n === 2 ? 2 :
+    n === 3 ? 3 :
+    n === 4 ? 2 :
+    n === 5 ? 3 :
+    n === 6 ? 3 :
+    n === 7 ? 4 :
+    n === 8 ? 4 :
+    n === 9 ? 3 :
+    n === 10 ? 5 :
+    n === 11 ? 4 :
+    n === 12 ? 4 :
+    Math.ceil(Math.sqrt(n))
+  );
 
   // 역할별 색상 매핑
   var roleColors = {
@@ -1986,6 +2003,8 @@ function OfficePage({ data }) {
           <div><span style={{opacity:0.7}}>DAY</span> <strong style={{fontSize:16,color:"#fde047"}}>{dayCount}</strong></div>
           <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
           <div><span style={{opacity:0.7}}>TIME</span> <strong style={{fontSize:16,color:"#fde047",fontFamily:"monospace"}}>{clock}</strong></div>
+          <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
+          <div><span style={{opacity:0.7}}>책상</span> <strong style={{fontSize:16,color:"#fde047"}}>{agents.length}</strong> <span style={{opacity:0.5,fontSize:11}}>· {gridCols}열</span></div>
           <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
           <div><span style={{opacity:0.7}}>WORKING</span> <strong style={{fontSize:16,color:workingCount>0?"#34d399":"#94a3b8"}}>{workingCount}/{agents.length}</strong></div>
           <div style={{width:1,height:20,background:"rgba(255,255,255,0.2)"}}/>
