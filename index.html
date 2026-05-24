@@ -182,7 +182,7 @@
             margin-bottom: 24px;
         }
 
-        /* Featured Section (Blog + Paperclip) */
+        /* Featured Section */
         .featured-section { margin: 32px 0 40px; }
         .featured-grid {
             display: grid;
@@ -210,7 +210,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
         }
         .featured-card.blog { background: linear-gradient(135deg, #FFF 0%, #F5F8FF 100%); border-color: #C7D7FF; }
-        .featured-card.paperclip { background: linear-gradient(135deg, #FFF 0%, #FFF5F8 100%); border-color: #F5C6D8; }
+        .featured-card.guide { background: linear-gradient(135deg, #FFF 0%, #F7FFF8 100%); border-color: #BDECCB; }
         .featured-emoji {
             font-size: 36px;
             margin-bottom: 12px;
@@ -227,7 +227,7 @@
             text-transform: uppercase;
         }
         .featured-card.blog .featured-tag { background: #EBF0FF; color: #2D5BE3; }
-        .featured-card.paperclip .featured-tag { background: #FCE7F3; color: #DB2777; }
+        .featured-card.guide .featured-tag { background: #EAFBF0; color: #15803D; }
         .featured-title {
             font-size: 20px;
             font-weight: 700;
@@ -245,7 +245,7 @@
             font-weight: 600;
         }
         .featured-card.blog .featured-cta { color: #2D5BE3; }
-        .featured-card.paperclip .featured-cta { color: #DB2777; }
+        .featured-card.guide .featured-cta { color: #15803D; }
         .featured-meta {
             display: flex;
             gap: 12px;
@@ -600,7 +600,6 @@
         <div class="nav-links">
             <a href="#tools">도구 모음</a>
             <a href="/blog/">블로그</a>
-            <a href="/paperclip/">Paperclip</a>
             <a href="/about.html">소개</a>
             <a href="/contact.html">문의</a>
             <a href="/terms.html">이용약관</a>
@@ -638,10 +637,10 @@
         <div class="recent-tools-grid" id="jway-recent-tools"></div>
     </section>
 
-    <!-- Featured Section: Blog + Paperclip -->
+    <!-- Featured Section -->
     <section class="featured-section" id="featured">
         <h2 class="section-title">📌 추천 콘텐츠</h2>
-        <p class="section-subtitle">JWAY가 운영하는 블로그와 특별 프로젝트를 소개합니다</p>
+        <p class="section-subtitle">계산 결과를 더 잘 이해할 수 있는 실용 가이드를 함께 제공합니다</p>
         <div class="featured-grid">
             <a href="/blog/" class="featured-card blog">
                 <span class="featured-emoji">📝</span>
@@ -651,13 +650,13 @@
                 <div class="featured-meta"><span>📚 11개 글</span><span>· 평균 7분 읽기</span></div>
                 <span class="featured-cta">블로그 둘러보기 →</span>
             </a>
-            <a href="/paperclip/" class="featured-card paperclip">
-                <span class="featured-emoji">📎</span>
-                <span class="featured-tag">JWAY Paperclip</span>
-                <div class="featured-title">3~10명 AI 팀이 운영하는 1인 회사</div>
-                <p class="featured-desc">Claude Sonnet/Opus 기반 AI 팀이 24시간 협업해 실제 배포 가능한 HTML 랜딩페이지·코드·기획서를 만듭니다. 설치 0초, 브라우저만 열면 끝.</p>
-                <div class="featured-meta"><span>🤖 3~10명 AI 팀</span><span>· 협업 1회 $0.5~3</span></div>
-                <span class="featured-cta">Paperclip 살펴보기 →</span>
+            <a href="/blog/salary-5000-real/" class="featured-card guide">
+                <span class="featured-emoji">💰</span>
+                <span class="featured-tag">인기 가이드</span>
+                <div class="featured-title">연봉 5,000만원 실수령액 해설</div>
+                <p class="featured-desc">월급에서 4대보험과 세금이 어떻게 빠지는지, 비과세액과 부양가족 수가 실수령액에 어떤 영향을 주는지 예시로 정리했습니다.</p>
+                <div class="featured-meta"><span>📊 계산 예시</span><span>· 연봉 계산기 연결</span></div>
+                <span class="featured-cta">가이드 읽기 →</span>
             </a>
         </div>
     </section>
@@ -668,22 +667,6 @@
         <p class="section-subtitle">원하는 도구를 클릭하면 바로 사용할 수 있습니다</p>
 
         <div class="tool-grid">
-            <a href="/paperclip/" class="tool-card">
-                <div class="tool-card-header">
-                    <div class="tool-icon-circle" style="background:#EDE9FE;">📎</div>
-                    <span class="tool-card-title">JWAY Paperclip</span>
-                    <span class="tool-card-badge" style="background:#EDE9FE;color:#6366f1;">NEW · AI</span>
-                </div>
-                <p class="tool-card-desc">3~10명 AI 팀이 운영하는 1인 회사. Claude Sonnet/Opus 기반으로 비즈니스 모델, MVP 스펙, HTML 랜딩페이지, 콘텐츠 캘린더까지 실제 배포 가능한 결과물을 24시간 만듭니다. 1인 창업가·1인기업가·콘텐츠 크리에이터에게 최적.</p>
-                <div class="tool-card-features">
-                    <span class="feature-tag">3~10명 AI 팀</span>
-                    <span class="feature-tag">실제 HTML/JSON/MD 산출물</span>
-                    <span class="feature-tag">설치 0초</span>
-                    <span class="feature-tag">템플릿 4종 무료</span>
-                </div>
-                <span class="tool-card-cta">시작하기 →</span>
-            </a>
-
             <a href="/salary-calculator/" class="tool-card">
                 <div class="tool-card-header">
                     <div class="tool-icon-circle" style="background:#EBF0FF;">💰</div>
@@ -1084,7 +1067,6 @@
             <a href="/about.html">JWAY 소개</a>
             <a href="/contact.html">문의하기</a>
             <a href="/blog/">블로그</a>
-            <a href="/paperclip/">Paperclip (AI 에이전트)</a>
             <a href="/terms.html">이용약관</a>
             <a href="/privacy-policy.html">개인정보처리방침</a>
         </div>
