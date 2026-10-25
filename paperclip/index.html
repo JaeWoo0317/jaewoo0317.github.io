@@ -199,7 +199,7 @@ footer a:hover{color:#6366f1}
   <div class="container">
     <span class="badge">📎 오픈소스 · 설치 0초 · 브라우저만 열면 끝</span>
     <h1>3~10명 <span class="highlight">AI 팀</span>이 운영하는<br/>당신의 1인 회사</h1>
-    <p>Claude Sonnet/Opus 기반 AI 에이전트 팀이 24시간 협업해서<br/><strong>실제 배포 가능한 HTML 랜딩페이지·코드·기획서</strong>를 만듭니다.<br/>설치 불필요, 회원가입 불필요, 데이터는 당신의 브라우저에만.</p>
+    <p>Claude Sonnet/Opus 기반 AI 에이전트 팀이 브라우저 실행 중 협업해서<br/><strong>실제 배포 가능한 HTML 랜딩페이지·코드·기획서</strong>를 만듭니다.<br/>설치 불필요, 회원가입 불필요, 로컬 저장과 외부 AI API 전송 범위를 확인하세요.</p>
     <div class="hero-ctas">
       <a href="app.html?demo=1" class="btn-primary" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">🎬 30초 데모 체험</a>
       <a href="app.html" class="btn-secondary">🚀 무료로 시작 (설치 없음)</a>
@@ -231,7 +231,7 @@ footer a:hover{color:#6366f1}
       </div>
       <div class="cost-notice-item">
         <h4>🔒 데이터는 어디에?</h4>
-        <p>사용자 브라우저(localStorage)에만 저장. 저희 서버로 전송되지 않습니다. API 키도 브라우저에만 저장</p>
+        <p>프로젝트와 API 키는 localStorage에 저장됩니다. AI 실행 시 API 키와 프롬프트·관련 내용은 Anthropic으로 전송됩니다.</p>
         <span class="price-tag">100% 로컬</span>
       </div>
       <div class="cost-notice-item">
@@ -632,7 +632,7 @@ footer a:hover{color:#6366f1}
         <span style="position:absolute;top:-10px;left:20px;background:#6366f1;color:white;padding:3px 12px;border-radius:20px;font-size:10px;font-weight:700">⭐ 신규</span>
         <div style="font-size:40px;margin-bottom:12px">🎙️</div>
         <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">AI 1인기업가 / 1인 크리에이터</h3>
-        <p style="color:#6b7280;font-size:14px;line-height:1.7;margin-bottom:12px">유튜브 + 인스타 + 블로그 + 제품을 혼자 굴리는 1인 사업자. <strong>10명 풀스택 팀</strong>(CEO·CMO·PM·콘텐츠·디자인·개발·분석·비서)이 24시간 협업 — 컨텐츠부터 랜딩페이지까지 한 번에.</p>
+        <p style="color:#6b7280;font-size:14px;line-height:1.7;margin-bottom:12px">유튜브 + 인스타 + 블로그 + 제품을 혼자 굴리는 1인 사업자. <strong>10명 풀스택 팀</strong>(CEO·CMO·PM·콘텐츠·디자인·개발·분석·비서)이 브라우저 실행 중 협업 — 컨텐츠부터 랜딩페이지까지 한 번에.</p>
         <div style="font-size:12px;color:#6366f1;font-weight:600">→ AI 1인기업 팀 (10인) 템플릿 — 협업 1회 $3~5</div>
       </div>
       <div style="padding:28px;border:1px solid #e5e7eb;border-radius:14px;background:linear-gradient(180deg,#faf5ff,#fff)">
@@ -676,7 +676,7 @@ footer a:hover{color:#6366f1}
         <ul>
           <li>모든 기능 무제한 사용</li>
           <li>MIT 라이선스, GitHub 공개</li>
-          <li>데이터는 브라우저에만 저장</li>
+          <li>작업은 로컬 저장, AI 요청은 외부 전송</li>
           <li>서버 필요 없음, 설치 불필요</li>
         </ul>
         <div style="padding:10px;background:#fef3c7;border-radius:6px;margin:12px 0;font-size:12px;color:#92400e;text-align:left">
@@ -756,7 +756,7 @@ footer a:hover{color:#6366f1}
         3. 아래 action 속성의 FORMSPREE_ID를 실제 ID로 교체
         - 또는 Netlify Forms 사용 시 action="" + data-netlify="true" 속성으로 교체
       -->
-      <form id="waitlist-form" action="https://formspree.io/f/xojykkwn" method="POST" style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap" onsubmit="return handleWaitlist(event)">
+      <p style="font-size:13px;color:#4b5563">신청 시 이메일이 Formspree로 전송됩니다. <a href="https://jwaytools.com/paperclip/privacy.html">처리 범위와 삭제 문의</a>를 확인하세요.</p><form id="waitlist-form" action="https://formspree.io/f/xojykkwn" method="POST" style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap" onsubmit="return handleWaitlist(event)">
         <input type="email" name="email" id="waitlist-email" placeholder="이메일 입력" required style="flex:1;min-width:200px;padding:12px 16px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
         <input type="hidden" name="_subject" value="[JWAY Paperclip] Pro 대기자 등록">
         <input type="hidden" name="source" value="landing-pro-waitlist">
@@ -775,13 +775,6 @@ function handleWaitlist(e){
   var form = e.target;
   var email = document.getElementById('waitlist-email').value;
   if (!email) return false;
-
-  // 로컬에도 저장 (중복 체크용)
-  try {
-    var list = JSON.parse(localStorage.getItem('pro-waitlist') || '[]');
-    if (list.indexOf(email) === -1) list.push(email);
-    localStorage.setItem('pro-waitlist', JSON.stringify(list));
-  } catch(err) {}
 
   var msg = document.getElementById('waitlist-msg');
   var action = form.getAttribute('action');
@@ -844,7 +837,7 @@ function handleWaitlist(e){
     </details>
     <details class="faq-item">
       <summary class="faq-q">Anthropic API 키는 어떻게 받나요?</summary>
-      <div class="faq-a">console.anthropic.com에서 가입 후 API Keys 메뉴에서 생성하시면 됩니다. 처음 가입 시 일정 크레딧을 무료로 받을 수 있고, 이후 사용량에 따라 과금됩니다. API 키는 브라우저에만 저장되며 저희 서버로 전송되지 않습니다.</div>
+      <div class="faq-a">console.anthropic.com에서 가입 후 API Keys 메뉴에서 생성하시면 됩니다. 무료 크레딧 제공 여부를 보장하지 않습니다. API 요금은 Anthropic의 현재 조건을 확인하세요. API 키는 브라우저에 저장되고 AI 요청 시 Anthropic으로 전송됩니다.</div>
     </details>
     <details class="faq-item">
       <summary class="faq-q">1회 실행에 비용이 얼마나 나오나요?</summary>
@@ -855,7 +848,7 @@ function handleWaitlist(e){
     </details>
     <details class="faq-item">
       <summary class="faq-q">데이터는 안전한가요?</summary>
-      <div class="faq-a">모든 데이터는 사용자의 브라우저(localStorage)에만 저장됩니다. 저희 서버로 전송되는 일이 전혀 없습니다. Anthropic API 호출도 브라우저에서 직접 이뤄집니다. 백업이 필요하면 설정 페이지에서 JSON으로 내보낼 수 있습니다.</div>
+      <div class="faq-a">작업 데이터는 브라우저(localStorage)에 저장되며 AI 실행 시 API 키와 프롬프트·관련 내용이 Anthropic API로 직접 전송됩니다. Pro 대기 신청 이메일은 Formspree로 전송됩니다. 백업이 필요하면 설정 페이지에서 JSON으로 내보낼 수 있습니다.</div>
     </details>
     <details class="faq-item">
       <summary class="faq-q">에이전트들이 만든 결과물은 제가 쓸 수 있나요?</summary>
@@ -871,7 +864,7 @@ function handleWaitlist(e){
 <section class="final-cta">
   <div class="container">
     <h2>지금 당장 6명의 AI 팀을 운영해보세요</h2>
-    <p>설치 불필요. 회원가입 불필요. 데이터는 당신의 브라우저에만.</p>
+    <p>설치 불필요. 회원가입 불필요. 로컬 저장과 외부 AI API 전송 범위를 확인하세요.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="app.html?demo=1" class="btn-primary" style="background:white;color:#6366f1">🎬 30초 데모 체험</a>
       <a href="app.html" class="btn-primary" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.5)">🚀 정식 시작 (무료)</a>

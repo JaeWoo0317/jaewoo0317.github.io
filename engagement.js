@@ -30,7 +30,7 @@
   const SUGGESTIONS = {
     'salary-calculator': [
       {slug:'income-tax-calculator', reason:'정확한 소득세를 따로 계산해보세요'},
-      {slug:'loan-calculator', reason:'이 연봉으로 받을 수 있는 대출은?'},
+      {slug:'loan-calculator', reason:'대출 상환액과 월 예산 비교'},
       {slug:'savings-calculator', reason:'월급 일부를 예금에 넣으면 얼마?'}
     ],
     'income-tax-calculator': [

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkFlow - 퇴근 후 30분, 1년 안에 부수입 500만원</title>
+    <meta name="robots" content="noindex, follow">
+<title>[가상 디자인 예시] WorkFlow - WorkFlow: 가상 사이드 프로젝트 서비스</title>
     <style>
         * {
             margin: 0;
@@ -443,6 +444,7 @@
     </style>
 </head>
 <body>
+<aside style="position:relative;z-index:1001;padding:18px;background:#fff3cd;color:#202020;text-align:center"><strong>가상 서비스 디자인 예시</strong><br>Paperclip의 생성물 샘플입니다. 아래 인물·요금·목표는 가상 설정이며 실제 수익 사례나 판매 상품이 아닙니다. 가입·결제·이메일 발송 기능은 없습니다. <a href="https://jwaytools.com/paperclip/">Paperclip으로 돌아가기</a></aside>
     <header>
         <div class="header-container">
             <a href="#" class="logo">WorkFlow</a>
@@ -455,13 +457,13 @@
     </header>
 
     <section class="hero">
-        <h1>퇴근 후 30분, 1년 안에 부수입 500만원</h1>
+        <h1>WorkFlow: 가상 사이드 프로젝트 서비스</h1>
         <p>바쁜 직장인을 위한 스마트한 부수입 플랫폼. 추천받고, 계획하고, 성장하세요.</p>
-        <a href="#signup" class="cta-primary">얼리 액세스 신청</a>
+        <a href="#signup" class="cta-primary">신청 화면 예시</a>
     </section>
 
     <section class="features-section" id="features">
-        <h2 class="section-title">누가 WorkFlow를 사용할까요?</h2>
+        <h2 class="section-title">기획을 위한 가상 사용자</h2>
         <div class="personas-container">
             <div class="persona-card">
                 <div class="persona-icon">💼</div>
@@ -488,7 +490,7 @@
     </section>
 
     <section class="pricing-section" id="pricing">
-        <h2 class="section-title">당신에게 딱 맞는 플랜을 선택하세요</h2>
+        <h2 class="section-title">가상의 요금제 구성 예시</h2>
         <div class="pricing-container">
             <div class="pricing-card">
                 <h3>Free</h3>
@@ -534,9 +536,9 @@
 
     <section class="signup-section" id="signup">
         <div class="signup-container">
-            <h2>얼리 액세스 신청</h2>
-            <p>지금 신청하면 론칭 후 첫 3개월을 Pro 플랜으로 무료 사용할 수 있습니다!</p>
-            <form onsubmit="handleSubmit(event)">
+            <h2>신청 화면 예시</h2>
+            <p>실제 신청을 받지 않는 비활성화된 폼입니다. 개인정보를 입력하지 마세요.</p>
+            <form onsubmit="return false"><fieldset disabled style="border:0;padding:0">
                 <div class="form-group">
                     <label for="name">이름 *</label>
                     <input type="text" id="name" name="name" required placeholder="김준호">
@@ -558,36 +560,23 @@
                         <option value="freelancer">프리랜서 (민영 같은)</option>
                     </select>
                 </div>
-                <button type="submit" class="form-submit">얼리 액세스 신청하기</button>
-            </form>
+                <button type="submit" class="form-submit">신청 화면 예시하기</button>
+            </fieldset></form>
         </div>
     </section>
 
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="#">개인정보 보호</a>
-                <a href="#">서비스 약관</a>
-                <a href="#">고객 지원</a>
-                <a href="#">문의하기</a>
+                <a href="https://jwaytools.com/paperclip/privacy.html">개인정보 보호</a>
+                <a href="https://jwaytools.com/paperclip/terms.html">서비스 약관</a>
+                <a href="https://jwaytools.com/contact.html">고객 지원</a>
+                <a href="https://jwaytools.com/contact.html">문의하기</a>
             </div>
             <p>&copy; 2024 WorkFlow. 모든 권리 보유.</p>
         </div>
     </footer>
 
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const persona = document.getElementById('persona').value;
 
-            alert(`감사합니다, ${name}님!\n\n${email}로 얼리 액세스 정보를 발송하겠습니다.\n로드맵을 기대해주세요! 🚀`);
-
-            event.target.reset();
-        }
-    </script>
 </body>
 </html>
-</content>
-</invoke>
